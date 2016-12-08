@@ -45,7 +45,7 @@ class RawEntityFactory
             })
             ->filter(function ($item) {
                 // Filter directories that doesn't have a settings.yml file
-                return collect($item)->contains(function ($file) {
+                return $item->contains(function ($key, $file) {
                     return $file['basename'] == 'settings.yml';
                 });
             })

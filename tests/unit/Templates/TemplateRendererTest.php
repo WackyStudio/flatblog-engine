@@ -1,5 +1,7 @@
 <?php
 use duncan3dc\Laravel\BladeInstance;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
 use WackyStudio\Flatblog\Templates\TemplateRenderer;
 
 class TemplateRendererTest extends PHPUnit_Framework_TestCase
@@ -7,21 +9,27 @@ class TemplateRendererTest extends PHPUnit_Framework_TestCase
 
     private $viewPath;
     private $cachePath;
+    /** @var  Filesystem */
+    private $filesystem;
 
     public function setUp()
     {
         parent::setUp();
 
+        $localAdapter = new Local(__DIR__ . '/../../');
+        $this->filesystem = new Filesystem($localAdapter);
+
+        $this->filesystem->createDir('temp');
+
         $this->viewPath = __DIR__ . '/../../helpers/views';
-        mkdir(__DIR__ . '/../../temp');
         $this->cachePath = __DIR__ . '/../../temp';
 
     }
     
     public function tearDown()
     {
-        array_map('unlink', glob("__DIR__ . '/../../temp'/*.*"));
-        rmdir(__DIR__ . '/../../temp');
+
+        $this->filesystem->deleteDir('temp');
         parent::tearDown();
     }
     

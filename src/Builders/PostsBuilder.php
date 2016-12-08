@@ -4,6 +4,7 @@ namespace WackyStudio\Flatblog\Builders;
 use WackyStudio\Flatblog\Entities\RawEntity;
 use WackyStudio\Flatblog\Factories\PostEntityFactory;
 use WackyStudio\Flatblog\Factories\RawEntityFactory;
+use WackyStudio\Flatblog\Templates\TemplateRenderer;
 
 class PostsBuilder
 {
@@ -16,20 +17,26 @@ class PostsBuilder
      * @var PostEntityFactory
      */
     private $postEntityFactory;
+    /**
+     * @var TemplateRenderer
+     */
+    private $renderer;
 
-    public function __construct(array $rawEntities, PostEntityFactory $postEntityFactory)
+    public function __construct(array $rawEntities, PostEntityFactory $postEntityFactory, TemplateRenderer $renderer)
     {
         $this->rawrawEntities = $rawEntities;
         $this->postEntityFactory = $postEntityFactory;
+        $this->renderer = $renderer;
     }
 
     public function buildSinglePosts()
     {
-        $posts = collect($this->rawrawEntities)->transform(function (RawEntity $rawEntity) {
-            return $this->postEntityFactory->make($rawEntity);
+        $posts = collect($this->rawrawEntities)->flatMap(function (RawEntity $rawEntity) {
+            $postEntity = $this->postEntityFactory->make($rawEntity);
+            return [$postEntity->destination() => $this->renderer->render('single.post', ['post' => $postEntity])];
         });
 
-        var_dump($posts);
+        return $posts;
     }
 
 }

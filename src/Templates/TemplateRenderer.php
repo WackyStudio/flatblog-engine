@@ -1,23 +1,23 @@
 <?php
 namespace WackyStudio\Flatblog\Templates;
 
-use duncan3dc\Laravel\BladeInstance;
+use Illuminate\Contracts\View\Factory as FactoryContract;
 
 class TemplateRenderer
 {
 
     /**
-     * @var BladeInstance
+     * @var FactoryContract
      */
     private $blade;
 
-    public function __construct(BladeInstance $blade)
+    public function __construct(FactoryContract $blade)
     {
         $this->blade = $blade;
     }
 
     public function render($view, array $data)
     {
-        return $this->blade->render($view,$data);
+        return $this->blade->make($view,$data)->render();
     }
 }
