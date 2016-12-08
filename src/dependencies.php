@@ -1,4 +1,5 @@
 <?php
+use duncan3dc\Laravel\BladeInstance;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use WackyStudio\Flatblog\Builders\PostsBuilder;
@@ -47,6 +48,14 @@ return [
         $parseDownExtra = new \ParsedownExtra();
         return new MarkdownContentParser($parseDownExtra);
     },
+
+    // Templates
+    BladeInstance::class => function($container){
+        $viewPath = $container['CWD'] . '/resources/views';
+        $cachePath = $container['CWD'] . '/temp';
+        return new BladeInstance($viewPath, $cachePath);
+    },
+
 
     // Commands
     Build::class => function(){
