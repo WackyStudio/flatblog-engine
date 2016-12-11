@@ -50,7 +50,8 @@ class TestCase extends PHPUnit_Framework_TestCase
                                 'content: file:content.md'
 
                             ]),
-                            'content.md' => '## Hello World 2'
+                            'content.md' => '## Hello World 2',
+                            'someimage.jpg' => 'image'
                         ]
                     ]
                 ]

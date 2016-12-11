@@ -1,4 +1,6 @@
 <?php
+use WackyStudio\Flatblog\Exceptions\DirectoryReferenceInSettingsNotFoundException;
+use WackyStudio\Flatblog\Exceptions\FileReferencedInSettingsNotFoundException;
 use WackyStudio\Flatblog\File;
 use WackyStudio\Flatblog\Parsers\ParserManager;
 use WackyStudio\Flatblog\Settings\SettingsReferencesHandler;
@@ -134,6 +136,54 @@ class SettingsReferencesHandlerTest extends TestCase
         $this->assertInstanceOf(File::class, $settingsWithParsedDirReferences['sections']['section1']['column1']);
         $this->assertInstanceOf(File::class, $settingsWithParsedDirReferences['sections']['section1']['column2']);
 
+    }
+    
+    /**
+    *@test
+    */
+    public function it_throws_exception_if_a_reference_to_a_file_cannot_be_found()
+    {
+        $fileSystem = $this->createVirtualFilesystemForPosts([
+        ]);
+        $settingsContent = [
+            'content' => 'file:shouldnotbefound.md'
+        ];
+        $settingsFilePath = '/posts/Frontend/sass-tricks-you-should-know';
+        $settingsRefHandler = new SettingsReferencesHandler($fileSystem);
+
+        try{
+            $settingsWithParsedFileReferences = $settingsRefHandler->handleFileReferences($settingsContent, $settingsFilePath);
+        }catch(FileReferencedInSettingsNotFoundException $e)
+        {
+            $this->assertEquals("Could not find shouldnotbefound.md file referenced in settings for /posts/Frontend/sass-tricks-you-should-know", $e->getMessage());
+            return;
+        }
+
+        $this->fail('An exception for missing file, was not thrown');
+    }
+    
+    /**
+    *@test
+    */
+    public function it_throws_exception_if_a_reference_to_a_directory_cannot_be_found()
+    {
+        $fileSystem = $this->createVirtualFilesystemForPages();
+        $settingsContent = [
+            'header' => ' Test header',
+            'sections' => ' dir:shouldnotbefound'
+        ];
+        $settingsFilePath = '/pages/about';
+        $settingsRefHandler = new SettingsReferencesHandler($fileSystem);
+
+        try{
+            $settingsWithParsedDirReferences = $settingsRefHandler->handleDirectoryReferences($settingsContent, $settingsFilePath);
+        }catch (DirectoryReferenceInSettingsNotFoundException $e)
+        {
+            $this->assertEquals('Could not find shouldnotbefound directory referenced in settings for /pages/about', $e->getMessage());
+            return;
+        }
+
+        $this->fail('An exception for missing directory, was not thrown');
     }
 
 
