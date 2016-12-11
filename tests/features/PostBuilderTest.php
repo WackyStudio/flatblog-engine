@@ -128,4 +128,37 @@ class PostBuilderTest extends TestCase
         $this->assertEquals($expectedContentBackend, $categories[0]);
         $this->assertEquals($expectedContentFrontend, $categories[1]);
     }
+    
+    /**
+    *@test
+    */
+    public function it_builds_list_of_all_categories()
+    {
+        $fileSystem = $this->createVirtualFilesystemForPosts();
+        $this->app->getContainer()[Filesystem::class] = function() use($fileSystem){
+            return $fileSystem;
+        };
+        $rawEntities = ($this->app->getContainer()[RawEntityFactory::class])->getEntitiesForDirectory('posts');
+
+        $this->app->getContainer()[TemplateRenderer::class] = function(){
+            $path = __DIR__ . '/../helpers/views';
+            $cache = __DIR__ . '/../temp';
+            return new TemplateRenderer(new BladeInstance($path, $cache));
+        };
+
+        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], [
+            'all-categories' => 'all-categories'
+        ]);
+
+        $expectedContent = implode(PHP_EOL, [
+            '<ul>',
+            '<li>Backend (1)</li>',
+            '<li>Frontend (1)</li>',
+            '</ul>'
+        ]);
+
+        $categoryList = $postBuilder->buildCategoryList();
+
+        $this->assertEquals($expectedContent, $categoryList);
+    }
 }

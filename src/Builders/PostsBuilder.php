@@ -83,6 +83,18 @@ class PostsBuilder
         return $this->posts;
     }
 
+    public function buildCategoryList()
+    {
+        $categories = $this->getPosts()->groupBy(function (PostEntity $postEntity) {
+            return $postEntity->category;
+        })->map(function ($posts, $key) {
+            $category = new \stdClass();
+            $category->title = $key;
+            $category->postsCount = $posts->count();
+            return $category;
+        });
 
+        return $this->renderer->render($this->templates['all-categories'], ['categories'=>$categories]);
+    }
 
 }
