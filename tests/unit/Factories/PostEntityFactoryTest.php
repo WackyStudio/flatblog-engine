@@ -1,6 +1,7 @@
 <?php
 use Carbon\Carbon;
 use WackyStudio\Flatblog\Entities\RawEntity;
+use WackyStudio\Flatblog\Exceptions\InvalidDateGivenInSettingsFileException;
 use WackyStudio\Flatblog\Exceptions\PostIsMissingContentException;
 use WackyStudio\Flatblog\Exceptions\PostIsMissingImageException;
 use WackyStudio\Flatblog\Exceptions\PostIsMissingSummaryException;
@@ -140,6 +141,59 @@ class PostEntityFactoryTest extends TestCase
         }
 
         $this->fail('An exception for missing image was not thrown');
+    }
+
+    /**
+    *@test
+    */
+    public function it_takes_date_from_post_settings_if_it_is_available()
+    {
+        $dateTime = Carbon::parse('2015-01-05');
+        $factory = new PostEntityFactory;
+        $rawEntity = new RawEntity('posts/subject/test',
+            [
+                'title' => 'Test',
+                'summary' => 'This is a summary',
+                'image' => 'someimage.jpg',
+                'content' => 'file:content.md',
+                'date' => '2015-01-06'
+            ],
+            $dateTime);
+
+        $postEntity = $factory->make($rawEntity);
+
+        $this->assertEquals('Test', $postEntity->title);
+        $this->assertNotEquals($dateTime, $postEntity->date);
+        $this->assertEquals(Carbon::parse('2015-01-06'), $postEntity->date);
+        $this->assertEquals('subject', $postEntity->category);
+        $this->assertEquals('posts/subject/test', $postEntity->destination());
+    }
+
+    /**
+    *@test
+    */
+    public function it_throws_exception_if_date_given_in_settings_is_not_correct()
+    {
+        $dateTime = Carbon::parse('2015-01-05');
+        $factory = new PostEntityFactory;
+        $rawEntity = new RawEntity('posts/subject/test',
+            [
+                'title' => 'Test',
+                'summary' => 'This is a summary',
+                'image' => 'someimage.jpg',
+                'content' => 'file:content.md',
+                'date' => 'failfailfail'
+            ],
+            $dateTime);
+        try{
+            $postEntity = $factory->make($rawEntity);
+        }catch (InvalidDateGivenInSettingsFileException $e)
+        {
+            $this->assertEquals('Invalid date given in settings file for posts/subject/test', $e->getMessage());
+            return;
+        }
+
+        $this->fail('No exception was thrown for invalid date');
     }
 
 }

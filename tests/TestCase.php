@@ -35,7 +35,8 @@ class TestCase extends PHPUnit_Framework_TestCase
                                 'title: Sass tricks you should know!',
                                 'summary: This is a summary',
                                 'image: file:someimage.jpg',
-                                'content: file:content.md'
+                                'content: file:content.md',
+                                'date: "2016-03-01"'
                             ]),
                             'content.md' => '## Hello World',
                             'someimage.jpg' => 'image'
@@ -47,8 +48,8 @@ class TestCase extends PHPUnit_Framework_TestCase
                                 'title: Do you really need a backend for that?',
                                 'summary: This is a summary',
                                 'image: file:someimage.jpg',
-                                'content: file:content.md'
-
+                                'content: file:content.md',
+                                'date: "2016-01-02"'
                             ]),
                             'content.md' => '## Hello World 2',
                             'someimage.jpg' => 'image'

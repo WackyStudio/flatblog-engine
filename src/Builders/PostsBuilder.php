@@ -47,6 +47,16 @@ class PostsBuilder
         });
     }
 
+    public function buildPostsList()
+    {
+        $posts = $this->getPosts()->sortByDesc(function (PostEntity $postEntity) {
+            return $postEntity->date->toDateString();
+        });
+
+        return $this->renderer->render($this->templates['all-posts'], ['posts'=>$posts]);
+    }
+
+
     private function getPosts()
     {
         if($this->posts == null)
@@ -58,5 +68,6 @@ class PostsBuilder
 
         return $this->posts;
     }
+
 
 }

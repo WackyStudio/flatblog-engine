@@ -1,8 +1,10 @@
 <?php
 namespace WackyStudio\Flatblog\Factories;
 
+use Carbon\Carbon;
 use WackyStudio\Flatblog\Entities\PostEntity;
 use WackyStudio\Flatblog\Entities\RawEntity;
+use WackyStudio\Flatblog\Exceptions\InvalidDateGivenInSettingsFileException;
 use WackyStudio\Flatblog\Exceptions\PostIsMissingContentException;
 use WackyStudio\Flatblog\Exceptions\PostIsMissingImageException;
 use WackyStudio\Flatblog\Exceptions\PostIsMissingSummaryException;
@@ -35,14 +37,34 @@ class PostEntityFactory
             throw new PostIsMissingContentException('Post is missing content');
         }
 
+
         return new PostEntity(
             $settings['title'],
-            $rawEntity->getDateTime(),
+            $this->handlePostDate($rawEntity, $settings),
             $rawEntity->getSubDirectories()[1],
             $settings['summary'],
             $settings['content'],
             $settings['image'],
             strtolower($rawEntity->getPath())
         );
+    }
+
+    /**
+     * @param RawEntity $rawEntity
+     * @param $settings
+     *
+     * @return mixed
+     */
+    protected function handlePostDate(RawEntity $rawEntity, $settings)
+    {
+        if ( ! isset($settings['date'])) {
+            return $rawEntity->getDateTime();
+        } else {
+            try {
+                return Carbon::parse($settings['date']);
+            } catch (\Exception $e) {
+                throw new InvalidDateGivenInSettingsFileException("Invalid date given in settings file for {$rawEntity->getPath()}");
+            }
+        }
     }
 }

@@ -26,7 +26,7 @@ class PostBuilderTest extends TestCase
         };
 
         $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], [
-            'single' => 'single'
+            'single' => 'single-post'
         ]);
 
         $expectedContentForBackendPost = implode(PHP_EOL, [
@@ -44,5 +44,43 @@ class PostBuilderTest extends TestCase
         $this->assertEquals($expectedContentForBackendPost, $singlePosts['posts/backend/do-you-really-need-a-backend-for-that']);
         $this->assertEquals($expectedContentForFrontendPost, $singlePosts['posts/frontend/sass-tricks-you-should-know']);
 
+    }
+
+    /**
+    *@test
+    */
+    public function it_builds_page_with_list_of_all_post_and_sorts_them_descending_by_date()
+    {
+        $fileSystem = $this->createVirtualFilesystemForPosts();
+        $this->app->getContainer()[Filesystem::class] = function() use($fileSystem){
+            return $fileSystem;
+        };
+        $rawEntities = ($this->app->getContainer()[RawEntityFactory::class])->getEntitiesForDirectory('posts');
+
+        $this->app->getContainer()[TemplateRenderer::class] = function(){
+            $path = __DIR__ . '/../helpers/views';
+            $cache = __DIR__ . '/../temp';
+            return new TemplateRenderer(new BladeInstance($path, $cache));
+        };
+
+        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], [
+            'all-posts' => 'all-posts'
+        ]);
+
+        $expectedContent = implode(PHP_EOL, [
+            '<div>',
+            '        <h1>Sass tricks you should know!</h1>',
+            '        <p>This is a summary</p>',
+            '    </div>',
+            '    <div>',
+            '        <h1>Do you really need a backend for that?</h1>',
+            '        <p>This is a summary</p>',
+            '    </div>',
+            ''
+        ]);
+
+        $result = $postBuilder->buildPostsList();
+
+        $this->assertEquals($expectedContent, $result);
     }
 }
