@@ -11,10 +11,6 @@ class RawEntity
      * @var array
      */
     private $settings;
-    /**
-     * @var array
-     */
-    private $files;
 
     /**
      * @var array
@@ -25,11 +21,10 @@ class RawEntity
      */
     private $dateTime;
 
-    public function __construct($path, array $settings, array $files, Carbon $dateTime)
+    public function __construct($path, array $settings, Carbon $dateTime)
     {
         $this->path = $path;
         $this->settings = $settings;
-        $this->files = $files;
         $this->dateTime = $dateTime;
 
         $this->subDirs = explode('/', $path);
@@ -49,14 +44,6 @@ class RawEntity
     public function getSettings()
     {
         return $this->settings;
-    }
-
-    /**
-     * @return array
-     */
-    public function getFiles()
-    {
-        return $this->files;
     }
 
     /**

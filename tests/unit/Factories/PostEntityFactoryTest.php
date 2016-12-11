@@ -27,20 +27,14 @@ class PostEntityFactoryTest extends TestCase
      */
     public function it_makes_a_post_entity_from_a_raw_entity()
     {
-        $parserManager = Mockery::mock(ParserManager::class)->shouldReceive('parseFiles')->andReturn([
-           'content' => 'This is some random content',
-        ])->getMock();
         $dateTime = Carbon::now();
-        $factory = new PostEntityFactory($parserManager);
+        $factory = new PostEntityFactory;
         $rawEntity = new RawEntity('posts/subject/test',
             [
                 'title' => 'Test',
                 'summary' => 'This is a summary',
-                'image' => 'someimage.jpg'
-            ],
-            [
-                new File('posts/subject/test/content.md', time(), 16, 'test', 'content.md', 'md', 'content'),
-                new File('posts/subject/test/someimage.jpg', time(), 16, 'test', 'someimage.jpg', 'jpg', 'someimage')
+                'image' => 'someimage.jpg',
+                'content' => 'file:content.md'
             ],
             $dateTime);
 
@@ -57,19 +51,12 @@ class PostEntityFactoryTest extends TestCase
     */
     public function it_throws_a_missing_post_title_exception_if_title_is_missing()
     {
-        $parserManager = Mockery::mock(ParserManager::class)->shouldReceive('parseFiles')->andReturn([
-            'content' => 'This is some random content',
-        ])->getMock();
         $dateTime = Carbon::now();
-        $factory = new PostEntityFactory($parserManager);
+        $factory = new PostEntityFactory;
         $rawEntity = new RawEntity('posts/subject/test',
             [
                 'summary' => 'This is a summary',
                 'image' => 'someimage.jpg'
-            ],
-            [
-                new File('posts/subject/test/content.md', time(), 16, 'test', 'content.md', 'md', 'content'),
-                new File('posts/subject/test/someimage.jpg', time(), 16, 'test', 'someimage.jpg', 'jpg', 'someimage')
             ],
             $dateTime);
         try{
@@ -88,19 +75,13 @@ class PostEntityFactoryTest extends TestCase
     */
     public function it_throws_an_exception_if_summary_is_missing()
     {
-        $parserManager = Mockery::mock(ParserManager::class)->shouldReceive('parseFiles')->andReturn([
-            'content' => 'This is some random content',
-        ])->getMock();
+
         $dateTime = Carbon::now();
-        $factory = new PostEntityFactory($parserManager);
+        $factory = new PostEntityFactory;
         $rawEntity = new RawEntity('posts/subject/test',
             [
                 'title' => 'Test',
                 'image' => 'someimage.jpg'
-            ],
-            [
-                new File('posts/subject/test/content.md', time(), 16, 'test', 'content.md', 'md', 'content'),
-                new File('posts/subject/test/someimage.jpg', time(), 16, 'test', 'someimage.jpg', 'jpg', 'someimage')
             ],
             $dateTime);
         try{
@@ -119,25 +100,19 @@ class PostEntityFactoryTest extends TestCase
     */
     public function it_throws_an_exception_if_content_is_missing()
     {
-        $parserManager = Mockery::mock(ParserManager::class)->shouldReceive('parseFiles')->andReturn([
-
-        ])->getMock();
         $dateTime = Carbon::now();
-        $factory = new PostEntityFactory($parserManager);
+        $factory = new PostEntityFactory;
         $rawEntity = new RawEntity('posts/subject/test',
             [
                 'title' => 'Test',
                 'summary' => 'This is a summary',
                 'image' => 'someimage.jpg'
             ],
-            [
-                new File('posts/subject/test/someimage.jpg', time(), 16, 'test', 'someimage.jpg', 'jpg', 'someimage')
-            ],
             $dateTime);
         try{
             $postEntity = $factory->make($rawEntity);
         }catch(PostIsMissingContentException $e){
-            $this->assertEquals('Post is missing content.md file or it cannot be parsed', $e->getMessage());
+            $this->assertEquals('Post is missing content', $e->getMessage());
             return;
         }
 
@@ -149,19 +124,12 @@ class PostEntityFactoryTest extends TestCase
     */
     public function it_throws_an_exception_if_image_is_missing()
     {
-        $parserManager = Mockery::mock(ParserManager::class)->shouldReceive('parseFiles')->andReturn([
-            'content' => 'This is some random content',
-        ])->getMock();
         $dateTime = Carbon::now();
-        $factory = new PostEntityFactory($parserManager);
+        $factory = new PostEntityFactory;
         $rawEntity = new RawEntity('posts/subject/test',
             [
                 'title' => 'Test',
                 'summary' => 'This is a summary',
-            ],
-            [
-                new File('posts/subject/test/content.md', time(), 16, 'test', 'content.md', 'md', 'content'),
-                new File('posts/subject/test/someimage.jpg', time(), 16, 'test', 'someimage.jpg', 'jpg', 'someimage')
             ],
             $dateTime);
         try{

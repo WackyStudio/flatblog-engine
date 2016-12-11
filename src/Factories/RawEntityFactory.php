@@ -5,7 +5,7 @@ use Carbon\Carbon;
 use League\Flysystem\Filesystem;
 use WackyStudio\Flatblog\Entities\RawEntity;
 use WackyStudio\Flatblog\File;
-use WackyStudio\Flatblog\Parsers\SettingsParser;
+use WackyStudio\Flatblog\Settings\SettingsParser;
 
 class RawEntityFactory
 {
@@ -52,13 +52,11 @@ class RawEntityFactory
             ->flatMap(function ($item, $key) {
                 // Map directories with files for entities into RawEntity objects
                 $settingsFile = $this->getSettingsFileFromFilesArray($item);
-                $otherFiles = $this->getAllFilesExceptSettingsFile($item);
 
                 return [
                     new RawEntity(
                         $key,
                         $this->settingsParser->parse($settingsFile),
-                        $otherFiles,
                         Carbon::createFromTimestamp($settingsFile['timestamp']))
                 ];
             })
@@ -79,23 +77,4 @@ class RawEntityFactory
             ->first();
     }
 
-    /**
-     * Filter settings.yml from directory and map all other files
-     * to File objects
-     *
-     * @param $files
-     *
-     * @return array
-     */
-    private function getAllFilesExceptSettingsFile($files)
-    {
-        return collect($files)
-            ->filter(function ($item) {
-                return $item['basename'] !== 'settings.yml';
-            })
-            ->map(function($item){
-                return new File($item['path'], $item['timestamp'], $item['size'], $item['dirname'], $item['basename'], $item['extension'], $item['filename']);
-            })
-            ->toArray();
-    }
 }

@@ -3,7 +3,8 @@ use Carbon\Carbon;
 use WackyStudio\Flatblog\Entities\RawEntity;
 use WackyStudio\Flatblog\File;
 use WackyStudio\Flatblog\Factories\RawEntityFactory;
-use WackyStudio\Flatblog\Parsers\SettingsParser;
+use WackyStudio\Flatblog\Settings\SettingsParser;
+use WackyStudio\Flatblog\Settings\SettingsReferencesHandler;
 
 class RawEntityFactoryTest extends TestCase
 {
@@ -19,47 +20,39 @@ class RawEntityFactoryTest extends TestCase
     {
         parent::tearDown();
     }
-    
+
     /**
-    * @test
+    *@test
     */
-    public function it_creates_an_array_of_file_entities_for_posts()
+    public function it_creates_an_array_of_raw_entities_for_directory()
     {
         $this->fileSystem = $this->createVirtualFilesystemForPosts();
 
         $settingsParser = Mockery::mock(SettingsParser::class)->shouldReceive('parse')->andReturn(['title'=>'test'])->getMock();
         $fileHandler = new RawEntityFactory($this->fileSystem, $settingsParser);
 
-        $postFileEntities = $fileHandler->getEntitiesForDirectory('posts');
+        $rawEntities = $fileHandler->getEntitiesForDirectory('posts');
 
-        $this->assertEquals(2, count($postFileEntities));
-        $this->assertInstanceOf(RawEntity::class, $postFileEntities[0]);
-        $this->assertEquals('posts/Frontend/sass-tricks-you-should-know', $postFileEntities[1]->getPath());
-
-        $timestamp = $this->fileSystem->listContents('/posts/Backend/do-you-really-need-a-backend-for-that')[0]['timestamp'];
-        $this->assertEquals(Carbon::createFromTimestamp($timestamp), $postFileEntities[0]->getDateTime());
-        $this->assertInstanceOf(File::class, $postFileEntities[0]->getFiles()[0]);
+        $this->assertEquals(2, count($rawEntities));
+        $this->assertInstanceOf(RawEntity::class, $rawEntities[0]);
+        $this->assertEquals('posts/Frontend/sass-tricks-you-should-know', $rawEntities[1]->getPath());
+        $this->assertArrayHasKey('title', $rawEntities[0]->getSettings());
     }
 
     /**
     *@test
     */
-    public function it_creates_an_array_of_file_entities_for_pages()
+    public function it_walks_through_directories_recursive_to_find_settings_file_an_therefore_a_raw_entity()
     {
         $this->fileSystem = $this->createVirtualFilesystemForPages();
-        $settingsParser = new SettingsParser($this->fileSystem);
+        $settingsParser = new SettingsParser($this->fileSystem, new SettingsReferencesHandler($this->fileSystem));
         $fileHandler = new RawEntityFactory($this->fileSystem, $settingsParser);
 
-        $pagesFileEntities = $fileHandler->getEntitiesForDirectory('pages');
+        $rawFileEntities = $fileHandler->getEntitiesForDirectory('pages');
 
-        $this->assertEquals(4, count($pagesFileEntities));
-        $this->assertInstanceOf(RawEntity::class, $pagesFileEntities[0]);
-        $this->assertEquals('pages/about', $pagesFileEntities[0]->getPath());
-        $this->assertInstanceOf(File::class, $pagesFileEntities[0]->getFiles()[0]);
+        $this->assertEquals(4, count($rawFileEntities));
+        $this->assertInstanceOf(RawEntity::class, $rawFileEntities[0]);
+        $this->assertEquals('pages/about', $rawFileEntities[0]->getPath());
+        $this->assertArrayHasKey('header', $rawFileEntities[0]->getSettings());
     }
-
-
-
-
-
 }

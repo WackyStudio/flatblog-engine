@@ -34,7 +34,8 @@ class TestCase extends PHPUnit_Framework_TestCase
                             'settings.yml' => implode(PHP_EOL, [
                                 'title: Sass tricks you should know!',
                                 'summary: This is a summary',
-                                'image: someimage.jpg'
+                                'image: file:someimage.jpg',
+                                'content: file:content.md'
                             ]),
                             'content.md' => '## Hello World'
                         ]
@@ -44,7 +45,9 @@ class TestCase extends PHPUnit_Framework_TestCase
                             'settings.yml' => implode(PHP_EOL, [
                                 'title: Do you really need a backend for that?',
                                 'summary: This is a summary',
-                                'image: someimage.jpg'
+                                'image: file:someimage.jpg',
+                                'content: file:content.md'
+
                             ]),
                             'content.md' => '## Hello World 2'
                         ]
@@ -70,7 +73,7 @@ class TestCase extends PHPUnit_Framework_TestCase
                    'about' => [
                        'settings.yml' => implode(PHP_EOL, [
                           'header: Test header',
-                          'sections: /sections'
+                          'sections: dir:sections'
                        ]),
                        'sections' => [
                            'test1.md' => '## test1',

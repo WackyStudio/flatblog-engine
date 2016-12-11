@@ -3,7 +3,7 @@ use League\Flysystem\Filesystem;
 use WackyStudio\Flatblog\Builders\PostsBuilder;
 use WackyStudio\Flatblog\Factories\PostEntityFactory;
 use WackyStudio\Flatblog\Factories\RawEntityFactory;
-use WackyStudio\Flatblog\Parsers\SettingsParser;
+use WackyStudio\Flatblog\Settings\SettingsParser;
 use WackyStudio\Flatblog\Templates\FakePostTemplateRenderer;
 use WackyStudio\Flatblog\Templates\TemplateRenderer;
 

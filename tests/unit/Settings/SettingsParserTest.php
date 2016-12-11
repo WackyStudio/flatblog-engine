@@ -1,6 +1,7 @@
 <?php
 use WackyStudio\Flatblog\Exceptions\SettingsFileNotFoundException;
-use WackyStudio\Flatblog\Parsers\SettingsParser;
+use WackyStudio\Flatblog\Settings\SettingsParser;
+use WackyStudio\Flatblog\Settings\SettingsReferencesHandler;
 
 class SettingsParserTest extends TestCase
 {
@@ -23,9 +24,9 @@ class SettingsParserTest extends TestCase
     {
         $filesystem = $this->createVirtualFilesystemForPosts();
 
-        $settingsParser = new SettingsParser($filesystem);
+        $settingsParser = new SettingsParser($filesystem, new SettingsReferencesHandler($filesystem));
 
-        $parsedContent = $settingsParser->parse(['path' => 'posts/Backend/do-you-really-need-a-backend-for-that/settings.yml']);
+        $parsedContent = $settingsParser->parseYamlFile(['path' => 'posts/Backend/do-you-really-need-a-backend-for-that/settings.yml']);
 
         $this->assertArrayHasKey('title', $parsedContent);
 
@@ -41,8 +42,8 @@ class SettingsParserTest extends TestCase
         ]);
 
         try{
-            $settingsParser = new SettingsParser($filesystem);
-            $parsedContent = $settingsParser->parse(['path'=>'posts/Backend/do-you-really-need-a-backend-for-that/settings.yml']);
+            $settingsParser = new SettingsParser($filesystem, new SettingsReferencesHandler($filesystem));
+            $parsedContent = $settingsParser->parseYamlFile(['path'=>'posts/Backend/do-you-really-need-a-backend-for-that/settings.yml']);
         }catch (SettingsFileNotFoundException $e)
         {
 

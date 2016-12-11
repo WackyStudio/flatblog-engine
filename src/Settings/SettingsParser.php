@@ -1,5 +1,5 @@
 <?php
-namespace WackyStudio\Flatblog\Parsers;
+namespace WackyStudio\Flatblog\Settings;
 
 use League\Flysystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
@@ -13,12 +13,19 @@ class SettingsParser
      */
     private $filesystem;
 
-    public function __construct(Filesystem $fileSystem)
+    public function __construct(Filesystem $fileSystem, SettingsReferencesHandler $referencesHandler)
     {
         $this->filesystem = $fileSystem;
     }
 
     public function parse($file)
+    {
+       $yamlContent = $this->parseYamlFile($file);
+
+       return $yamlContent;
+    }
+
+    public function parseYamlFile($file)
     {
         if(!$this->filesystem->has($file['path']))
         {

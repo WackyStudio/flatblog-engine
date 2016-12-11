@@ -3,7 +3,6 @@ namespace WackyStudio\Flatblog\Builders;
 
 use WackyStudio\Flatblog\Entities\RawEntity;
 use WackyStudio\Flatblog\Factories\PostEntityFactory;
-use WackyStudio\Flatblog\Factories\RawEntityFactory;
 use WackyStudio\Flatblog\Templates\TemplateRenderer;
 
 class PostsBuilder

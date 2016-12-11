@@ -12,19 +12,10 @@ use WackyStudio\Flatblog\Parsers\ParserManager;
 class PostEntityFactory
 {
 
-    /**
-     * @var ParserManager
-     */
-    private $parserManager;
-
-    public function __construct(ParserManager $parserManager)
-    {
-        $this->parserManager = $parserManager;
-    }
-
     public function make(RawEntity $rawEntity)
     {
         $settings = $rawEntity->getSettings();
+
 
         if ( ! isset($settings['title'])) {
             throw new PostIsMissingTitleException('Post is missing title');
@@ -40,11 +31,9 @@ class PostEntityFactory
             throw new PostIsMissingImageException('Post is missing image');
         }
 
-        $parsedFiles = $this->parserManager->parseFiles($rawEntity->getFiles());
-
-        if( ! isset($parsedFiles['content']))
+        if( ! isset($settings['content']))
         {
-            throw new PostIsMissingContentException('Post is missing content.md file or it cannot be parsed');
+            throw new PostIsMissingContentException('Post is missing content');
         }
 
         return new PostEntity(
@@ -52,7 +41,7 @@ class PostEntityFactory
             $rawEntity->getDateTime(),
             $rawEntity->getSubDirectories()[1],
             $settings['summary'],
-            $parsedFiles['content'],
+            $settings['content'],
             $settings['image'],
             strtolower($rawEntity->getPath())
         );

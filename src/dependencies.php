@@ -11,7 +11,8 @@ use WackyStudio\Flatblog\Factories\PostEntityFactory;
 use WackyStudio\Flatblog\Factories\RawEntityFactory;
 use WackyStudio\Flatblog\Parsers\MarkdownContentParser;
 use WackyStudio\Flatblog\Parsers\ParserManager;
-use WackyStudio\Flatblog\Parsers\SettingsParser;
+use WackyStudio\Flatblog\Settings\SettingsParser;
+use WackyStudio\Flatblog\Settings\SettingsReferencesHandler;
 
 return [
     //configs
@@ -24,7 +25,7 @@ return [
             'md' => MarkdownContentParser::class
         ];
     },
-    // App Dependencies
+    // App Core Dependencies
     Filesystem::class => function($container){
       return new Filesystem($container['adapter']);
     },
@@ -34,16 +35,22 @@ return [
       return new RawEntityFactory($container[Filesystem::class], $container[SettingsParser::class]);
     },
     PostEntityFactory::class => function($container){
-        return new PostEntityFactory($container[ParserManager::class]);
+        return new PostEntityFactory;
+    },
+
+    // Settings
+    SettingsParser::class => function($container){
+        return new SettingsParser($container[Filesystem::class], $container[SettingsReferencesHandler::class]);
+    },
+    SettingsReferencesHandler::class => function($container){
+        return new SettingsReferencesHandler($container[Filesystem::class]);
     },
 
     // Parsers
     ParserManager::class => function($container){
       return new ParserManager($container['contentParsers'], $container[Filesystem::class], $container);
     },
-    SettingsParser::class => function($container){
-        return new SettingsParser($container[Filesystem::class]);
-    },
+
     MarkdownContentParser::class => function(){
         $parseDownExtra = new \ParsedownExtra();
         return new MarkdownContentParser($parseDownExtra);
