@@ -108,8 +108,6 @@ class SettingsReferencesHandlerTest extends TestCase
                             'column1.md' => 'something something dark side',
                             'column2.jpg' => 'image'
                         ]
-
-
                     ]
                 ]
             ]

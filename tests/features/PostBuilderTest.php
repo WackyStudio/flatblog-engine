@@ -1,10 +1,9 @@
 <?php
+use duncan3dc\Laravel\BladeInstance;
 use League\Flysystem\Filesystem;
 use WackyStudio\Flatblog\Builders\PostsBuilder;
 use WackyStudio\Flatblog\Factories\PostEntityFactory;
 use WackyStudio\Flatblog\Factories\RawEntityFactory;
-use WackyStudio\Flatblog\Settings\SettingsParser;
-use WackyStudio\Flatblog\Templates\FakePostTemplateRenderer;
 use WackyStudio\Flatblog\Templates\TemplateRenderer;
 
 class PostBuilderTest extends TestCase
@@ -21,15 +20,29 @@ class PostBuilderTest extends TestCase
         $rawEntities = ($this->app->getContainer()[RawEntityFactory::class])->getEntitiesForDirectory('posts');
 
         $this->app->getContainer()[TemplateRenderer::class] = function(){
-            return new TemplateRenderer(new FakePostTemplateRenderer);
+            $path = __DIR__ . '/../helpers/views';
+            $cache = __DIR__ . '/../temp';
+            return new TemplateRenderer(new BladeInstance($path, $cache));
         };
 
-        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class] );
+        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], [
+            'single' => 'single'
+        ]);
+
+        $expectedContentForBackendPost = implode(PHP_EOL, [
+            '<h1>Do you really need a backend for that?</h1>',
+            '<h2>Hello World 2</h2>'
+        ]);
+
+        $expectedContentForFrontendPost = implode(PHP_EOL, [
+            '<h1>Sass tricks you should know!</h1>',
+            '<h2>Hello World</h2>'
+        ]);
 
         $singlePosts = $postBuilder->buildSinglePosts();
 
-        $this->assertEquals('<h1>Do you really need a backend for that?</h1>', $singlePosts['posts/backend/do-you-really-need-a-backend-for-that']);
-        $this->assertEquals('<h1>Sass tricks you should know!</h1>', $singlePosts['posts/frontend/sass-tricks-you-should-know']);
+        $this->assertEquals($expectedContentForBackendPost, $singlePosts['posts/backend/do-you-really-need-a-backend-for-that']);
+        $this->assertEquals($expectedContentForFrontendPost, $singlePosts['posts/frontend/sass-tricks-you-should-know']);
 
     }
 }

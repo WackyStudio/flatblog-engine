@@ -5,6 +5,7 @@ use Carbon\Carbon;
 use League\Flysystem\Filesystem;
 use WackyStudio\Flatblog\Entities\RawEntity;
 use WackyStudio\Flatblog\File;
+use WackyStudio\Flatblog\Parsers\ContentParserManager;
 use WackyStudio\Flatblog\Settings\SettingsParser;
 
 class RawEntityFactory
@@ -18,11 +19,16 @@ class RawEntityFactory
      * @var SettingsParser
      */
     private $settingsParser;
+    /**
+     * @var ContentParserManager
+     */
+    private $contentParserManager;
 
-    public function __construct(Filesystem $filesystem, SettingsParser $settingsParser)
+    public function __construct(Filesystem $filesystem, SettingsParser $settingsParser, ContentParserManager $contentParserManager)
     {
         $this->filesystem = $filesystem;
         $this->settingsParser = $settingsParser;
+        $this->contentParserManager = $contentParserManager;
     }
 
     /**
@@ -52,11 +58,13 @@ class RawEntityFactory
             ->flatMap(function ($item, $key) {
                 // Map directories with files for entities into RawEntity objects
                 $settingsFile = $this->getSettingsFileFromFilesArray($item);
+                $parsedSettingsFile =  $this->settingsParser->parse($settingsFile['path']);
+                $settingsFileWithParsedContent = $this->contentParserManager->parseContentFromSettings($parsedSettingsFile);
 
                 return [
                     new RawEntity(
                         $key,
-                        $this->settingsParser->parse($settingsFile),
+                        $settingsFileWithParsedContent,
                         Carbon::createFromTimestamp($settingsFile['timestamp']))
                 ];
             })

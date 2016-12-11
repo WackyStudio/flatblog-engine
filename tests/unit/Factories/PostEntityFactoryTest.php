@@ -40,9 +40,9 @@ class PostEntityFactoryTest extends TestCase
 
         $postEntity = $factory->make($rawEntity);
 
-        $this->assertEquals('Test', $postEntity->getTitle());
-        $this->assertEquals($dateTime, $postEntity->getDate());
-        $this->assertEquals('subject', $postEntity->getCategory());
+        $this->assertEquals('Test', $postEntity->title);
+        $this->assertEquals($dateTime, $postEntity->date);
+        $this->assertEquals('subject', $postEntity->category);
         $this->assertEquals('posts/subject/test', $postEntity->destination());
     }
 

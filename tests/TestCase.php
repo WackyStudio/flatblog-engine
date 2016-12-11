@@ -37,7 +37,8 @@ class TestCase extends PHPUnit_Framework_TestCase
                                 'image: file:someimage.jpg',
                                 'content: file:content.md'
                             ]),
-                            'content.md' => '## Hello World'
+                            'content.md' => '## Hello World',
+                            'someimage.jpg' => 'image'
                         ]
                     ],
                     'Backend' => [

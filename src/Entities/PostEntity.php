@@ -10,32 +10,32 @@ class PostEntity implements BuildDestinationContract
     /**
      * @var string
      */
-    private $title;
+    public $title;
 
     /**
      * @var Carbon
      */
-    private $date;
+    public $date;
 
     /**
      * @var string
      */
-    private $content;
+    public $content;
 
     /**
      * @var string
      */
-    private $image;
+    public $image;
 
     /**
      * @var string|null
      */
-    private $category;
+    public $category;
 
     /**
      * @var string
      */
-    private $summary;
+    public $summary;
     /**
      * @var
      */
@@ -53,54 +53,6 @@ class PostEntity implements BuildDestinationContract
     }
 
     /**
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @return Carbon
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    /**
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSummary()
-    {
-        return $this->summary;
-    }
-
-    /**
      * Entity destination when building
      *
      * @return string
@@ -109,4 +61,6 @@ class PostEntity implements BuildDestinationContract
     {
         return $this->destination;
     }
+
+
 }

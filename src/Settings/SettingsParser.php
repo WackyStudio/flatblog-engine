@@ -12,27 +12,41 @@ class SettingsParser
      * @var Filesystem
      */
     private $filesystem;
+    /**
+     * @var SettingsReferencesHandler
+     */
+    private $referencesHandler;
 
     public function __construct(Filesystem $fileSystem, SettingsReferencesHandler $referencesHandler)
     {
         $this->filesystem = $fileSystem;
+        $this->referencesHandler = $referencesHandler;
     }
 
     public function parse($file)
     {
-       $yamlContent = $this->parseYamlFile($file);
+        $path = $this->getPathForSettingsFile($file);
 
-       return $yamlContent;
+        $settings = $this->parseYamlFile($file);
+        $settings = $this->referencesHandler->handleFileReferences($settings, $path);
+        $settings = $this->referencesHandler->handleDirectoryReferences($settings, $path);
+
+        return $settings;
     }
 
     public function parseYamlFile($file)
     {
-        if(!$this->filesystem->has($file['path']))
+        if(!$this->filesystem->has($file))
         {
             throw new SettingsFileNotFoundException;
         }
 
-        $file = $this->filesystem->read($file['path']);
+        $file = $this->filesystem->read($file);
         return Yaml::parse($file);
+    }
+
+    public function getPathForSettingsFile($file)
+    {
+        return str_replace('/settings.yml', '', $file);
     }
 }

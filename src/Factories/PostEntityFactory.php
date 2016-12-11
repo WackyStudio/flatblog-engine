@@ -16,7 +16,6 @@ class PostEntityFactory
     {
         $settings = $rawEntity->getSettings();
 
-
         if ( ! isset($settings['title'])) {
             throw new PostIsMissingTitleException('Post is missing title');
         }

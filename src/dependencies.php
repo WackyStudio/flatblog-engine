@@ -9,8 +9,8 @@ use WackyStudio\Flatblog\Commands\CreatePost;
 use WackyStudio\Flatblog\Commands\NewProject;
 use WackyStudio\Flatblog\Factories\PostEntityFactory;
 use WackyStudio\Flatblog\Factories\RawEntityFactory;
+use WackyStudio\Flatblog\Parsers\ContentParserManager;
 use WackyStudio\Flatblog\Parsers\MarkdownContentParser;
-use WackyStudio\Flatblog\Parsers\ParserManager;
 use WackyStudio\Flatblog\Settings\SettingsParser;
 use WackyStudio\Flatblog\Settings\SettingsReferencesHandler;
 
@@ -32,7 +32,7 @@ return [
 
     // Factories
     RawEntityFactory::class => function($container){
-      return new RawEntityFactory($container[Filesystem::class], $container[SettingsParser::class]);
+      return new RawEntityFactory($container[Filesystem::class], $container[SettingsParser::class], $container[ContentParserManager::class]);
     },
     PostEntityFactory::class => function($container){
         return new PostEntityFactory;
@@ -47,8 +47,8 @@ return [
     },
 
     // Parsers
-    ParserManager::class => function($container){
-      return new ParserManager($container['contentParsers'], $container[Filesystem::class], $container);
+    ContentParserManager::class => function($container){
+      return new ContentParserManager($container['contentParsers'], $container[Filesystem::class], $container);
     },
 
     MarkdownContentParser::class => function(){

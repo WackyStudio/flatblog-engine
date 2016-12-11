@@ -3,6 +3,8 @@ use Carbon\Carbon;
 use WackyStudio\Flatblog\Entities\RawEntity;
 use WackyStudio\Flatblog\File;
 use WackyStudio\Flatblog\Factories\RawEntityFactory;
+use WackyStudio\Flatblog\Parsers\ContentParserManager;
+use WackyStudio\Flatblog\Parsers\FakeParser;
 use WackyStudio\Flatblog\Settings\SettingsParser;
 use WackyStudio\Flatblog\Settings\SettingsReferencesHandler;
 
@@ -24,12 +26,13 @@ class RawEntityFactoryTest extends TestCase
     /**
     *@test
     */
-    public function it_creates_an_array_of_raw_entities_for_directory()
+    public function it_creates_an_array_of_raw_entities_with_parsed_settings_and_content_for_directory()
     {
         $this->fileSystem = $this->createVirtualFilesystemForPosts();
 
         $settingsParser = Mockery::mock(SettingsParser::class)->shouldReceive('parse')->andReturn(['title'=>'test'])->getMock();
-        $fileHandler = new RawEntityFactory($this->fileSystem, $settingsParser);
+        $contentParser = Mockery::mock(ContentParserManager::class)->shouldReceive('parseContentFromSettings')->andReturn(['title'=>'test'])->getMock();
+        $fileHandler = new RawEntityFactory($this->fileSystem, $settingsParser, $contentParser);
 
         $rawEntities = $fileHandler->getEntitiesForDirectory('posts');
 
@@ -46,7 +49,20 @@ class RawEntityFactoryTest extends TestCase
     {
         $this->fileSystem = $this->createVirtualFilesystemForPages();
         $settingsParser = new SettingsParser($this->fileSystem, new SettingsReferencesHandler($this->fileSystem));
-        $fileHandler = new RawEntityFactory($this->fileSystem, $settingsParser);
+
+        $contentParsers = [
+            'md' => [
+                FakeParser::class,
+            ]
+        ];
+
+        $this->app->getContainer()[FakeParser::class] = function(){
+            return new FakeParser();
+        };
+
+        $contentParser = new ContentParserManager($contentParsers, $this->fileSystem, $this->app->getContainer());
+
+        $fileHandler = new RawEntityFactory($this->fileSystem, $settingsParser, $contentParser);
 
         $rawFileEntities = $fileHandler->getEntitiesForDirectory('pages');
 

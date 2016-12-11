@@ -23,7 +23,7 @@ class SettingsReferencesHandler
     {
         return collect($settingsContent)->transform(function ($setting) use($settingsFilePath){
 
-            if(!is_array($setting) && str_contains($setting, 'file:'))
+            if(!is_array($setting) && !is_object($setting) && str_contains($setting, 'file:'))
             {
                 $fileBasename = explode('file:', $setting)[1];
 
@@ -47,7 +47,7 @@ class SettingsReferencesHandler
     {
         return collect($settingsContent)->transform(function ($setting) use($settingsFilePath){
 
-            if(!is_array($setting) && str_contains($setting, 'dir:'))
+            if(!is_array($setting) && !is_object($setting) && str_contains($setting, 'dir:'))
             {
                 $dirBasename = explode('dir:', $setting)[1];
 

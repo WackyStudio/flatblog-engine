@@ -6,16 +6,17 @@ use Interop\Container\ContainerInterface;
 use League\Flysystem\Filesystem;
 use WackyStudio\Flatblog\File;
 
-class ParserManager
+class ContentParserManager
 {
-
     /**
      * @var Collection
      */
     private $contentParsers;
+
     /**
      * @var Filesystem
      */
+
     private $filesystem;
     /**
      * @var ContainerInterface
@@ -29,41 +30,38 @@ class ParserManager
         $this->container = $container;
     }
 
-    /**
-     * Run files through content parsers by file extensions
-     * and return array with filename as key pointing to parsed content
-     *
-     * @param array $files
-     *
-     * @return array
-     */
-    public function parseFiles(array $files)
+    public function parseContentFromSettings($settingsFile)
     {
-        $filesSortedByExtension = collect($files)->groupBy(function (File $file) {
-            return $file->getExtension();
-        });
+        return collect($settingsFile)->transform(function ($item) {
+           if($item instanceof File)
+           {
+               if ($this->contentParsers->has($item->getExtension())) {
+                   return $this->sendFileThroughParsersForExtension($item);
+               }
 
-        return $filesSortedByExtension->flatMap(function ($files, $extension) {
-            if ($this->contentParsers->has($extension)) {
-                return $files->flatMap(function (File $file) use ($extension) {
-                    return [$file->getFilename() => $this->sendFileThroughParsersForExtension($extension, $file)];
-                });
-            }
+               return $item;
+           }
+
+           if(is_array($item))
+           {
+               return $this->parseContentFromSettings($item);
+           }
+
+           return $item;
         })->toArray();
     }
 
     /**
      * Send file content through every content parser for files extension
      *
-     * @param $extension
      * @param File $file
      *
      * @return bool|false|string
      */
-    private function sendFileThroughParsersForExtension($extension, File $file)
+    private function sendFileThroughParsersForExtension(File $file)
     {
         $fileContent = $this->getFileContentForFilePath($file->getPath());
-        $parsers = $this->contentParsers->get($extension);
+        $parsers = $this->contentParsers->get($file->getExtension());
 
         if(!is_array($parsers))
         {
@@ -88,4 +86,5 @@ class ParserManager
     {
         return $this->filesystem->read($path);
     }
+
 }
