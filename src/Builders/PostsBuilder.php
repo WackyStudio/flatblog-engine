@@ -56,6 +56,20 @@ class PostsBuilder
         return $this->renderer->render($this->templates['all-posts'], ['posts'=>$posts]);
     }
 
+    public function buildSingleCategories()
+    {
+        $categories = $this->getPosts()->groupBy(function (PostEntity $postEntity) {
+            return $postEntity->category;
+        })->sort()->transform(function ($item, $key) {
+            $item->sortByDesc(function (PostEntity $postEntity) {
+                return $postEntity->date->toDateString();
+            });
+            return $this->renderer->render($this->templates['single-category'], ['category' => $key, 'posts'=>$item]);
+        })->flatten(1);
+
+        return $categories;
+    }
+
 
     private function getPosts()
     {
@@ -68,6 +82,7 @@ class PostsBuilder
 
         return $this->posts;
     }
+
 
 
 }

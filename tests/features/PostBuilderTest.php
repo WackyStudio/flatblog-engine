@@ -83,4 +83,49 @@ class PostBuilderTest extends TestCase
 
         $this->assertEquals($expectedContent, $result);
     }
+
+    /**
+    *@test
+    */
+    public function it_builds_pages_for_each_category_with_posts_and_sorts_them_alphabetically()
+    {
+        $fileSystem = $this->createVirtualFilesystemForPosts();
+        $this->app->getContainer()[Filesystem::class] = function() use($fileSystem){
+            return $fileSystem;
+        };
+        $rawEntities = ($this->app->getContainer()[RawEntityFactory::class])->getEntitiesForDirectory('posts');
+
+        $this->app->getContainer()[TemplateRenderer::class] = function(){
+            $path = __DIR__ . '/../helpers/views';
+            $cache = __DIR__ . '/../temp';
+            return new TemplateRenderer(new BladeInstance($path, $cache));
+        };
+
+        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], [
+            'single-category' => 'single-category'
+        ]);
+
+        $expectedContentBackend = implode(PHP_EOL, [
+           '<h1>Backend</h1>',
+           '<div>',
+           '<h1>Do you really need a backend for that?</h1>',
+           '<p>This is a summary</p>',
+           '</div>',
+           ''
+        ]);
+
+        $expectedContentFrontend = implode(PHP_EOL, [
+            '<h1>Frontend</h1>',
+            '<div>',
+            '<h1>Sass tricks you should know!</h1>',
+            '<p>This is a summary</p>',
+            '</div>',
+            ''
+        ]);
+
+        $categories = $postBuilder->buildSingleCategories();
+
+        $this->assertEquals($expectedContentBackend, $categories[0]);
+        $this->assertEquals($expectedContentFrontend, $categories[1]);
+    }
 }
