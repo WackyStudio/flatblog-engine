@@ -2,6 +2,7 @@
 namespace WackyStudio\Flatblog\Builders;
 
 use Illuminate\Support\Collection;
+use WackyStudio\Flatblog\Core\Config;
 use WackyStudio\Flatblog\Entities\PostEntity;
 use WackyStudio\Flatblog\Entities\RawEntity;
 use WackyStudio\Flatblog\Factories\PostEntityFactory;
@@ -32,12 +33,12 @@ class PostsBuilder
      */
     private $templates;
 
-    public function __construct(array $rawEntities, PostEntityFactory $postEntityFactory, TemplateRenderer $renderer, array $templates)
+    public function __construct(array $rawEntities, PostEntityFactory $postEntityFactory, TemplateRenderer $renderer, Config $config)
     {
         $this->rawrawEntities = $rawEntities;
         $this->postEntityFactory = $postEntityFactory;
         $this->renderer = $renderer;
-        $this->templates = $templates;
+        $this->templates = $config->get('posts.templates');
     }
 
     public function buildSinglePosts()

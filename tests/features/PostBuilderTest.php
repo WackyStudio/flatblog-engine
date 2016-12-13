@@ -25,9 +25,7 @@ class PostBuilderTest extends TestCase
             return new TemplateRenderer(new BladeInstance($path, $cache));
         };
 
-        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], [
-            'single' => 'single-post'
-        ]);
+        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
 
         $expectedContentForBackendPost = implode(PHP_EOL, [
             '<h1>Do you really need a backend for that?</h1>',
@@ -66,9 +64,7 @@ class PostBuilderTest extends TestCase
             return new TemplateRenderer(new BladeInstance($path, $cache));
         };
 
-        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], [
-            'all-posts' => 'all-posts'
-        ]);
+        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
 
         $expectedContent = implode(PHP_EOL, [
             '<div>',
@@ -104,9 +100,7 @@ class PostBuilderTest extends TestCase
             return new TemplateRenderer(new BladeInstance($path, $cache));
         };
 
-        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], [
-            'single-category' => 'single-category'
-        ]);
+        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
 
         $expectedContentBackend = implode(PHP_EOL, [
            '<h1>Backend</h1>',
@@ -149,9 +143,7 @@ class PostBuilderTest extends TestCase
             return new TemplateRenderer(new BladeInstance($path, $cache));
         };
 
-        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], [
-            'all-categories' => 'all-categories'
-        ]);
+        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
 
         $expectedContent = implode(PHP_EOL, [
             '<ul>',

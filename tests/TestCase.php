@@ -58,7 +58,12 @@ class TestCase extends PHPUnit_Framework_TestCase
                 ],
                 'config.yml' => implode(PHP_EOL, [
                     'posts:',
-                    '   prefix: blog'
+                    '   prefix: blog',
+                    '   templates:',
+                    '       single: single-post',
+                    '       all-posts: all-posts',
+                    '       single-category: single-category',
+                    '       all-categories: all-categories'
                 ]),
             ]);
         } else {
