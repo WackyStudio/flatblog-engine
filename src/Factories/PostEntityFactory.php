@@ -2,6 +2,7 @@
 namespace WackyStudio\Flatblog\Factories;
 
 use Carbon\Carbon;
+use WackyStudio\Flatblog\Core\Config;
 use WackyStudio\Flatblog\Entities\PostEntity;
 use WackyStudio\Flatblog\Entities\RawEntity;
 use WackyStudio\Flatblog\Exceptions\InvalidDateGivenInSettingsFileException;
@@ -9,34 +10,35 @@ use WackyStudio\Flatblog\Exceptions\PostIsMissingContentException;
 use WackyStudio\Flatblog\Exceptions\PostIsMissingImageException;
 use WackyStudio\Flatblog\Exceptions\PostIsMissingSummaryException;
 use WackyStudio\Flatblog\Exceptions\PostIsMissingTitleException;
-use WackyStudio\Flatblog\Parsers\ParserManager;
 
 class PostEntityFactory
 {
 
+    /**
+     * @var Config
+     */
+    private $config;
+
+    public function __construct(Config $config)
+    {
+        $this->config = $config;
+    }
+
     public function make(RawEntity $rawEntity)
     {
         $settings = $rawEntity->getSettings();
-
         if ( ! isset($settings['title'])) {
             throw new PostIsMissingTitleException('Post is missing title');
         }
-
-        if( ! isset($settings['summary']))
-        {
+        if ( ! isset($settings['summary'])) {
             throw new PostIsMissingSummaryException('Post is missing summary');
         }
-
-        if( ! isset($settings['image']))
-        {
+        if ( ! isset($settings['image'])) {
             throw new PostIsMissingImageException('Post is missing image');
         }
-
-        if( ! isset($settings['content']))
-        {
+        if ( ! isset($settings['content'])) {
             throw new PostIsMissingContentException('Post is missing content');
         }
-
 
         return new PostEntity(
             $settings['title'],
@@ -45,7 +47,7 @@ class PostEntityFactory
             $settings['summary'],
             $settings['content'],
             $settings['image'],
-            str_replace('posts/', '', strtolower($rawEntity->getPath()))
+            $this->handlePostDestination($rawEntity->getPath())
         );
     }
 
@@ -66,5 +68,17 @@ class PostEntityFactory
                 throw new InvalidDateGivenInSettingsFileException("Invalid date given in settings file for {$rawEntity->getPath()}");
             }
         }
+    }
+
+    private function handlePostDestination($path){
+
+        $basePath = str_replace('posts/', '', strtolower($path));
+
+        if($prefix =$this->config->get('posts.prefix'))
+        {
+            $basePath = "{$prefix}/{$basePath}";
+        }
+
+        return $basePath;
     }
 }

@@ -36,8 +36,9 @@ class PostEntity implements BuildDestinationContract
      * @var string
      */
     public $summary;
+
     /**
-     * @var
+     * @var string
      */
     private $destination;
 
@@ -59,7 +60,7 @@ class PostEntity implements BuildDestinationContract
      */
     public function destination()
     {
-        return $this->destination;
+       return $this->destination;
     }
 
 

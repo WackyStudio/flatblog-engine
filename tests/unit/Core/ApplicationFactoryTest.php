@@ -2,6 +2,7 @@
 use Silly\Edition\Pimple\Application;
 use WackyStudio\Flatblog\Commands\FakeCommand;
 use WackyStudio\Flatblog\Core\ApplicationFactory;
+use WackyStudio\Flatblog\Core\Config;
 
 class ApplicationFactoryTest extends PHPUnit_Framework_TestCase
 {
@@ -59,5 +60,4 @@ class ApplicationFactoryTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(FakeCommand::class, $container[FakeCommand::class]);
     }
-
 }

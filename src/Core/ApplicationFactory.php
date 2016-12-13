@@ -24,20 +24,37 @@ class ApplicationFactory
         $app = new Application();
         $container = $app->getContainer();
 
-        $container['CWD'] = function(){
-            return getcwd();
-        };
+        $container = $this->setCurrentWorkingDirectory($container);
 
-        if($this->dependencies !== null)
-        {
-            foreach ($this->dependencies as $key => $closure)
-            {
-                $container[$key] = $closure;
-            }
-        }
-
+        $this->registerDependencies($container);
 
         return $app;
     }
-    
+
+    /**
+     * @param $container
+     *
+     * @return mixed
+     */
+    protected function setCurrentWorkingDirectory($container)
+    {
+        $container['CWD'] = function () {
+            return getcwd();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param $container
+     */
+    protected function registerDependencies($container)
+    {
+        if ($this->dependencies !== null) {
+            foreach ($this->dependencies as $key => $closure) {
+                $container[$key] = $closure;
+            }
+        }
+    }
+
 }

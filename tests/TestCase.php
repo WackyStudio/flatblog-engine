@@ -55,7 +55,11 @@ class TestCase extends PHPUnit_Framework_TestCase
                             'someimage.jpg' => 'image'
                         ]
                     ]
-                ]
+                ],
+                'config.yml' => implode(PHP_EOL, [
+                    'posts:',
+                    '   prefix: blog'
+                ]),
             ]);
         } else {
             $this->vfs->createStructure($structure);
@@ -94,7 +98,14 @@ class TestCase extends PHPUnit_Framework_TestCase
                            ]
                        ]
                    ]
-                ]
+                ],
+                'config.yml' => implode(PHP_EOL, [
+                    'posts:',
+                    '   prefix: blog',
+                    '   templates:',
+                    '       single-post: single-post',
+                    '       '
+                ]),
             ]);
         } else {
             $this->vfs->createStructure($structure);

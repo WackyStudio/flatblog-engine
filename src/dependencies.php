@@ -7,6 +7,7 @@ use WackyStudio\Flatblog\Commands\Build;
 use WackyStudio\Flatblog\Commands\CreatePage;
 use WackyStudio\Flatblog\Commands\CreatePost;
 use WackyStudio\Flatblog\Commands\NewProject;
+use WackyStudio\Flatblog\Core\Config;
 use WackyStudio\Flatblog\Factories\PostEntityFactory;
 use WackyStudio\Flatblog\Factories\RawEntityFactory;
 use WackyStudio\Flatblog\Parsers\ContentParserManager;
@@ -25,6 +26,11 @@ return [
             'md' => MarkdownContentParser::class
         ];
     },
+
+    'config' => function($container){
+        return Config::getInstance($container[Filesystem::class]);
+    },
+
     // App Core Dependencies
     Filesystem::class => function($container){
       return new Filesystem($container['adapter']);

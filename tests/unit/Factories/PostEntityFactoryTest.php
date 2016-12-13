@@ -1,5 +1,7 @@
 <?php
 use Carbon\Carbon;
+use Mockery\Mock;
+use WackyStudio\Flatblog\Core\Config;
 use WackyStudio\Flatblog\Entities\RawEntity;
 use WackyStudio\Flatblog\Exceptions\InvalidDateGivenInSettingsFileException;
 use WackyStudio\Flatblog\Exceptions\PostIsMissingContentException;
@@ -13,9 +15,30 @@ use WackyStudio\Flatblog\Parsers\ParserManager;
 class PostEntityFactoryTest extends TestCase
 {
 
+    /**
+     * @var Mock
+     */
+    private $config;
+
     public function setUp()
     {
         parent::setUp();
+
+        $this->config = Mockery::mock(Config::class);
+    }
+
+    protected function mockConfigWithPostPrefix()
+    {
+        $this->config->shouldReceive('get')
+                     ->with('posts.prefix')
+                     ->andReturn('blog');
+    }
+
+    protected function mockConfigWithoutPostPrefix()
+    {
+        $this->config->shouldReceive('get')
+                     ->with('posts.prefix')
+                     ->andReturnNull();
     }
 
     public function tearDown()
@@ -26,10 +49,12 @@ class PostEntityFactoryTest extends TestCase
     /**
      * @test
      */
-    public function it_makes_a_post_entity_from_a_raw_entity()
+    public function it_makes_a_post_entity_from_a_raw_entity_with_posts_prefix()
     {
+        $this->mockConfigWithPostPrefix();
+
         $dateTime = Carbon::now();
-        $factory = new PostEntityFactory;
+        $factory = new PostEntityFactory($this->config);
         $rawEntity = new RawEntity('posts/subject/test',
             [
                 'title' => 'Test',
@@ -44,7 +69,34 @@ class PostEntityFactoryTest extends TestCase
         $this->assertEquals('Test', $postEntity->title);
         $this->assertEquals($dateTime, $postEntity->date);
         $this->assertEquals('subject', $postEntity->category);
-        $this->assertEquals('posts/subject/test', $postEntity->destination());
+        $this->assertEquals('blog/subject/test', $postEntity->destination());
+
+    }
+
+    /**
+    *@test
+    */
+    public function it_makes_a_post_entity_from_a_raw_entity_without_posts_prefix()
+    {
+        $this->mockConfigWithoutPostPrefix();
+
+        $dateTime = Carbon::now();
+        $factory = new PostEntityFactory($this->config);
+        $rawEntity = new RawEntity('posts/subject/test',
+            [
+                'title' => 'Test',
+                'summary' => 'This is a summary',
+                'image' => 'someimage.jpg',
+                'content' => 'file:content.md'
+            ],
+            $dateTime);
+
+        $postEntity = $factory->make($rawEntity);
+
+        $this->assertEquals('Test', $postEntity->title);
+        $this->assertEquals($dateTime, $postEntity->date);
+        $this->assertEquals('subject', $postEntity->category);
+        $this->assertEquals('subject/test', $postEntity->destination());
     }
 
     /**
@@ -52,8 +104,10 @@ class PostEntityFactoryTest extends TestCase
     */
     public function it_throws_a_missing_post_title_exception_if_title_is_missing()
     {
+        $this->mockConfigWithPostPrefix();
+
         $dateTime = Carbon::now();
-        $factory = new PostEntityFactory;
+        $factory = new PostEntityFactory($this->config);;
         $rawEntity = new RawEntity('posts/subject/test',
             [
                 'summary' => 'This is a summary',
@@ -76,9 +130,10 @@ class PostEntityFactoryTest extends TestCase
     */
     public function it_throws_an_exception_if_summary_is_missing()
     {
+        $this->mockConfigWithPostPrefix();
 
         $dateTime = Carbon::now();
-        $factory = new PostEntityFactory;
+        $factory = new PostEntityFactory($this->config);;
         $rawEntity = new RawEntity('posts/subject/test',
             [
                 'title' => 'Test',
@@ -101,8 +156,10 @@ class PostEntityFactoryTest extends TestCase
     */
     public function it_throws_an_exception_if_content_is_missing()
     {
+        $this->mockConfigWithPostPrefix();
+
         $dateTime = Carbon::now();
-        $factory = new PostEntityFactory;
+        $factory = new PostEntityFactory($this->config);;
         $rawEntity = new RawEntity('posts/subject/test',
             [
                 'title' => 'Test',
@@ -125,8 +182,10 @@ class PostEntityFactoryTest extends TestCase
     */
     public function it_throws_an_exception_if_image_is_missing()
     {
+        $this->mockConfigWithPostPrefix();
+
         $dateTime = Carbon::now();
-        $factory = new PostEntityFactory;
+        $factory = new PostEntityFactory($this->config);;
         $rawEntity = new RawEntity('posts/subject/test',
             [
                 'title' => 'Test',
@@ -148,8 +207,10 @@ class PostEntityFactoryTest extends TestCase
     */
     public function it_takes_date_from_post_settings_if_it_is_available()
     {
+        $this->mockConfigWithPostPrefix();
+
         $dateTime = Carbon::parse('2015-01-05');
-        $factory = new PostEntityFactory;
+        $factory = new PostEntityFactory($this->config);;
         $rawEntity = new RawEntity('posts/subject/test',
             [
                 'title' => 'Test',
@@ -166,7 +227,7 @@ class PostEntityFactoryTest extends TestCase
         $this->assertNotEquals($dateTime, $postEntity->date);
         $this->assertEquals(Carbon::parse('2015-01-06'), $postEntity->date);
         $this->assertEquals('subject', $postEntity->category);
-        $this->assertEquals('posts/subject/test', $postEntity->destination());
+        $this->assertEquals('blog/subject/test', $postEntity->destination());
     }
 
     /**
@@ -174,8 +235,9 @@ class PostEntityFactoryTest extends TestCase
     */
     public function it_throws_exception_if_date_given_in_settings_is_not_correct()
     {
+        $this->mockConfigWithPostPrefix();
         $dateTime = Carbon::parse('2015-01-05');
-        $factory = new PostEntityFactory;
+        $factory = new PostEntityFactory($this->config);;
         $rawEntity = new RawEntity('posts/subject/test',
             [
                 'title' => 'Test',
@@ -195,5 +257,7 @@ class PostEntityFactoryTest extends TestCase
 
         $this->fail('No exception was thrown for invalid date');
     }
+
+
 
 }
