@@ -41,11 +41,11 @@ class PostBuilderTest extends TestCase
 
         $singlePosts = $postBuilder->buildSinglePosts();
 
-        $this->assertArrayHasKey('backend/do-you-really-need-a-backend-for-that', $singlePosts);
-        $this->assertArrayHasKey('frontend/sass-tricks-you-should-know', $singlePosts);
+        $this->assertArrayHasKey('blog/backend/do-you-really-need-a-backend-for-that', $singlePosts);
+        $this->assertArrayHasKey('blog/frontend/sass-tricks-you-should-know', $singlePosts);
 
-        $this->assertEquals($expectedContentForBackendPost, $singlePosts['backend/do-you-really-need-a-backend-for-that']);
-        $this->assertEquals($expectedContentForFrontendPost, $singlePosts['frontend/sass-tricks-you-should-know']);
+        $this->assertEquals($expectedContentForBackendPost, $singlePosts['blog/backend/do-you-really-need-a-backend-for-that']);
+        $this->assertEquals($expectedContentForFrontendPost, $singlePosts['blog/frontend/sass-tricks-you-should-know']);
 
     }
 

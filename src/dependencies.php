@@ -41,7 +41,7 @@ return [
       return new RawEntityFactory($container[Filesystem::class], $container[SettingsParser::class], $container[ContentParserManager::class]);
     },
     PostEntityFactory::class => function($container){
-        return new PostEntityFactory;
+        return new PostEntityFactory($container['config']);
     },
 
     // Settings
