@@ -8,6 +8,7 @@ use WackyStudio\Flatblog\Commands\CreatePage;
 use WackyStudio\Flatblog\Commands\CreatePost;
 use WackyStudio\Flatblog\Commands\NewProject;
 use WackyStudio\Flatblog\Core\Config;
+use WackyStudio\Flatblog\Factories\PageEntityFactory;
 use WackyStudio\Flatblog\Factories\PostEntityFactory;
 use WackyStudio\Flatblog\Factories\RawEntityFactory;
 use WackyStudio\Flatblog\Parsers\ContentParserManager;
@@ -42,6 +43,9 @@ return [
     },
     PostEntityFactory::class => function($container){
         return new PostEntityFactory($container['config']);
+    },
+    PageEntityFactory::class => function($container){
+        return new PageEntityFactory;
     },
 
     // Settings

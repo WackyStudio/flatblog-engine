@@ -84,8 +84,10 @@ class TestCase extends PHPUnit_Framework_TestCase
                 'pages' => [
                    'about' => [
                        'settings.yml' => implode(PHP_EOL, [
-                          'header: Test header',
-                          'sections: dir:sections'
+                            'template: test-page',
+                            'header: Test header',
+                            'sections: dir:sections',
+                            'content: file:content.md'
                        ]),
                        'sections' => [
                            'test1.md' => '## test1',
@@ -94,12 +96,24 @@ class TestCase extends PHPUnit_Framework_TestCase
                        'content.md' => '## test'
                    ],
                    'parent' =>[
-                       'settings.yml' => 'test: test',
+                       'settings.yml' => implode(PHP_EOL, [
+                           'template: test-page',
+                           'header: Test header',
+                           'test: test',
+                       ]),
                        'child' => [
-                           'settings.yml'=> 'test: test',
+                           'settings.yml'=> implode(PHP_EOL, [
+                               'template: test-page',
+                               'header: Test header',
+                               'test: test',
+                           ]),
                            'skip' => [],
                            'second-child' =>[
-                               'settings.yml'=>'test: second'
+                               'settings.yml'=>implode(PHP_EOL, [
+                                   'template: test-page',
+                                   'header: Test header',
+                                   'test: second',
+                               ])
                            ]
                        ]
                    ]
@@ -109,7 +123,8 @@ class TestCase extends PHPUnit_Framework_TestCase
                     '   prefix: blog',
                     '   templates:',
                     '       single-post: single-post',
-                    '       '
+                    'pages:',
+                    'frontpage: parent'
                 ]),
             ]);
         } else {

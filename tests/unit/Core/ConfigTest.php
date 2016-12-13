@@ -25,7 +25,13 @@ class ConfigTest extends TestCase
 
         $this->assertEquals([
             'posts' => [
-                'prefix' => 'blog'
+                'prefix' => 'blog',
+                'templates' => [
+                    'single'=> 'single-post',
+                    'all-posts' => 'all-posts',
+                    'single-category' => 'single-category',
+                    'all-categories' => 'all-categories'
+                ]
             ]
         ], $config->all());
     }
