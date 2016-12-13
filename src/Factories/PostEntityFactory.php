@@ -45,7 +45,7 @@ class PostEntityFactory
             $settings['summary'],
             $settings['content'],
             $settings['image'],
-            strtolower($rawEntity->getPath())
+            str_replace('posts/', '', strtolower($rawEntity->getPath()))
         );
     }
 

@@ -11,7 +11,7 @@ class PostBuilderTest extends TestCase
     /**
     *@test
     */
-    public function it_builds_single_posts()
+    public function it_builds_single_posts_with_correct_url_key()
     {
         $fileSystem = $this->createVirtualFilesystemForPosts();
         $this->app->getContainer()[Filesystem::class] = function() use($fileSystem){
@@ -41,8 +41,11 @@ class PostBuilderTest extends TestCase
 
         $singlePosts = $postBuilder->buildSinglePosts();
 
-        $this->assertEquals($expectedContentForBackendPost, $singlePosts['posts/backend/do-you-really-need-a-backend-for-that']);
-        $this->assertEquals($expectedContentForFrontendPost, $singlePosts['posts/frontend/sass-tricks-you-should-know']);
+        $this->assertArrayHasKey('backend/do-you-really-need-a-backend-for-that', $singlePosts);
+        $this->assertArrayHasKey('frontend/sass-tricks-you-should-know', $singlePosts);
+
+        $this->assertEquals($expectedContentForBackendPost, $singlePosts['backend/do-you-really-need-a-backend-for-that']);
+        $this->assertEquals($expectedContentForFrontendPost, $singlePosts['frontend/sass-tricks-you-should-know']);
 
     }
 
