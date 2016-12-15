@@ -2,13 +2,14 @@
 namespace WackyStudio\Flatblog\Builders;
 
 use Illuminate\Support\Collection;
+use WackyStudio\Flatblog\Contracts\BuilderContract;
 use WackyStudio\Flatblog\Core\Config;
 use WackyStudio\Flatblog\Entities\PostEntity;
 use WackyStudio\Flatblog\Entities\RawEntity;
 use WackyStudio\Flatblog\Factories\PostEntityFactory;
 use WackyStudio\Flatblog\Templates\TemplateRenderer;
 
-class PostsBuilder
+class PostsBuilder implements BuilderContract
 {
 
     /**
@@ -32,6 +33,10 @@ class PostsBuilder
      * @var array
      */
     private $templates;
+    /**
+     * @var Config
+     */
+    private $config;
 
     public function __construct(array $rawEntities, PostEntityFactory $postEntityFactory, TemplateRenderer $renderer, Config $config)
     {
@@ -39,6 +44,21 @@ class PostsBuilder
         $this->postEntityFactory = $postEntityFactory;
         $this->renderer = $renderer;
         $this->templates = $config->get('posts.templates');
+        $this->config = $config;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function build()
+    {
+        $toWrite = collect([])
+            ->merge($this->buildSinglePosts())
+            ->merge($this->buildPostsList())
+            ->merge($this->buildSingleCategories())
+            ->merge($this->buildCategoryList());
+
+        return $toWrite;
     }
 
     public function buildSinglePosts()
@@ -54,7 +74,9 @@ class PostsBuilder
             return $postEntity->date->toDateString();
         });
 
-        return $this->renderer->render($this->templates['all-posts'], ['posts'=>$posts]);
+        $prefix = ($this->config->get('posts.prefix') !== null) ? $this->config->get('posts.prefix') : 'posts';
+
+        return [$prefix => $this->renderer->render($this->templates['all-posts'], ['posts'=>$posts])];
     }
 
     public function buildSingleCategories()
@@ -66,7 +88,10 @@ class PostsBuilder
                 return $postEntity->date->toDateString();
             });
             return $this->renderer->render($this->templates['single-category'], ['category' => $key, 'posts'=>$item]);
-        })->flatten(1);
+        })->flatMap(function($posts, $categoryName){
+            $prefix = ($this->config->get('posts.prefix') !== null) ? $this->config->get('posts.prefix') : 'posts';
+            return [$prefix.'/'.strtolower($categoryName) => $posts];
+        });
 
         return $categories;
     }
@@ -95,7 +120,9 @@ class PostsBuilder
             return $category;
         });
 
-        return $this->renderer->render($this->templates['all-categories'], ['categories'=>$categories]);
+        $prefix = ($this->config->get('posts.prefix') !== null) ? $this->config->get('posts.prefix') : 'posts';
+
+        return [$prefix.'/categories' => $this->renderer->render($this->templates['all-categories'], ['categories'=>$categories])];
     }
 
 }

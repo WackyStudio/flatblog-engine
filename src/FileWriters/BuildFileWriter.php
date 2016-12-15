@@ -17,25 +17,21 @@ class BuildFileWriter
         $this->filesystem = $filesystem;
     }
 
-    public function writeSingleFile($url, $content, $prefix = '')
+    public function writeSingleFile($url, $content)
     {
-        $buildUrl = $this->makeFilePath($url, $prefix);
+        $buildUrl = $this->makeFilePath($url);
 
         $this->filesystem->put($buildUrl, $content);
     }
 
     /**
      * @param $url
-     * @param $prefix
      *
      * @return string
      */
-    protected function makeFilePath($url, $prefix)
+    protected function makeFilePath($url)
     {
         $buildPieces = ['build'];
-        if ($prefix !== '') {
-            $buildPieces[] = $prefix;
-        }
         $buildPieces[] = $url;
         $buildPieces[] = 'index.html';
         $buildUrl = rtrim(implode('/', $buildPieces), '/');
@@ -43,7 +39,7 @@ class BuildFileWriter
         return $buildUrl;
     }
 
-    public function writeMultipleFiles(array $entities, $prefix)
+    public function writeMultipleFiles(array $entities)
     {
         foreach ($entities as $url => $content)
         {
@@ -52,7 +48,7 @@ class BuildFileWriter
                 throw new KeyMissingInFileArrayException('No key in form of URL path, was given in array');
             }
 
-            $this->writeSingleFile($url, $content, $prefix);
+            $this->writeSingleFile($url, $content);
         }
     }
 }

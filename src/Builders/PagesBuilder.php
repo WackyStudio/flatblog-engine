@@ -2,13 +2,14 @@
 namespace WackyStudio\Flatblog\Builders;
 
 use Illuminate\Support\Collection;
+use WackyStudio\Flatblog\Contracts\BuilderContract;
 use WackyStudio\Flatblog\Core\Config;
 use WackyStudio\Flatblog\Entities\PageEntity;
 use WackyStudio\Flatblog\Entities\RawEntity;
 use WackyStudio\Flatblog\Factories\PageEntityFactory;
 use WackyStudio\Flatblog\Templates\TemplateRenderer;
 
-class PagesBuilder
+class PagesBuilder implements BuilderContract
 {
 
     /**
@@ -41,6 +42,9 @@ class PagesBuilder
         $this->config = $config;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function build()
     {
         return $this->getPages()->flatMap(function (PageEntity $pageEntity) {

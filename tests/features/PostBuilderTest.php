@@ -80,7 +80,7 @@ class PostBuilderTest extends TestCase
 
         $result = $postBuilder->buildPostsList();
 
-        $this->assertEquals($expectedContent, $result);
+        $this->assertEquals($expectedContent, $result['blog']);
     }
 
     /**
@@ -122,8 +122,8 @@ class PostBuilderTest extends TestCase
 
         $categories = $postBuilder->buildSingleCategories();
 
-        $this->assertEquals($expectedContentBackend, $categories[0]);
-        $this->assertEquals($expectedContentFrontend, $categories[1]);
+        $this->assertEquals($expectedContentBackend, $categories['blog/backend']);
+        $this->assertEquals($expectedContentFrontend, $categories['blog/frontend']);
     }
     
     /**
@@ -152,8 +152,38 @@ class PostBuilderTest extends TestCase
             '</ul>'
         ]);
 
-        $categoryList = $postBuilder->buildCategoryList();
+        $result = $postBuilder->buildCategoryList();
 
-        $this->assertEquals($expectedContent, $categoryList);
+        $this->assertEquals($expectedContent, $result['blog/categories']);
+    }
+
+    /**
+     * @test
+     */
+    public function it_runs_all_builds_and_returns_array_of_files_to_written()
+    {
+        $fileSystem = $this->createVirtualFilesystemForPosts();
+        $this->app->getContainer()[Filesystem::class] = function() use($fileSystem){
+            return $fileSystem;
+        };
+        $rawEntities = ($this->app->getContainer()[RawEntityFactory::class])->getEntitiesForDirectory('posts');
+
+        $this->app->getContainer()[TemplateRenderer::class] = function(){
+            $path = __DIR__ . '/../helpers/views';
+            $cache = __DIR__ . '/../temp';
+            return new TemplateRenderer(new BladeInstance($path, $cache));
+        };
+
+        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
+
+        $toWrite = $postBuilder->build();
+
+        $this->assertArrayHasKey('blog/backend/do-you-really-need-a-backend-for-that', $toWrite);
+        $this->assertArrayHasKey('blog/frontend/sass-tricks-you-should-know', $toWrite);
+        $this->assertArrayHasKey('blog/frontend', $toWrite);
+        $this->assertArrayHasKey('blog/backend', $toWrite);
+        $this->assertArrayHasKey('blog/categories', $toWrite);
+        $this->assertArrayHasKey('blog', $toWrite);
+
     }
 }

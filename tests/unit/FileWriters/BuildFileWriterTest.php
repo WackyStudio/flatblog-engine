@@ -18,7 +18,7 @@ class BuildFileWriterTest extends TestCase
     /**
     *@test
     */
-    public function it_writes_contents_into_single_file_and_puts_it_into_directory_structure_to_match_given_url_without_prefix()
+    public function it_writes_contents_into_single_file_and_puts_it_into_directory_structure_to_match_given_url()
     {
         $fileSystem = $this->createVirtualFilesystemForPages();
         $writer = new BuildFileWriter($fileSystem);
@@ -34,36 +34,17 @@ class BuildFileWriterTest extends TestCase
     /**
     *@test
     */
-    public function it_writes_contents_into_single_file_and_puts_it_into_directory_structure_to_match_given_url_and_prefix()
-    {
-        $fileSystem = $this->createVirtualFilesystemForPages();
-        $writer = new BuildFileWriter($fileSystem);
-        $url = 'about';
-        $content = '<h1>test</h1>';
-        $prefix = 'pages';
-
-        $writer->writeSingleFile($url, $content, $prefix);
-
-        $this->assertTrue($fileSystem->has('build/pages/about/index.html'));
-        $this->assertEquals($fileSystem->read('build/pages/about/index.html'), $content);
-    }
-
-    /**
-    *@test
-    */
-    public function it_writes_contents_of_each_entity_in_array_of_multiple_files_and_puts_each_into_directory_structure_matching_its_url_and_given_prefix()
+    public function it_writes_contents_of_each_entity_in_array_of_multiple_files_and_puts_each_into_directory_structure_matching_its_url()
     {
         $fileSystem = $this->createVirtualFilesystemForPages();
         $writer = new BuildFileWriter($fileSystem);
         $entities = [
-            'frontend/sass-rocks' => '<h1>Sass</h1>',
-            'frontend/vue-rocks-more' => '<h1>Vue</h1>',
-            'backend/publier-rocks-the-most' => '<h1>Publier</h1>',
+            'blog/frontend/sass-rocks' => '<h1>Sass</h1>',
+            'blog/frontend/vue-rocks-more' => '<h1>Vue</h1>',
+            'blog/backend/publier-rocks-the-most' => '<h1>Publier</h1>',
         ];
 
-        $prefix = 'blog';
-
-        $writer->writeMultipleFiles($entities, $prefix);
+        $writer->writeMultipleFiles($entities);
 
         $this->assertTrue($fileSystem->has('build/blog/frontend/sass-rocks/index.html'));
         $this->assertTrue($fileSystem->has('build/blog/frontend/vue-rocks-more/index.html'));
@@ -86,10 +67,9 @@ class BuildFileWriterTest extends TestCase
             '<h1>Publier</h1>',
         ];
 
-        $prefix = 'blog';
 
         try{
-            $writer->writeMultipleFiles($entities, $prefix);
+            $writer->writeMultipleFiles($entities);
         }catch (KeyMissingInFileArrayException $e){
             $this->assertEquals('No key in form of URL path, was given in array', $e->getMessage());
             return;

@@ -2,6 +2,7 @@
 use duncan3dc\Laravel\BladeInstance;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use WackyStudio\Flatblog\Builders\PagesBuilder;
 use WackyStudio\Flatblog\Builders\PostsBuilder;
 use WackyStudio\Flatblog\Commands\Build;
 use WackyStudio\Flatblog\Commands\CreatePage;
@@ -11,10 +12,12 @@ use WackyStudio\Flatblog\Core\Config;
 use WackyStudio\Flatblog\Factories\PageEntityFactory;
 use WackyStudio\Flatblog\Factories\PostEntityFactory;
 use WackyStudio\Flatblog\Factories\RawEntityFactory;
+use WackyStudio\Flatblog\FileWriters\BuildFileWriter;
 use WackyStudio\Flatblog\Parsers\ContentParserManager;
 use WackyStudio\Flatblog\Parsers\MarkdownContentParser;
 use WackyStudio\Flatblog\Settings\SettingsParser;
 use WackyStudio\Flatblog\Settings\SettingsReferencesHandler;
+use WackyStudio\Flatblog\Templates\TemplateRenderer;
 
 return [
     //configs
@@ -35,6 +38,19 @@ return [
     // App Core Dependencies
     Filesystem::class => function($container){
       return new Filesystem($container['adapter']);
+    },
+    BuildFileWriter::class => function($container){
+        return new BuildFileWriter($container[Filesystem::class]);
+    },
+
+    // Builders
+    PostsBuilder::class => function($container){
+        $rawEntities = ($container[RawEntityFactory::class])->getEntitiesForDirectory('posts');
+        return new PostsBuilder($rawEntities, $container[PostEntityFactory::class], $container[TemplateRenderer::class], $container['config']);
+    },
+    PagesBuilder::class => function($container){
+        $rawEntities = ($container[RawEntityFactory::class])->getEntitiesForDirectory('pages');
+        return new PagesBuilder($rawEntities, $container[PageEntityFactory::class], $container[TemplateRenderer::class], $container['config']);
     },
 
     // Factories
@@ -67,6 +83,9 @@ return [
     },
 
     // Templates
+    TemplateRenderer::class => function($container){
+        return new TemplateRenderer($container[BladeInstance::class]);
+    },
     BladeInstance::class => function($container){
         $viewPath = $container['CWD'] . '/resources/views';
         $cachePath = $container['CWD'] . '/temp';
