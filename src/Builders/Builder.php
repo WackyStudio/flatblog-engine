@@ -6,10 +6,15 @@ use WackyStudio\Flatblog\FileWriters\BuildFileWriter;
 
 class Builder
 {
-    private $builders = [
+    private $buildersWithContentToBeWritten = [
         PagesBuilder::class,
-        PostsBuilder::class
+        PostsBuilder::class,
     ];
+
+    private $buildersWithOwnWriters = [
+        ImageFolderBuilder::class
+    ];
+
     /**
      * @var BuildFileWriter
      */
@@ -27,11 +32,24 @@ class Builder
 
     public function build()
     {
-        $entities = collect($this->builders)->transform(function($builderClass){
-            return ($this->container->get($builderClass))->build();
-        })->flatten(1)->toArray();
+        $this->runBuildersAndWriteContentsToBuildFolder();
+        $this->runBuildersWithOwnFileWriter();
+    }
 
-        $this->fileWriter->writeMultipleFiles($entities, '');
+    protected function runBuildersAndWriteContentsToBuildFolder()
+    {
+        $this->fileWriter->writeMultipleFiles(collect($this->buildersWithContentToBeWritten)
+            ->flatMap(function ($builderClass) {
+                return ( $this->container->get($builderClass) )->build();
+            })
+            ->toArray());
+    }
+
+    protected function runBuildersWithOwnFileWriter()
+    {
+        collect($this->buildersWithOwnWriters)->each(function ($builderClass) {
+            ( $this->container->get($builderClass) )->build();
+        });
     }
 
 }

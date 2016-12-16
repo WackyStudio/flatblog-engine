@@ -153,7 +153,8 @@ class TestCase extends PHPUnit_Framework_TestCase
                         'test1.md' => '## test1',
                         'test2.md' => '## test2',
                     ],
-                    'content.md' => '## test'
+                    'content.md' => '## test',
+                    'aboutImage.jpg' => 'image'
                 ],
                 'parent' =>[
                     'settings.yml' => implode(PHP_EOL, [
@@ -161,19 +162,22 @@ class TestCase extends PHPUnit_Framework_TestCase
                         'header: Test header',
                         'test: test',
                     ]),
+                    'parentImage.png' => 'image',
                     'child' => [
                         'settings.yml'=> implode(PHP_EOL, [
                             'template: test-page',
                             'header: Test header',
                             'test: test',
                         ]),
+                        'childImage.gif' => 'image',
                         'skip' => [],
                         'second-child' =>[
                             'settings.yml'=>implode(PHP_EOL, [
                                 'template: test-page',
                                 'header: Test header',
                                 'test: second',
-                            ])
+                            ]),
+                            'second-child-image.bmp' => 'image'
                         ]
                     ]
                 ]

@@ -2,6 +2,7 @@
 use duncan3dc\Laravel\BladeInstance;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use WackyStudio\Flatblog\Builders\ImageFolderBuilder;
 use WackyStudio\Flatblog\Builders\PagesBuilder;
 use WackyStudio\Flatblog\Builders\PostsBuilder;
 use WackyStudio\Flatblog\Commands\Build;
@@ -51,6 +52,13 @@ return [
     PagesBuilder::class => function($container){
         $rawEntities = ($container[RawEntityFactory::class])->getEntitiesForDirectory('pages');
         return new PagesBuilder($rawEntities, $container[PageEntityFactory::class], $container[TemplateRenderer::class], $container['config']);
+    },
+    ImageFolderBuilder::class => function($container){
+        $rawEntities = collect([])
+            ->merge(($container[RawEntityFactory::class])->getEntitiesForDirectory('posts'))
+            ->merge(($container[RawEntityFactory::class])->getEntitiesForDirectory('pages'))
+            ->toArray();
+        return new ImageFolderBuilder($rawEntities, $container[Filesystem::class]);
     },
 
     // Factories

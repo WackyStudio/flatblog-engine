@@ -54,6 +54,11 @@ class BuilderTest extends TestCase
         $this->assertTrue($this->fileSystem->has('build/blog/backend/index.html'));
         $this->assertTrue($this->fileSystem->has('build/blog/frontend/sass-tricks-you-should-know/index.html'));
         $this->assertTrue($this->fileSystem->has('build/blog/backend/do-you-really-need-a-backend-for-that/index.html'));
+        $this->assertTrue($this->fileSystem->has('build/images/someimage.jpg'));
+        $this->assertTrue($this->fileSystem->has('build/images/second-child-image.bmp'));
+        $this->assertTrue($this->fileSystem->has('build/images/childImage.gif'));
+        $this->assertTrue($this->fileSystem->has('build/images/parentImage.png'));
+        $this->assertTrue($this->fileSystem->has('build/images/aboutImage.jpg'));
     }
 
 }
