@@ -48,6 +48,11 @@ class PagesBuilder implements BuilderContract
     public function build()
     {
         return $this->getPages()->flatMap(function (PageEntity $pageEntity) {
+            if($pageEntity->destination() == $this->config->get('pages.frontpage'))
+            {
+                return ['_frontpage' => $this->renderer->render($pageEntity->template, $pageEntity->getAttributes())];
+            }
+
             return [$pageEntity->destination() => $this->renderer->render($pageEntity->template, $pageEntity->getAttributes())];
         });
     }

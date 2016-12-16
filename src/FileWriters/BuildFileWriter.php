@@ -32,7 +32,12 @@ class BuildFileWriter
     protected function makeFilePath($url)
     {
         $buildPieces = ['build'];
-        $buildPieces[] = $url;
+
+        if($url !== '_frontpage')
+        {
+            $buildPieces[] = $url;
+        }
+
         $buildPieces[] = 'index.html';
         $buildUrl = rtrim(implode('/', $buildPieces), '/');
 

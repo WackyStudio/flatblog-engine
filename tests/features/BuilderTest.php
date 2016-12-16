@@ -44,8 +44,8 @@ class BuilderTest extends TestCase
         $builder->build();
 
         $this->assertTrue($this->fileSystem->has('build'));
+        $this->assertTrue($this->fileSystem->has('build/index.html'));
         $this->assertTrue($this->fileSystem->has('build/about/index.html'));
-        $this->assertTrue($this->fileSystem->has('build/parent/index.html'));
         $this->assertTrue($this->fileSystem->has('build/parent/child/index.html'));
         $this->assertTrue($this->fileSystem->has('build/parent/child/second-child/index.html'));
         $this->assertTrue($this->fileSystem->has('build/blog/index.html'));

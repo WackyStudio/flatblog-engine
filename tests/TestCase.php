@@ -124,7 +124,7 @@ class TestCase extends PHPUnit_Framework_TestCase
                     '   templates:',
                     '       single-post: single-post',
                     'pages:',
-                    'frontpage: parent'
+                    '   frontpage: parent'
                 ]
                 ),
             ]);
@@ -215,7 +215,7 @@ class TestCase extends PHPUnit_Framework_TestCase
                 '       single-category: single-category',
                 '       all-categories: all-categories',
                 'pages:',
-                'frontpage: parent'
+                '   frontpage: parent'
             ]),
         ]);
 

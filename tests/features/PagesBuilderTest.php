@@ -76,4 +76,33 @@ class PagesBuilderTest extends TestCase
         $this->assertEquals($expectedContent, $pages['parent/child/second-child']);
     }
 
+    /**
+    *@test
+    */
+    public function it_builds_a_frontpage()
+    {
+        $fileSystem = $this->createVirtualFilesystemForPages();
+        $this->app->getContainer()[Filesystem::class] = function() use($fileSystem){
+            return $fileSystem;
+        };
+        $rawEntities = ($this->app->getContainer()[RawEntityFactory::class])->getEntitiesForDirectory('pages');
+
+        $this->app->getContainer()[TemplateRenderer::class] = function(){
+            $path = __DIR__ . '/../helpers/views';
+            $cache = __DIR__ . '/../temp';
+            return new TemplateRenderer(new BladeInstance($path, $cache));
+        };
+
+        $pagesBuilder = new PagesBuilder($rawEntities, $this->app->getContainer()[PageEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
+
+        $pages = $pagesBuilder->build();
+
+        $expectedContent = implode(PHP_EOL, [
+            '<h1>Test header</h1>'
+        ]);
+
+        $this->assertArrayHasKey('_frontpage', $pages);
+        $this->assertEquals($expectedContent, $pages['_frontpage']);
+    }
+
 }

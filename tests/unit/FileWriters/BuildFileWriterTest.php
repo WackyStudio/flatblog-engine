@@ -78,4 +78,21 @@ class BuildFileWriterTest extends TestCase
         $this->fail('No exception for missing key, was thrown');
     }
 
+    /**
+    *@test
+    */
+    public function it_supports_writing_pages_at_root_like_frontpages()
+    {
+        $fileSystem = $this->createVirtualFilesystemForPages();
+        $writer = new BuildFileWriter($fileSystem);
+        $entities = [
+            '_frontpage' => '<h1>Frontpage</h1>',
+        ];
+
+        $writer->writeMultipleFiles($entities);
+
+        $this->assertTrue($fileSystem->has('build/index.html'));
+        $this->assertEquals($fileSystem->read('build/index.html'), '<h1>Frontpage</h1>');
+    }
+
 }
