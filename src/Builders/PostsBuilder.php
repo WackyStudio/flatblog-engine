@@ -74,9 +74,12 @@ class PostsBuilder implements BuilderContract
             return $postEntity->date->toDateString();
         });
 
-        $prefix = ($this->config->get('posts.prefix') !== null) ? $this->config->get('posts.prefix') : 'posts';
+        if($posts->count() > $this->config->get('posts.paginate-lists-at') )
+        {
+            return $this->buildPostsListWithPagination($posts);
+        }
 
-        return [$prefix => $this->renderer->render($this->templates['all-posts'], ['posts'=>$posts])];
+        return $this->buildPostListWithoutPagination($posts);
     }
 
     public function buildSingleCategories()
@@ -96,19 +99,6 @@ class PostsBuilder implements BuilderContract
         return $categories;
     }
 
-
-    private function getPosts()
-    {
-        if($this->posts == null)
-        {
-            $this->posts = collect($this->rawrawEntities)->transform(function (RawEntity $rawEntity) {
-                return $this->postEntityFactory->make($rawEntity);
-            });
-        }
-
-        return $this->posts;
-    }
-
     public function buildCategoryList()
     {
         $categories = $this->getPosts()->groupBy(function (PostEntity $postEntity) {
@@ -123,6 +113,54 @@ class PostsBuilder implements BuilderContract
         $prefix = ($this->config->get('posts.prefix') !== null) ? $this->config->get('posts.prefix') : 'posts';
 
         return [$prefix.'/categories' => $this->renderer->render($this->templates['all-categories'], ['categories'=>$categories])];
+    }
+
+    private function getPosts()
+    {
+        if($this->posts == null)
+        {
+            $this->posts = collect($this->rawrawEntities)->transform(function (RawEntity $rawEntity) {
+                return $this->postEntityFactory->make($rawEntity);
+            });
+        }
+
+        return $this->posts;
+    }
+
+    /**
+     * @param $posts
+     *
+     * @return array
+     */
+    protected function buildPostListWithoutPagination(Collection $posts)
+    {
+        $prefix = ( $this->config->get('posts.prefix') !== null ) ? $this->config->get('posts.prefix') : 'posts';
+
+        return [$prefix => $this->renderer->render($this->templates['all-posts'], ['posts' => $posts])];
+    }
+
+    /**
+     * @param $posts
+     *
+     * @return array
+     */
+    private function buildPostsListWithPagination(Collection $posts)
+    {
+        $prefix = ( $this->config->get('posts.prefix') !== null ) ? $this->config->get('posts.prefix') : 'posts';
+        $postsPaginated = $posts->chunk($this->config->get('posts.paginate-lists-at'));
+
+        $totalPages = $postsPaginated->count();
+
+        return $postsPaginated->flatMap(function ($posts, $key) use($prefix, $totalPages){
+            $pageNumber = $key + 1;
+
+            if($pageNumber == 1)
+            {
+                return [$prefix => $this->renderer->render($this->templates['all-posts'], ['posts' => $posts, 'currentPage' => $pageNumber, 'totalPages' => $totalPages])];
+            }
+
+            return  [$prefix."/page/{$pageNumber}" => $this->renderer->render($this->templates['all-posts'], ['posts' => $posts, 'currentPage' => $pageNumber, 'totalPages' => $totalPages])];
+        })->toArray();
     }
 
 }

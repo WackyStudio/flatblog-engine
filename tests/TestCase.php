@@ -63,7 +63,8 @@ class TestCase extends PHPUnit_Framework_TestCase
                     '       single: single-post',
                     '       all-posts: all-posts',
                     '       single-category: single-category',
-                    '       all-categories: all-categories'
+                    '       all-categories: all-categories',
+                    '   paginate-lists-at: 5'
                 ]),
             ]);
         } else {
@@ -123,6 +124,7 @@ class TestCase extends PHPUnit_Framework_TestCase
                     '   prefix: blog',
                     '   templates:',
                     '       single-post: single-post',
+                    '   paginate-lists-at: 5',
                     'pages:',
                     '   frontpage: parent'
                 ]
@@ -230,6 +232,7 @@ class TestCase extends PHPUnit_Framework_TestCase
                 '       all-posts: all-posts',
                 '       single-category: single-category',
                 '       all-categories: all-categories',
+                '   paginate-lists-at: 5',
                 'pages:',
                 '   frontpage: parent'
             ]),
