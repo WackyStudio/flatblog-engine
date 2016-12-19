@@ -154,7 +154,9 @@ class TestCase extends PHPUnit_Framework_TestCase
                         'test2.md' => '## test2',
                     ],
                     'content.md' => '## test',
-                    'aboutImage.jpg' => 'image'
+                    'images' => [
+                        'aboutImage.jpg' => 'image'
+                    ]
                 ],
                 'parent' =>[
                     'settings.yml' => implode(PHP_EOL, [
@@ -162,14 +164,18 @@ class TestCase extends PHPUnit_Framework_TestCase
                         'header: Test header',
                         'test: test',
                     ]),
-                    'parentImage.png' => 'image',
+                    'images' => [
+                        'parentImage.png' => 'image',
+                    ],
                     'child' => [
                         'settings.yml'=> implode(PHP_EOL, [
                             'template: test-page',
                             'header: Test header',
                             'test: test',
                         ]),
-                        'childImage.gif' => 'image',
+                        'images' => [
+                            'childImage.gif' => 'image',
+                        ],
                         'skip' => [],
                         'second-child' =>[
                             'settings.yml'=>implode(PHP_EOL, [
@@ -177,7 +183,9 @@ class TestCase extends PHPUnit_Framework_TestCase
                                 'header: Test header',
                                 'test: second',
                             ]),
-                            'second-child-image.bmp' => 'image'
+                            'images' => [
+                                'second-child-image.bmp' => 'image'
+                            ]
                         ]
                     ]
                 ]
@@ -188,12 +196,14 @@ class TestCase extends PHPUnit_Framework_TestCase
                         'settings.yml' => implode(PHP_EOL, [
                             'title: Sass tricks you should know!',
                             'summary: This is a summary',
-                            'image: file:someimage.jpg',
+                            'image: file:images/someimage.jpg',
                             'content: file:content.md',
                             'date: "2016-03-01"'
                         ]),
                         'content.md' => '## Hello World',
-                        'someimage.jpg' => 'image'
+                        'images' => [
+                            'someimage.jpg' => 'image'
+                        ]
                     ]
                 ],
                 'Backend' => [
@@ -201,12 +211,14 @@ class TestCase extends PHPUnit_Framework_TestCase
                         'settings.yml' => implode(PHP_EOL, [
                             'title: Do you really need a backend for that?',
                             'summary: This is a summary',
-                            'image: file:someimage.jpg',
+                            'image: file:images/someimage.jpg',
                             'content: file:content.md',
                             'date: "2016-01-02"'
                         ]),
                         'content.md' => '## Hello World 2',
-                        'someimage.jpg' => 'image'
+                        'images' => [
+                            'someimage.jpg' => 'image'
+                        ]
                     ]
                 ]
             ],

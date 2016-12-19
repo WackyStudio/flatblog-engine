@@ -32,6 +32,7 @@ class Builder
 
     public function build()
     {
+        $this->clearBuildFolder();
         $this->runBuildersAndWriteContentsToBuildFolder();
         $this->runBuildersWithOwnFileWriter();
     }
@@ -50,6 +51,11 @@ class Builder
         collect($this->buildersWithOwnWriters)->each(function ($builderClass) {
             ( $this->container->get($builderClass) )->build();
         });
+    }
+
+    private function clearBuildFolder()
+    {
+        $this->fileWriter->removeBuildFiles();
     }
 
 }

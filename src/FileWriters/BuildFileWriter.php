@@ -56,4 +56,18 @@ class BuildFileWriter
             $this->writeSingleFile($url, $content);
         }
     }
+
+    public function removeBuildFiles()
+    {
+        if($this->filesystem->has('build'))
+        {
+            collect($this->filesystem->listContents('build', true))->filter(function($file){
+                return $file['type'] == 'file';
+            })->each(function ($file) {
+                $this->filesystem->delete($file['path']);
+            });
+
+            $this->filesystem->deleteDir('build');
+        }
+    }
 }

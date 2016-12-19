@@ -95,4 +95,19 @@ class BuildFileWriterTest extends TestCase
         $this->assertEquals($fileSystem->read('build/index.html'), '<h1>Frontpage</h1>');
     }
 
+    /**
+    *@test
+    */
+    public function it_removes_build_folder()
+    {
+        $fileSystem = $this->createVirtualFilesystemForPages();
+        $fileSystem->write('build/test.txt', 'lorem ipsum');
+        $this->assertTrue($fileSystem->has('build/test.txt'));
+        $writer = new BuildFileWriter($fileSystem);
+
+        $writer->removeBuildFiles();
+
+        $this->assertFalse($fileSystem->has('build/test.txt'));
+    }
+
 }

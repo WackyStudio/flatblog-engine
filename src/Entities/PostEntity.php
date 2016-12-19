@@ -40,9 +40,15 @@ class PostEntity implements BuildDestinationContract
     /**
      * @var string
      */
+    public $categoryLink;
+
+    /**
+     * @var string
+     */
     private $destination;
 
-    public function __construct($title, Carbon $date, $category = null, $summary, $content, $image, $destination)
+
+    public function __construct($title, Carbon $date, $category = null, $categoryLink, $summary, $content, $image, $destination)
     {
         $this->title = $title;
         $this->date = $date;
@@ -51,6 +57,7 @@ class PostEntity implements BuildDestinationContract
         $this->category = $category;
         $this->summary = $summary;
         $this->destination = $destination;
+        $this->categoryLink = $categoryLink;
     }
 
     /**

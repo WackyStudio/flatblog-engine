@@ -37,7 +37,7 @@ class ImageFolderBuilder implements BuilderContract
     public function build()
     {
         $images = collect($this->rawEntities)->flatMap(function (RawEntity $rawEntity) {
-            return collect($this->fileSystem->listContents($rawEntity->getPath()));
+            return collect($this->fileSystem->listContents($rawEntity->getPath().'/images'));
         })->filter(function($file){
             return $file['type'] !== 'dir';
         })->filter(function($file){
@@ -51,7 +51,5 @@ class ImageFolderBuilder implements BuilderContract
                 $this->fileSystem->copy($image['path'], $destination);
             }
         });
-
-
     }
 }

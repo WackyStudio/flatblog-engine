@@ -43,7 +43,8 @@ class PostEntityFactory
         return new PostEntity(
             $settings['title'],
             $this->handlePostDate($rawEntity, $settings),
-            $rawEntity->getSubDirectories()[1],
+            ucfirst($rawEntity->getSubDirectories()[1]),
+            $this->handlePostDestination($rawEntity->getSubDirectories()[0].'/'.$rawEntity->getSubDirectories()[1]),
             $settings['summary'],
             $settings['content'],
             $settings['image'],

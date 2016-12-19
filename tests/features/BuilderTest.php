@@ -61,4 +61,28 @@ class BuilderTest extends TestCase
         $this->assertTrue($this->fileSystem->has('build/images/aboutImage.jpg'));
     }
 
+    /**
+    *@test
+    */
+    public function it_clears_build_dir_before_build()
+    {
+        $this->fileSystem->write('build/testClearing.txt', 'some content');
+
+        $this->app->getContainer()[Filesystem::class] = function() {
+            return $this->fileSystem;
+        };
+
+        $this->app->getContainer()[TemplateRenderer::class] = function(){
+            $path = __DIR__ . '/../helpers/views';
+            $cache = __DIR__ . '/../temp';
+            return new TemplateRenderer(new BladeInstance($path, $cache));
+        };
+
+        $builder = new Builder($this->app->getContainer()[BuildFileWriter::class], $this->app->getContainer());
+
+        $builder->build();
+
+        $this->assertFalse($this->fileSystem->has('build/testClearing.txt'));
+    }
+
 }

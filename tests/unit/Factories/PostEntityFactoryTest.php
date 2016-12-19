@@ -68,8 +68,9 @@ class PostEntityFactoryTest extends TestCase
 
         $this->assertEquals('Test', $postEntity->title);
         $this->assertEquals($dateTime, $postEntity->date);
-        $this->assertEquals('subject', $postEntity->category);
+        $this->assertEquals('Subject', $postEntity->category);
         $this->assertEquals('blog/subject/test', $postEntity->destination());
+        $this->assertEquals('blog/subject', $postEntity->categoryLink);
 
     }
 
@@ -95,8 +96,9 @@ class PostEntityFactoryTest extends TestCase
 
         $this->assertEquals('Test', $postEntity->title);
         $this->assertEquals($dateTime, $postEntity->date);
-        $this->assertEquals('subject', $postEntity->category);
+        $this->assertEquals('Subject', $postEntity->category);
         $this->assertEquals('subject/test', $postEntity->destination());
+        $this->assertEquals('subject', $postEntity->categoryLink);
     }
 
     /**
@@ -226,8 +228,9 @@ class PostEntityFactoryTest extends TestCase
         $this->assertEquals('Test', $postEntity->title);
         $this->assertNotEquals($dateTime, $postEntity->date);
         $this->assertEquals(Carbon::parse('2015-01-06'), $postEntity->date);
-        $this->assertEquals('subject', $postEntity->category);
+        $this->assertEquals('Subject', $postEntity->category);
         $this->assertEquals('blog/subject/test', $postEntity->destination());
+        $this->assertEquals('blog/subject', $postEntity->categoryLink);
     }
 
     /**
