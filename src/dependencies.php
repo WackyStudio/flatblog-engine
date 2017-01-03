@@ -15,6 +15,7 @@ use WackyStudio\Flatblog\Factories\PageEntityFactory;
 use WackyStudio\Flatblog\Factories\PostEntityFactory;
 use WackyStudio\Flatblog\Factories\RawEntityFactory;
 use WackyStudio\Flatblog\FileWriters\BuildFileWriter;
+use WackyStudio\Flatblog\Makers\PageMaker;
 use WackyStudio\Flatblog\Makers\PostMaker;
 use WackyStudio\Flatblog\Parsers\ContentParserManager;
 use WackyStudio\Flatblog\Parsers\MarkdownContentParser;
@@ -123,6 +124,9 @@ return [
     // File Makers
     PostMaker::class => function($container){
         return new PostMaker($container[Filesystem::class]);
+    },
+    PageMaker::class => function($container){
+        return new PageMaker($container[Filesystem::class]);
     }
 
 ];

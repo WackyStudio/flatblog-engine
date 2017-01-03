@@ -23,9 +23,8 @@ class CreatePostTest extends TestCase
     public function it_creates_a_new_post()
     {
         $fileSystem = $this->createVirtualFilesystemForPosts();
-        $this->app->getContainer()[Filesystem::class] = function() use($fileSystem){
-            return $fileSystem;
-        };
+
+
 
         $postMaker = $this->app->getContainer()[PostMaker::class];
         

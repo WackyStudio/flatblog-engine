@@ -84,7 +84,7 @@ class PostMakerTest extends TestCase
             $maker->makeNewPostNamed($name);
         }catch (CannotFindPostsException $e)
         {
-            $this->assertEquals($e->getMessage(), 'Cannot find posts folder in current location');
+            $this->assertEquals('Cannot find posts folder in current location', $e->getMessage());
             return;
         }
 
