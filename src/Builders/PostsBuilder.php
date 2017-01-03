@@ -92,7 +92,7 @@ class PostsBuilder implements BuilderContract
             });
             return $this->renderer->render($this->templates['single-category'], ['category' => $key, 'posts'=>$item]);
         })->flatMap(function($posts, $categoryName){
-            $prefix = ($this->config->get('posts.prefix') !== null) ? $this->config->get('posts.prefix') : 'posts';
+            $prefix = $this->getPostPrefix();
             return [$prefix.'/'.strtolower($categoryName) => $posts];
         });
 
@@ -109,8 +109,7 @@ class PostsBuilder implements BuilderContract
             $category->postsCount = $posts->count();
             return $category;
         });
-
-        $prefix = ($this->config->get('posts.prefix') !== null) ? $this->config->get('posts.prefix') : 'posts';
+        $prefix = $this->getPostPrefix();
 
         return [$prefix.'/categories' => $this->renderer->render($this->templates['all-categories'], ['categories'=>$categories])];
     }
@@ -134,7 +133,7 @@ class PostsBuilder implements BuilderContract
      */
     protected function buildPostListWithoutPagination(Collection $posts)
     {
-        $prefix = ( $this->config->get('posts.prefix') !== null ) ? $this->config->get('posts.prefix') : 'posts';
+        $prefix = $this->getPostPrefix();
 
         return [$prefix => $this->renderer->render($this->templates['all-posts'], ['posts' => $posts])];
     }
@@ -146,7 +145,7 @@ class PostsBuilder implements BuilderContract
      */
     private function buildPostsListWithPagination(Collection $posts)
     {
-        $prefix = ( $this->config->get('posts.prefix') !== null ) ? $this->config->get('posts.prefix') : 'posts';
+        $prefix = $this->getPostPrefix();
         $postsPaginated = $posts->chunk($this->config->get('posts.paginate-lists-at'));
 
         $totalPages = $postsPaginated->count();
@@ -161,6 +160,16 @@ class PostsBuilder implements BuilderContract
 
             return  [$prefix."/page/{$pageNumber}" => $this->renderer->render($this->templates['all-posts'], ['posts' => $posts, 'currentPage' => $pageNumber, 'totalPages' => $totalPages])];
         })->toArray();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getPostPrefix()
+    {
+        $prefix = ( $this->config->get('posts.prefix') !== null ) ? $this->config->get('posts.prefix') : 'posts';
+
+        return $prefix;
     }
 
 }

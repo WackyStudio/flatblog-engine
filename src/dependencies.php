@@ -15,6 +15,7 @@ use WackyStudio\Flatblog\Factories\PageEntityFactory;
 use WackyStudio\Flatblog\Factories\PostEntityFactory;
 use WackyStudio\Flatblog\Factories\RawEntityFactory;
 use WackyStudio\Flatblog\FileWriters\BuildFileWriter;
+use WackyStudio\Flatblog\Makers\PostMaker;
 use WackyStudio\Flatblog\Parsers\ContentParserManager;
 use WackyStudio\Flatblog\Parsers\MarkdownContentParser;
 use WackyStudio\Flatblog\Settings\SettingsParser;
@@ -117,6 +118,11 @@ return [
     },
     NewProject::class => function(){
         return new NewProject;
+    },
+
+    // File Makers
+    PostMaker::class => function($container){
+        return new PostMaker($container[Filesystem::class]);
     }
 
 ];

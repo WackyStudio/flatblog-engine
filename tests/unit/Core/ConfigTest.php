@@ -30,8 +30,9 @@ class ConfigTest extends TestCase
                     'single'=> 'single-post',
                     'all-posts' => 'all-posts',
                     'single-category' => 'single-category',
-                    'all-categories' => 'all-categories'
-                ]
+                    'all-categories' => 'all-categories',
+                ],
+                'paginate-lists-at' => 5
             ]
         ], $config->all());
     }
