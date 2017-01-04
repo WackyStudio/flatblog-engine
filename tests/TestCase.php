@@ -65,6 +65,8 @@ class TestCase extends PHPUnit_Framework_TestCase
                     '       all-posts: all-posts',
                     '       single-category: single-category',
                     '       all-categories: all-categories',
+                    '   disqus:',
+                    '       shortname: YOUR_SHORT_NAME',
                     '   paginate-lists-at: 5'
                 ]),
             ]);
@@ -126,6 +128,8 @@ class TestCase extends PHPUnit_Framework_TestCase
                     '   prefix: blog',
                     '   templates:',
                     '       single-post: single-post',
+                    '   disqus:',
+                    '       shortname: YOUR_SHORT_NAME',
                     '   paginate-lists-at: 5',
                     'pages:',
                     '   frontpage: parent'
@@ -235,6 +239,8 @@ class TestCase extends PHPUnit_Framework_TestCase
                 '       all-posts: all-posts',
                 '       single-category: single-category',
                 '       all-categories: all-categories',
+                '   disqus:',
+                '       shortname: YOUR_SHORT_NAME',
                 '   paginate-lists-at: 5',
                 'pages:',
                 '   frontpage: parent'

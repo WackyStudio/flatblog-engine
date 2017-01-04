@@ -33,6 +33,9 @@ class ConfigTest extends TestCase
                     'single-category' => 'single-category',
                     'all-categories' => 'all-categories',
                 ],
+                'disqus' => [
+                    'shortname' => 'YOUR_SHORT_NAME',
+                ],
                 'paginate-lists-at' => 5
             ]
         ], $config->all());
