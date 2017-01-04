@@ -67,7 +67,7 @@ If a variable needs to hold an array of items, a folder of markdown files could 
 - A template for a category should have a name of category.blade.php *DONE*
 
 # Linked Services
-- A sitemap file should be created for each project
+- A sitemap file should be created for each project *DONE*
     - to make it easier for search engines
     - to make it possible to track changes
     - to make it possible to track new posts
@@ -92,8 +92,6 @@ If a variable needs to hold an array of items, a folder of markdown files could 
 # Optimizations
 - Images should be copied from source into build /images *DONE*
 - Images should be placed in images folder to be copied automatically *DONE*
-- You can get a settings.yml with predefined variables based on template
-- Feed back in CLI on build 
 - sitemap.txt *DONE*
 - should not delete everything from build folder, leave css and js *DONE*
 
