@@ -2,6 +2,7 @@
 use duncan3dc\Laravel\BladeInstance;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use WackyStudio\Flatblog\Core\Config;
 use WackyStudio\Flatblog\Templates\TemplateRenderer;
 
 class TemplateRendererTest extends PHPUnit_Framework_TestCase
@@ -39,13 +40,14 @@ class TemplateRendererTest extends PHPUnit_Framework_TestCase
     public function it_renders_template_from_template_name_with_data()
     {
         $blade = new BladeInstance($this->viewPath, $this->cachePath);
-        $renderer = new TemplateRenderer($blade);
+        $config = Mockery::mock(Config::class)->shouldReceive('get')->with('someVar')->andReturn('test')->getMock();
+        $renderer = new TemplateRenderer($blade, $config);
 
         $content = $renderer->render('test', [
             'test' => 'HELLO WORLD'
         ]);
 
-        $this->assertEquals('<h1>HELLO WORLD</h1>', $content);
+        $this->assertEquals('<h1>HELLO WORLD - test</h1>', $content);
     
     }
 

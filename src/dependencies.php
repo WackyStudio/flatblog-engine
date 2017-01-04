@@ -105,7 +105,7 @@ return [
 
     // Templates
     TemplateRenderer::class => function($container){
-        return new TemplateRenderer($container[BladeInstance::class]);
+        return new TemplateRenderer($container[BladeInstance::class], $container['config']);
     },
     BladeInstance::class => function($container){
         $viewPath = $container['CWD'] . '/resources/views';

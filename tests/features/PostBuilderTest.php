@@ -169,7 +169,7 @@ class PostBuilderTest extends TestCase
         $this->app->getContainer()[TemplateRenderer::class] = function(){
             $path = __DIR__ . '/../helpers/views';
             $cache = __DIR__ . '/../temp';
-            return new TemplateRenderer(new BladeInstance($path, $cache));
+            return new TemplateRenderer(new BladeInstance($path, $cache), $this->app->getContainer()['config']);
         };
 
         $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
@@ -208,7 +208,7 @@ class PostBuilderTest extends TestCase
         $this->app->getContainer()[TemplateRenderer::class] = function(){
             $path = __DIR__ . '/../helpers/views';
             $cache = __DIR__ . '/../temp';
-            return new TemplateRenderer(new BladeInstance($path, $cache));
+            return new TemplateRenderer(new BladeInstance($path, $cache), $this->app->getContainer()['config']);
         };
 
         $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
@@ -245,7 +245,7 @@ class PostBuilderTest extends TestCase
         $this->app->getContainer()[TemplateRenderer::class] = function(){
             $path = __DIR__ . '/../helpers/views';
             $cache = __DIR__ . '/../temp';
-            return new TemplateRenderer(new BladeInstance($path, $cache));
+            return new TemplateRenderer(new BladeInstance($path, $cache), $this->app->getContainer()['config']);
         };
         $config = Mockery::mock(Config::class);
         $config->shouldReceive('get')->with('posts.paginate-lists-at')->andReturn(10);
@@ -347,7 +347,7 @@ class PostBuilderTest extends TestCase
         $this->app->getContainer()[TemplateRenderer::class] = function(){
             $path = __DIR__ . '/../helpers/views';
             $cache = __DIR__ . '/../temp';
-            return new TemplateRenderer(new BladeInstance($path, $cache));
+            return new TemplateRenderer(new BladeInstance($path, $cache), $this->app->getContainer()['config']);
         };
 
         $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
@@ -390,7 +390,7 @@ class PostBuilderTest extends TestCase
         $this->app->getContainer()[TemplateRenderer::class] = function(){
             $path = __DIR__ . '/../helpers/views';
             $cache = __DIR__ . '/../temp';
-            return new TemplateRenderer(new BladeInstance($path, $cache));
+            return new TemplateRenderer(new BladeInstance($path, $cache), $this->app->getContainer()['config']);
         };
 
         $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
@@ -421,7 +421,7 @@ class PostBuilderTest extends TestCase
         $this->app->getContainer()[TemplateRenderer::class] = function(){
             $path = __DIR__ . '/../helpers/views';
             $cache = __DIR__ . '/../temp';
-            return new TemplateRenderer(new BladeInstance($path, $cache));
+            return new TemplateRenderer(new BladeInstance($path, $cache), $this->app->getContainer()['config']);
         };
 
         $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);

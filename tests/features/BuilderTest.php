@@ -2,6 +2,7 @@
 use duncan3dc\Laravel\BladeInstance;
 use League\Flysystem\Filesystem;
 use WackyStudio\Flatblog\Builders\Builder;
+use WackyStudio\Flatblog\Core\Config;
 use WackyStudio\Flatblog\FileWriters\BuildFileWriter;
 use WackyStudio\Flatblog\Templates\TemplateRenderer;
 
@@ -17,6 +18,7 @@ class BuilderTest extends TestCase
     {
         parent::setUp();
         $this->fileSystem = $this->createVirtualFilesystemForPagesAndPosts();
+
     }
     
     public function tearDown()
@@ -32,11 +34,10 @@ class BuilderTest extends TestCase
         $this->app->getContainer()[Filesystem::class] = function() {
             return $this->fileSystem;
         };
-
         $this->app->getContainer()[TemplateRenderer::class] = function(){
             $path = __DIR__ . '/../helpers/views';
             $cache = __DIR__ . '/../temp';
-            return new TemplateRenderer(new BladeInstance($path, $cache));
+            return new TemplateRenderer(new BladeInstance($path, $cache),  Mockery::mock(Config::class)->shouldReceive('all')->andReturn([])->getMock());
         };
 
         $builder = new Builder($this->app->getContainer()[BuildFileWriter::class], $this->app->getContainer());
@@ -77,7 +78,7 @@ class BuilderTest extends TestCase
         $this->app->getContainer()[TemplateRenderer::class] = function(){
             $path = __DIR__ . '/../helpers/views';
             $cache = __DIR__ . '/../temp';
-            return new TemplateRenderer(new BladeInstance($path, $cache));
+            return new TemplateRenderer(new BladeInstance($path, $cache),  Mockery::mock(Config::class)->shouldReceive('all')->andReturn([])->getMock());
         };
 
         $builder = new Builder($this->app->getContainer()[BuildFileWriter::class], $this->app->getContainer());

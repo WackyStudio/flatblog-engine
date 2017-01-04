@@ -33,7 +33,7 @@ class PagesBuilderTest extends TestCase
         $this->app->getContainer()[TemplateRenderer::class] = function(){
             $path = __DIR__ . '/../helpers/views';
             $cache = __DIR__ . '/../temp';
-            return new TemplateRenderer(new BladeInstance($path, $cache));
+            return new TemplateRenderer(new BladeInstance($path, $cache), $this->app->getContainer()['config']);
         };
 
         $pagesBuilder = new PagesBuilder($rawEntities, $this->app->getContainer()[PageEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
@@ -61,7 +61,7 @@ class PagesBuilderTest extends TestCase
         $this->app->getContainer()[TemplateRenderer::class] = function(){
             $path = __DIR__ . '/../helpers/views';
             $cache = __DIR__ . '/../temp';
-            return new TemplateRenderer(new BladeInstance($path, $cache));
+            return new TemplateRenderer(new BladeInstance($path, $cache), $this->app->getContainer()['config']);
         };
 
         $pagesBuilder = new PagesBuilder($rawEntities, $this->app->getContainer()[PageEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
@@ -90,7 +90,7 @@ class PagesBuilderTest extends TestCase
         $this->app->getContainer()[TemplateRenderer::class] = function(){
             $path = __DIR__ . '/../helpers/views';
             $cache = __DIR__ . '/../temp';
-            return new TemplateRenderer(new BladeInstance($path, $cache));
+            return new TemplateRenderer(new BladeInstance($path, $cache), $this->app->getContainer()['config']);
         };
 
         $pagesBuilder = new PagesBuilder($rawEntities, $this->app->getContainer()[PageEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
