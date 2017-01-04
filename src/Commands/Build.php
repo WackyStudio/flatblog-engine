@@ -10,10 +10,9 @@ class Build
 
     public function build(OutputInterface $output, Builder $builder)
     {
-        $output->writeln('Building');
-
+        $output->writeln('Building...');
         $builder->build();
-
+        $output->writeln('<info>Finished</info>');
     }
 
 }

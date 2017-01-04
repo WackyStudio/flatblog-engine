@@ -6,6 +6,7 @@ use WackyStudio\Flatblog\Builders\Builder;
 use WackyStudio\Flatblog\Builders\ImageFolderBuilder;
 use WackyStudio\Flatblog\Builders\PagesBuilder;
 use WackyStudio\Flatblog\Builders\PostsBuilder;
+use WackyStudio\Flatblog\Builders\SitemapBuilder;
 use WackyStudio\Flatblog\Commands\Build;
 use WackyStudio\Flatblog\Commands\CreatePage;
 use WackyStudio\Flatblog\Commands\CreatePost;
@@ -65,6 +66,12 @@ return [
             ->merge(($container[RawEntityFactory::class])->getEntitiesForDirectory('pages'))
             ->toArray();
         return new ImageFolderBuilder($rawEntities, $container[Filesystem::class]);
+    },
+    SitemapBuilder::class => function($container){
+        $rawPostsEntities = ($container[RawEntityFactory::class])->getEntitiesForDirectory('posts');
+        $rawPagesEntities = ($container[RawEntityFactory::class])->getEntitiesForDirectory('pages');
+        return new SitemapBuilder($rawPostsEntities, $rawPagesEntities, $container[PostEntityFactory::class], $container[PageEntityFactory::class], $container['config'],
+            $container[Filesystem::class]);
     },
 
     // Factories

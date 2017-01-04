@@ -12,7 +12,8 @@ class Builder
     ];
 
     private $buildersWithOwnWriters = [
-        ImageFolderBuilder::class
+        ImageFolderBuilder::class,
+        SitemapBuilder::class
     ];
 
     /**

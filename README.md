@@ -93,9 +93,8 @@ If a variable needs to hold an array of items, a folder of markdown files could 
 - Images should be copied from source into build /images *DONE*
 - Images should be placed in images folder to be copied automatically *DONE*
 - You can get a settings.yml with predefined variables based on template
-- Feed back in CLI on build
-- Pagination on all posts and all categories
-- sitemap.txt
-- should not delete everything from build folder, leave css and js
+- Feed back in CLI on build 
+- sitemap.txt *DONE*
+- should not delete everything from build folder, leave css and js *DONE*
 
 
