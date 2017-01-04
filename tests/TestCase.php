@@ -57,6 +57,7 @@ class TestCase extends PHPUnit_Framework_TestCase
                     ]
                 ],
                 'config.yml' => implode(PHP_EOL, [
+                    "site-domain: http://flatblog.dev",
                     'posts:',
                     '   prefix: blog',
                     '   templates:',
@@ -120,6 +121,7 @@ class TestCase extends PHPUnit_Framework_TestCase
                    ]
                 ],
                 'config.yml' => implode(PHP_EOL, [
+                    "site-domain: http://flatblog.dev",
                     'posts:',
                     '   prefix: blog',
                     '   templates:',
@@ -225,6 +227,7 @@ class TestCase extends PHPUnit_Framework_TestCase
                 ]
             ],
             'config.yml' => implode(PHP_EOL, [
+                "site-domain: http://flatblog.dev",
                 'posts:',
                 '   prefix: blog',
                 '   templates:',

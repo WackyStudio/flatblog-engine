@@ -24,6 +24,7 @@ class ConfigTest extends TestCase
         $config = new Config($fileSystem);
 
         $this->assertEquals([
+            'site-domain' => 'http://flatblog.dev',
             'posts' => [
                 'prefix' => 'blog',
                 'templates' => [

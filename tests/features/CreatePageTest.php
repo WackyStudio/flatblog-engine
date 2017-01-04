@@ -2,6 +2,7 @@
 use League\Flysystem\Filesystem;
 use Symfony\Component\Console\Output\OutputInterface;
 use WackyStudio\Flatblog\Commands\CreatePage;
+use WackyStudio\Flatblog\Makers\PageMaker;
 
 class CreatePageTest extends TestCase
 {
@@ -13,11 +14,16 @@ class CreatePageTest extends TestCase
             return $fileSystem;
         };
 
+        $pageMaker = $this->app->getContainer()[PageMaker::class];
+
         $command = new CreatePage();
 
         $pageName = 'Test Page';
+        $parentPage = null;
+        $template = null;
+
         $output = Mockery::mock(OutputInterface::class)->makePartial()->shouldReceive('writeln')->getMock();
-        $command($pageName, $output);
+        $command($pageName, $parentPage, $template, $output, $pageMaker);
 
         $this->assertTrue($fileSystem->has('pages/test-page/settings.yml'));
     }

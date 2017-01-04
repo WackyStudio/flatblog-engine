@@ -75,9 +75,9 @@ If a variable needs to hold an array of items, a folder of markdown files could 
     - to make it possible to alert RSS readers about new posts
 
 # Commands
-- build - build the source file into Static HTML files
-- create:post - Scaffold out a new blog post
-- create:page - Scaffold out a new page
+- build - build the source file into Static HTML files *DONE*
+- create:post - Scaffold out a new blog post *DONE*
+- create:page - Scaffold out a new page *DONE*
     - --template place 
 
 # Needed Tech
@@ -95,6 +95,7 @@ If a variable needs to hold an array of items, a folder of markdown files could 
 - You can get a settings.yml with predefined variables based on template
 - Feed back in CLI on build
 - Pagination on all posts and all categories
-
+- sitemap.txt
+- should not delete everything from build folder, leave css and js
 
 

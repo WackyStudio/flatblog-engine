@@ -64,10 +64,12 @@ class BuildFileWriter
             collect($this->filesystem->listContents('build', true))->filter(function($file){
                 return $file['type'] == 'file';
             })->each(function ($file) {
-                $this->filesystem->delete($file['path']);
+                if($file['extension'] !== 'js' && $file['extension'] !== 'css')
+                {
+                    $this->filesystem->delete($file['path']);
+                }
             });
 
-            $this->filesystem->deleteDir('build');
         }
     }
 }

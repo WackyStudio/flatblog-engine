@@ -67,6 +67,8 @@ class BuilderTest extends TestCase
     public function it_clears_build_dir_before_build()
     {
         $this->fileSystem->write('build/testClearing.txt', 'some content');
+        $this->fileSystem->write('build/css/style.css', 'css');
+        $this->fileSystem->write('build/js/app.js', 'js');
 
         $this->app->getContainer()[Filesystem::class] = function() {
             return $this->fileSystem;
@@ -83,6 +85,8 @@ class BuilderTest extends TestCase
         $builder->build();
 
         $this->assertFalse($this->fileSystem->has('build/testClearing.txt'));
+        $this->assertTrue($this->fileSystem->has('build/css/style.css'));
+        $this->assertTrue($this->fileSystem->has('build/js/app.js'));
     }
 
 }
