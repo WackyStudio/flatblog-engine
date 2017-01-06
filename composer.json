@@ -22,6 +22,9 @@
         "mockery/mockery": "0.9.*",
         "league/flysystem-vfs": "1.0.*"
     },
+    "bin": [
+        "flatblog"
+    ],
     "autoload": {
         "psr-4": {
             "WackyStudio\\Flatblog\\":"src"
