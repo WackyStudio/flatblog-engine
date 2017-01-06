@@ -1,6 +1,6 @@
 {
     "name": "wackystudio/flatblog-engine",
-    "description": "Static site/blog generator from markdown files",
+    "description": "Static site/blog generator",
     "license": "MIT",
     "authors": [
         {
