@@ -41,7 +41,7 @@ class PostMaker
             'title' => $name,
             'summary' => 'Create your post summary here...',
             'image' => 'Give a path to your post image here, like images/image.jpg',
-            'content' => 'file:content',
+            'content' => 'file:content.md',
             'date' => Carbon::now()->format('Y-m-d')
         ]));
 
