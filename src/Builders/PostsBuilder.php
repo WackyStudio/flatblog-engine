@@ -56,7 +56,7 @@ class PostsBuilder implements BuilderContract
             ->merge($this->buildSinglePosts())
             ->merge($this->buildPostsList())
             ->merge($this->buildSingleCategories())
-            ->merge($this->buildCategoryList());
+            ->merge($this->buildListOfAllCategories());
 
         return $toWrite;
     }
@@ -99,16 +99,9 @@ class PostsBuilder implements BuilderContract
         return $categories;
     }
 
-    public function buildCategoryList()
+    public function buildListOfAllCategories()
     {
-        $categories = $this->getPosts()->groupBy(function (PostEntity $postEntity) {
-            return $postEntity->category;
-        })->map(function ($posts, $key) {
-            $category = new \stdClass();
-            $category->title = $key;
-            $category->postsCount = $posts->count();
-            return $category;
-        });
+        $categories = $this->buildCategoryList();
         $prefix = $this->getPostPrefix();
 
         return [$prefix.'/categories' => $this->renderer->render($this->templates['all-categories'], ['categories'=>$categories])];
@@ -135,7 +128,7 @@ class PostsBuilder implements BuilderContract
     {
         $prefix = $this->getPostPrefix();
 
-        return [$prefix => $this->renderer->render($this->templates['all-posts'], ['posts' => $posts])];
+        return [$prefix => $this->renderer->render($this->templates['all-posts'], ['posts' => $posts, 'categories' => $this->buildCategoryList()])];
     }
 
     /**
@@ -155,7 +148,7 @@ class PostsBuilder implements BuilderContract
 
             if($pageNumber == 1)
             {
-                return [$prefix => $this->renderer->render($this->templates['all-posts'], ['posts' => $posts, 'currentPage' => $pageNumber, 'totalPages' => $totalPages])];
+                return [$prefix => $this->renderer->render($this->templates['all-posts'], ['posts' => $posts, 'currentPage' => $pageNumber, 'totalPages' => $totalPages, 'categories' => $this->buildCategoryList()])];
             }
 
             return  [$prefix."/page/{$pageNumber}" => $this->renderer->render($this->templates['all-posts'], ['posts' => $posts, 'currentPage' => $pageNumber, 'totalPages' => $totalPages])];
@@ -170,6 +163,25 @@ class PostsBuilder implements BuilderContract
         $prefix = ( $this->config->get('posts.prefix') !== null ) ? $this->config->get('posts.prefix') : 'posts';
 
         return $prefix;
+    }
+
+    /**
+     * @return array
+     */
+    protected function buildCategoryList()
+    {
+        $categories = $this->getPosts()
+                           ->groupBy(function (PostEntity $postEntity) {
+                               return $postEntity->category;
+                           })
+                           ->flatMap(function ($posts, $key) {
+                               $category = new \stdClass();
+                               $category->title = $key;
+                               $category->postsCount = $posts->count();
+
+                               return [strtolower($key) => $category];
+                           })->toArray();
+        return $categories;
     }
 
 }

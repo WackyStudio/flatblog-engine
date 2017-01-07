@@ -334,6 +334,56 @@ class PostBuilderTest extends TestCase
     }
 
     /**
+    * @test
+    */
+    public function it_includes_array_of_categories_on_all_posts_page()
+    {
+        $fileSystem = $this->createVirtualFilesystemForPosts();
+        $this->app->getContainer()[Filesystem::class] = function() use($fileSystem){
+            return $fileSystem;
+        };
+        $rawEntities = ($this->app->getContainer()[RawEntityFactory::class])->getEntitiesForDirectory('posts');
+
+        $this->app->getContainer()[TemplateRenderer::class] = function(){
+            $path = __DIR__ . '/../helpers/views';
+            $cache = __DIR__ . '/../temp';
+            return new TemplateRenderer(new BladeInstance($path, $cache), $this->app->getContainer()['config']);
+        };
+
+        $config = Mockery::mock(Config::class);
+        $config->shouldReceive('get')->with('posts.paginate-lists-at')->andReturn(10);
+        $config->shouldReceive('get')->with('posts.templates')->andReturn([
+            'single'=> 'single-post',
+            'all-posts'=> 'all-posts-with-categories',
+            'single-category'=> 'single-category',
+            'all-categories' => 'all-categories',
+        ]);
+        $config->shouldReceive('get')->with('posts.prefix')->andReturn('blog');
+
+        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $config);
+
+        $expectedContent = implode(PHP_EOL, [
+            '<ul>',
+                '<li><a href="backend">Backend (1)</a></li>',
+                '<li><a href="frontend">Frontend (1)</a></li>',
+            '</ul>',
+            '<div>',
+            '<h1>Sass tricks you should know!</h1>',
+            '<p>This is a summary</p>',
+            '</div>',
+            '<div>',
+            '<h1>Do you really need a backend for that?</h1>',
+            '<p>This is a summary</p>',
+            '</div>',
+            ''
+        ]);
+
+        $result = $postBuilder->buildPostsList();
+
+        $this->assertEquals($expectedContent, $result['blog']);
+    }
+
+    /**
     *@test
     */
     public function it_builds_pages_for_each_category_with_posts_and_sorts_them_alphabetically()
@@ -402,7 +452,7 @@ class PostBuilderTest extends TestCase
             '</ul>'
         ]);
 
-        $result = $postBuilder->buildCategoryList();
+        $result = $postBuilder->buildListOfAllCategories();
 
         $this->assertEquals($expectedContent, $result['blog/categories']);
     }
