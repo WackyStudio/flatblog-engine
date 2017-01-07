@@ -364,8 +364,8 @@ class PostBuilderTest extends TestCase
 
         $expectedContent = implode(PHP_EOL, [
             '<ul>',
-                '<li><a href="backend">Backend (1)</a></li>',
-                '<li><a href="frontend">Frontend (1)</a></li>',
+            '<li><a href="backend">Backend (1)</a></li>',
+            '<li><a href="frontend">Frontend (1)</a></li>',
             '</ul>',
             '<div>',
             '<h1>Sass tricks you should know!</h1>',
@@ -485,5 +485,66 @@ class PostBuilderTest extends TestCase
         $this->assertArrayHasKey('blog/categories', $toWrite);
         $this->assertArrayHasKey('blog', $toWrite);
 
+    }
+    
+    /**
+    *@test
+    */
+    public function it_includes_an_array_of_categories_on_a_single_category()
+    {
+        $fileSystem = $this->createVirtualFilesystemForPosts();
+        $this->app->getContainer()[Filesystem::class] = function() use($fileSystem){
+            return $fileSystem;
+        };
+        $rawEntities = ($this->app->getContainer()[RawEntityFactory::class])->getEntitiesForDirectory('posts');
+
+        $this->app->getContainer()[TemplateRenderer::class] = function(){
+            $path = __DIR__ . '/../helpers/views';
+            $cache = __DIR__ . '/../temp';
+            return new TemplateRenderer(new BladeInstance($path, $cache), $this->app->getContainer()['config']);
+        };
+
+        $config = Mockery::mock(Config::class);
+        $config->shouldReceive('get')->with('posts.paginate-lists-at')->andReturn(10);
+        $config->shouldReceive('get')->with('posts.templates')->andReturn([
+            'single'=> 'single-post',
+            'all-posts'=> 'all-posts-with-categories',
+            'single-category'=> 'single-category-with-category-list',
+            'all-categories' => 'all-categories',
+        ]);
+        $config->shouldReceive('get')->with('posts.prefix')->andReturn('blog');
+
+        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $config);
+
+        $expectedContentBackend = implode(PHP_EOL, [
+            '<ul>',
+            '<li><a href="backend">Backend (1)</a></li>',
+            '<li><a href="frontend">Frontend (1)</a></li>',
+            '</ul>',
+            '<h1>Backend</h1>',
+            '<div>',
+            '<h1>Do you really need a backend for that?</h1>',
+            '<p>This is a summary</p>',
+            '</div>',
+            ''
+        ]);
+
+        $expectedContentFrontend = implode(PHP_EOL, [
+            '<ul>',
+            '<li><a href="backend">Backend (1)</a></li>',
+            '<li><a href="frontend">Frontend (1)</a></li>',
+            '</ul>',
+            '<h1>Frontend</h1>',
+            '<div>',
+            '<h1>Sass tricks you should know!</h1>',
+            '<p>This is a summary</p>',
+            '</div>',
+            ''
+        ]);
+
+        $categories = $postBuilder->buildSingleCategories();
+
+        $this->assertEquals($expectedContentBackend, $categories['blog/backend']);
+        $this->assertEquals($expectedContentFrontend, $categories['blog/frontend']);
     }
 }

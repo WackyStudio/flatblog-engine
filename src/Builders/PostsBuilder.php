@@ -90,7 +90,7 @@ class PostsBuilder implements BuilderContract
             $item->sortByDesc(function (PostEntity $postEntity) {
                 return $postEntity->date->toDateString();
             });
-            return $this->renderer->render($this->templates['single-category'], ['category' => $key, 'posts'=>$item]);
+            return $this->renderer->render($this->templates['single-category'], ['category' => $key, 'posts'=>$item, 'categories' => $this->buildCategoryList()]);
         })->flatMap(function($posts, $categoryName){
             $prefix = $this->getPostPrefix();
             return [$prefix.'/'.strtolower($categoryName) => $posts];
