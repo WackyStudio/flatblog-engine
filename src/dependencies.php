@@ -4,6 +4,7 @@ use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use WackyStudio\Flatblog\Builders\Builder;
 use WackyStudio\Flatblog\Builders\ImageFolderBuilder;
+use WackyStudio\Flatblog\Builders\MediaFolderBuilder;
 use WackyStudio\Flatblog\Builders\PagesBuilder;
 use WackyStudio\Flatblog\Builders\PostsBuilder;
 use WackyStudio\Flatblog\Builders\SitemapBuilder;
@@ -72,6 +73,9 @@ return [
         $rawPagesEntities = ($container[RawEntityFactory::class])->getEntitiesForDirectory('pages');
         return new SitemapBuilder($rawPostsEntities, $rawPagesEntities, $container[PostEntityFactory::class], $container[PageEntityFactory::class], $container['config'],
             $container[Filesystem::class]);
+    },
+    MediaFolderBuilder::class => function($container){
+        return new MediaFolderBuilder($container[Filesystem::class]);
     },
 
     // Factories
