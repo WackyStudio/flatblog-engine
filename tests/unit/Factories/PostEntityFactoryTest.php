@@ -1,5 +1,6 @@
 <?php
-use Carbon\Carbon;
+
+use Cake\Chronos\Chronos;
 use Mockery\Mock;
 use WackyStudio\Flatblog\Core\Config;
 use WackyStudio\Flatblog\Entities\RawEntity;
@@ -53,7 +54,7 @@ class PostEntityFactoryTest extends TestCase
     {
         $this->mockConfigWithPostPrefix();
 
-        $dateTime = Carbon::now();
+        $dateTime = Chronos::now();
         $factory = new PostEntityFactory($this->config);
         $rawEntity = new RawEntity('posts/subject/test',
             [
@@ -81,7 +82,7 @@ class PostEntityFactoryTest extends TestCase
     {
         $this->mockConfigWithoutPostPrefix();
 
-        $dateTime = Carbon::now();
+        $dateTime = Chronos::now();
         $factory = new PostEntityFactory($this->config);
         $rawEntity = new RawEntity('posts/subject/test',
             [
@@ -108,7 +109,7 @@ class PostEntityFactoryTest extends TestCase
     {
         $this->mockConfigWithPostPrefix();
 
-        $dateTime = Carbon::now();
+        $dateTime = Chronos::now();
         $factory = new PostEntityFactory($this->config);;
         $rawEntity = new RawEntity('posts/subject/test',
             [
@@ -134,7 +135,7 @@ class PostEntityFactoryTest extends TestCase
     {
         $this->mockConfigWithPostPrefix();
 
-        $dateTime = Carbon::now();
+        $dateTime = Chronos::now();
         $factory = new PostEntityFactory($this->config);;
         $rawEntity = new RawEntity('posts/subject/test',
             [
@@ -160,7 +161,7 @@ class PostEntityFactoryTest extends TestCase
     {
         $this->mockConfigWithPostPrefix();
 
-        $dateTime = Carbon::now();
+        $dateTime = Chronos::now();
         $factory = new PostEntityFactory($this->config);;
         $rawEntity = new RawEntity('posts/subject/test',
             [
@@ -186,7 +187,7 @@ class PostEntityFactoryTest extends TestCase
     {
         $this->mockConfigWithPostPrefix();
 
-        $dateTime = Carbon::now();
+        $dateTime = Chronos::now();
         $factory = new PostEntityFactory($this->config);;
         $rawEntity = new RawEntity('posts/subject/test',
             [
@@ -211,7 +212,7 @@ class PostEntityFactoryTest extends TestCase
     {
         $this->mockConfigWithPostPrefix();
 
-        $dateTime = Carbon::parse('2015-01-05');
+        $dateTime = Chronos::parse('2015-01-05');
         $factory = new PostEntityFactory($this->config);;
         $rawEntity = new RawEntity('posts/subject/test',
             [
@@ -227,7 +228,7 @@ class PostEntityFactoryTest extends TestCase
 
         $this->assertEquals('Test', $postEntity->title);
         $this->assertNotEquals($dateTime, $postEntity->date);
-        $this->assertEquals(Carbon::parse('2015-01-06'), $postEntity->date);
+        $this->assertEquals(Chronos::parse('2015-01-06'), $postEntity->date);
         $this->assertEquals('Subject', $postEntity->category);
         $this->assertEquals('blog/subject/test', $postEntity->destination());
         $this->assertEquals('blog/subject', $postEntity->categoryLink);
@@ -239,7 +240,7 @@ class PostEntityFactoryTest extends TestCase
     public function it_throws_exception_if_date_given_in_settings_is_not_correct()
     {
         $this->mockConfigWithPostPrefix();
-        $dateTime = Carbon::parse('2015-01-05');
+        $dateTime = Chronos::parse('2015-01-05');
         $factory = new PostEntityFactory($this->config);;
         $rawEntity = new RawEntity('posts/subject/test',
             [

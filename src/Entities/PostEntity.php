@@ -1,7 +1,7 @@
 <?php
 namespace WackyStudio\Flatblog\Entities;
 
-use Carbon\Carbon;
+use Cake\Chronos\Chronos;
 use WackyStudio\Flatblog\Contracts\BuildDestinationContract;
 
 class PostEntity implements BuildDestinationContract
@@ -13,7 +13,7 @@ class PostEntity implements BuildDestinationContract
     public $title;
 
     /**
-     * @var Carbon
+     * @var Chronos
      */
     public $date;
 
@@ -48,7 +48,7 @@ class PostEntity implements BuildDestinationContract
     private $destination;
 
 
-    public function __construct($title, Carbon $date, $category = null, $categoryLink, $summary, $content, $image, $destination)
+    public function __construct($title, Chronos $date, $category = null, $categoryLink, $summary, $content, $image, $destination)
     {
         $this->title = $title;
         $this->date = $date;

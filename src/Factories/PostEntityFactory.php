@@ -1,7 +1,7 @@
 <?php
 namespace WackyStudio\Flatblog\Factories;
 
-use Carbon\Carbon;
+use Cake\Chronos\Chronos;
 use WackyStudio\Flatblog\Core\Config;
 use WackyStudio\Flatblog\Entities\PostEntity;
 use WackyStudio\Flatblog\Entities\RawEntity;
@@ -64,7 +64,7 @@ class PostEntityFactory
             return $rawEntity->getDateTime();
         } else {
             try {
-                return Carbon::parse($settings['date']);
+                return Chronos::parse($settings['date']);
             } catch (\Exception $e) {
                 throw new InvalidDateGivenInSettingsFileException("Invalid date given in settings file for {$rawEntity->getPath()}");
             }

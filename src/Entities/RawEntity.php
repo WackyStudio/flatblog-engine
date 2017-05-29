@@ -1,7 +1,7 @@
 <?php
 namespace WackyStudio\Flatblog\Entities;
 
-use Carbon\Carbon;
+use Cake\Chronos\Chronos;
 
 class RawEntity
 {
@@ -16,12 +16,13 @@ class RawEntity
      * @var array
      */
     private $subDirs;
+
     /**
-     * @var Carbon
+     * @var Chronos
      */
     private $dateTime;
 
-    public function __construct($path, array $settings, Carbon $dateTime)
+    public function __construct($path, array $settings, $dateTime)
     {
         $this->path = $path;
         $this->settings = $settings;

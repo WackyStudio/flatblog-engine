@@ -1,10 +1,9 @@
 <?php
 namespace WackyStudio\Flatblog\Factories;
 
-use Carbon\Carbon;
+use Cake\Chronos\Chronos;
 use League\Flysystem\Filesystem;
 use WackyStudio\Flatblog\Entities\RawEntity;
-use WackyStudio\Flatblog\File;
 use WackyStudio\Flatblog\Parsers\ContentParserManager;
 use WackyStudio\Flatblog\Settings\SettingsParser;
 
@@ -65,7 +64,7 @@ class RawEntityFactory
                     new RawEntity(
                         $key,
                         $settingsFileWithParsedContent,
-                        Carbon::createFromTimestamp($settingsFile['timestamp']))
+                        Chronos::createFromTimestamp($settingsFile['timestamp']))
                 ];
             })
             ->toArray();

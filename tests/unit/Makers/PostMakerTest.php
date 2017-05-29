@@ -1,6 +1,6 @@
 <?php
-use Carbon\Carbon;
-use League\Flysystem\Filesystem;
+
+use Cake\Chronos\Chronos;
 use WackyStudio\Flatblog\Exceptions\CannotFindPostsException;
 use WackyStudio\Flatblog\Makers\PostMaker;
 
@@ -24,12 +24,12 @@ class PostMakerTest extends TestCase
     {
         $fileSystem = $this->createVirtualFilesystemForPosts();
         $maker = new PostMaker($fileSystem);
-        $expectedDate = Carbon::now()->format('Y-m-d');
+        $expectedDate = Chronos::now()->format('Y-m-d');
         $expectedSettingsFile = implode(PHP_EOL, [
             "title: 'Test Post'",
             "summary: 'Create your post summary here...'",
             "image: 'Give a path to your post image here, like images/image.jpg'",
-            "content: 'file:content'",
+            "content: 'file:content.md'",
             "date: '{$expectedDate}'",
             ''
         ]);
@@ -49,12 +49,12 @@ class PostMakerTest extends TestCase
     {
         $fileSystem = $this->createVirtualFilesystemForPosts();
         $maker = new PostMaker($fileSystem);
-        $expectedDate = Carbon::now()->format('Y-m-d');
+        $expectedDate = Chronos::now()->format('Y-m-d');
         $expectedSettingsFile = implode(PHP_EOL, [
             "title: 'Test Post'",
             "summary: 'Create your post summary here...'",
             "image: 'Give a path to your post image here, like images/image.jpg'",
-            "content: 'file:content'",
+            "content: 'file:content.md'",
             "date: '{$expectedDate}'",
             ''
         ]);

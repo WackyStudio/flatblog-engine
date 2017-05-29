@@ -1,7 +1,7 @@
 <?php
 namespace WackyStudio\Flatblog\Makers;
 
-use Carbon\Carbon;
+use Cake\Chronos\Chronos;
 use Illuminate\Support\Str;
 use League\Flysystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
@@ -42,7 +42,7 @@ class PostMaker
             'summary' => 'Create your post summary here...',
             'image' => 'Give a path to your post image here, like images/image.jpg',
             'content' => 'file:content.md',
-            'date' => Carbon::now()->format('Y-m-d')
+            'date' => Chronos::now()->format('Y-m-d')
         ]));
 
         $this->filesystem->write($path . '/content.md', 'Post Contents');

@@ -1,7 +1,8 @@
 <?php
 namespace WackyStudio\Flatblog;
 
-use Carbon\Carbon;
+use Cake\Chronos\Chronos;
+
 
 class File
 {
@@ -12,7 +13,7 @@ class File
     private $path;
 
     /**
-     * @var Carbon
+     * @var Chronos
      */
     private $timestamp;
 
@@ -44,7 +45,7 @@ class File
     public function __construct($path, $timestamp, $size, $dirname, $basename, $extension, $filename)
     {
         $this->path = $path;
-        $this->timestamp = Carbon::createFromTimestamp($timestamp);
+        $this->timestamp = Chronos::createFromTimestamp($timestamp);
         $this->size = $size;
         $this->dirname = $dirname;
         $this->basename = $basename;

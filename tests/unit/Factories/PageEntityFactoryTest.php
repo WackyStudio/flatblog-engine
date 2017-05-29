@@ -1,5 +1,6 @@
 <?php
-use Carbon\Carbon;
+
+use Cake\Chronos\Chronos;
 use WackyStudio\Flatblog\Entities\RawEntity;
 use WackyStudio\Flatblog\Exceptions\PageIsMissingTemplateException;
 use WackyStudio\Flatblog\Factories\PageEntityFactory;
@@ -22,7 +23,7 @@ class PageEntityFactoryTest extends PHPUnit_Framework_TestCase
     */
     public function it_makes_a_page_entity_from_a_raw_entity()
     {
-        $dateTime = Carbon::now();
+        $dateTime = Chronos::now();
         $factory = new PageEntityFactory;
         $rawEntity = new RawEntity('pages/about',
             [
@@ -46,7 +47,7 @@ class PageEntityFactoryTest extends PHPUnit_Framework_TestCase
     */
     public function it_throws_missing_template_if_template_is_missing_from_settings()
     {
-        $dateTime = Carbon::now();
+        $dateTime = Chronos::now();
         $factory = new PageEntityFactory;
         $rawEntity = new RawEntity('pages/about',
             [
