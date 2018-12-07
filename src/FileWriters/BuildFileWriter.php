@@ -64,12 +64,16 @@ class BuildFileWriter
             collect($this->filesystem->listContents('build', true))->filter(function($file){
                 return $file['type'] == 'file';
             })->each(function ($file) {
-                if($file['extension'] !== 'js' && $file['extension'] !== 'css')
-                {
+                if($file['extension'] !== 'js' &&
+                   $file['extension'] !== 'css' &&
+                   $file['extension'] !== 'eot' &&
+                   $file['extension'] !== 'svg' &&
+                   $file['extension'] !== 'ttf' &&
+                   $file['extension'] !== 'woff' &&
+                   $file['extension'] !== 'woff2'){
                     $this->filesystem->delete($file['path']);
                 }
             });
-
         }
     }
 }
