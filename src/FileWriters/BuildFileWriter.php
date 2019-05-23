@@ -70,7 +70,8 @@ class BuildFileWriter
                    $file['extension'] !== 'svg' &&
                    $file['extension'] !== 'ttf' &&
                    $file['extension'] !== 'woff' &&
-                   $file['extension'] !== 'woff2'){
+                   $file['extension'] !== 'woff2' &&
+                    $file['extension'] !== 'webmanifest'){
                     $this->filesystem->delete($file['path']);
                 }
             });
