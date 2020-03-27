@@ -48,7 +48,14 @@ class PostEntityFactory
             $settings['summary'],
             $settings['content'],
             $settings['image'],
-            $this->handlePostDestination($rawEntity->getPath())
+            $this->handlePostDestination($rawEntity->getPath()),
+            $settings['alt'],
+            $settings['featured_post'],
+            $settings['seo_title'],
+            $settings['seo_description'],
+            $settings['seo_keywords'],
+            $settings['fb_url'],
+            $settings['header_image']
         );
     }
 

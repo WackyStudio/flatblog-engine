@@ -20,7 +20,15 @@ class PostBuilderTest extends TestCase
                             'summary: Test',
                             'image: /test.jpg',
                             'content: test',
-                            'date: "2016-03-01"'
+                            'date: "2016-03-01"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-2' => [
@@ -28,8 +36,17 @@ class PostBuilderTest extends TestCase
                             'title: Test2',
                             'summary: Test',
                             'image: /test.jpg',
+                            'alt: this is the alt text',
                             'content: test',
-                            'date: "2016-03-02"'
+                            'date: "2016-03-02"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-3' => [
@@ -38,7 +55,15 @@ class PostBuilderTest extends TestCase
                             'summary: Test',
                             'image: /test.jpg',
                             'content: test',
-                            'date: "2016-03-03"'
+                            'date: "2016-03-03"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-4' => [
@@ -47,7 +72,15 @@ class PostBuilderTest extends TestCase
                             'summary: Test',
                             'image: /test.jpg',
                             'content: test',
-                            'date: "2016-03-04"'
+                            'date: "2016-03-04"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-5' => [
@@ -56,7 +89,15 @@ class PostBuilderTest extends TestCase
                             'summary: Test',
                             'image: /test.jpg',
                             'content: test',
-                            'date: "2016-03-05"'
+                            'date: "2016-03-05"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-6' => [
@@ -65,7 +106,15 @@ class PostBuilderTest extends TestCase
                             'summary: Test',
                             'image: /test.jpg',
                             'content: test',
-                            'date: "2016-03-06"'
+                            'date: "2016-03-06"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-7' => [
@@ -74,7 +123,15 @@ class PostBuilderTest extends TestCase
                             'summary: Test',
                             'image: /test.jpg',
                             'content: test',
-                            'date: "2016-03-07"'
+                            'date: "2016-03-07"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-8' => [
@@ -83,7 +140,15 @@ class PostBuilderTest extends TestCase
                             'summary: Test',
                             'image: /test.jpg',
                             'content: test',
-                            'date: "2016-03-08"'
+                            'date: "2016-03-08"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-9' => [
@@ -92,7 +157,15 @@ class PostBuilderTest extends TestCase
                             'summary: Test',
                             'image: /test.jpg',
                             'content: test',
-                            'date: "2016-03-09"'
+                            'date: "2016-03-09"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-10' => [
@@ -101,7 +174,15 @@ class PostBuilderTest extends TestCase
                             'summary: Test',
                             'image: /test.jpg',
                             'content: test',
-                            'date: "2016-03-10"'
+                            'date: "2016-03-10"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-11' => [
@@ -110,7 +191,15 @@ class PostBuilderTest extends TestCase
                             'summary: Test',
                             'image: /test.jpg',
                             'content: test',
-                            'date: "2016-03-11"'
+                            'date: "2016-03-11"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-12' => [
@@ -119,7 +208,15 @@ class PostBuilderTest extends TestCase
                             'summary: Test',
                             'image: /test.jpg',
                             'content: test',
-                            'date: "2016-03-12"'
+                            'date: "2016-03-12"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-13' => [
@@ -128,7 +225,15 @@ class PostBuilderTest extends TestCase
                             'summary: Test',
                             'image: /test.jpg',
                             'content: test',
-                            'date: "2016-03-13"'
+                            'date: "2016-03-13"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-14' => [
@@ -137,7 +242,15 @@ class PostBuilderTest extends TestCase
                             'summary: Test',
                             'image: /test.jpg',
                             'content: test',
-                            'date: "2016-03-14"'
+                            'date: "2016-03-14"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-15' => [
@@ -146,7 +259,15 @@ class PostBuilderTest extends TestCase
                             'summary: Test',
                             'image: /test.jpg',
                             'content: test',
-                            'date: "2016-03-15"'
+                            'date: "2016-03-15"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
 
@@ -175,11 +296,23 @@ class PostBuilderTest extends TestCase
         $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
 
         $expectedContentForBackendPost = implode(PHP_EOL, [
+            '<p>SEO Title</p>',
+            '<p>SEO Description</p>',
+            '<p>keywords</p>',
+            '<p>facebook url</p>',
+            '<p>/images/something.jpg</p>',
+            '<p>this is the alt text</p>',
             '<h1>Do you really need a backend for that?</h1>',
             '<h2>Hello World 2</h2>'
         ]);
 
         $expectedContentForFrontendPost = implode(PHP_EOL, [
+            '<p>SEO Title</p>',
+            '<p>SEO Description</p>',
+            '<p>keywords</p>',
+            '<p>facebook url</p>',
+            '<p>/images/something.jpg</p>',
+            '<p>this is the alt text</p>',
             '<h1>Sass tricks you should know!</h1>',
             '<h2>Hello World</h2>'
         ]);

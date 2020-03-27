@@ -36,7 +36,15 @@ class TestCase extends PHPUnit_Framework_TestCase
                                 'summary: This is a summary',
                                 'image: file:someimage.jpg',
                                 'content: file:content.md',
-                                'date: "2016-03-01"'
+                                'date: "2016-03-01"',
+
+                                'alt: this is the alt text',
+                                'featured_post: true',
+                                'seo_title: SEO Title',
+                                'seo_description: SEO Description',
+                                'seo_keywords: keywords',
+                                'fb_url: facebook url',
+                                'header_image: /images/something.jpg',
                             ]),
                             'content.md' => '## Hello World',
                             'someimage.jpg' => 'image'
@@ -49,7 +57,15 @@ class TestCase extends PHPUnit_Framework_TestCase
                                 'summary: This is a summary',
                                 'image: file:someimage.jpg',
                                 'content: file:content.md',
-                                'date: "2016-01-02"'
+                                'date: "2016-01-02"',
+
+                                'alt: this is the alt text',
+                                'featured_post: true',
+                                'seo_title: SEO Title',
+                                'seo_description: SEO Description',
+                                'seo_keywords: keywords',
+                                'fb_url: facebook url',
+                                'header_image: /images/something.jpg',
                             ]),
                             'content.md' => '## Hello World 2',
                             'someimage.jpg' => 'image'
@@ -206,7 +222,17 @@ class TestCase extends PHPUnit_Framework_TestCase
                             'summary: This is a summary',
                             'image: file:images/someimage.jpg',
                             'content: file:content.md',
-                            'date: "2016-03-01"'
+                            'date: "2016-03-01"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: keywords',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
+
+
                         ]),
                         'content.md' => '## Hello World',
                         'images' => [
@@ -313,7 +339,15 @@ class TestCase extends PHPUnit_Framework_TestCase
                             'summary: This is a summary',
                             'image: file:images/someimage.jpg',
                             'content: file:content.md',
-                            'date: "2016-03-01"'
+                            'date: "2016-03-01"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: keywords',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                         'content.md' => '## Hello World',
                         'images' => [

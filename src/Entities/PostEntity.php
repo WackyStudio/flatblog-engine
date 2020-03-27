@@ -45,10 +45,17 @@ class PostEntity implements BuildDestinationContract
     /**
      * @var string
      */
-    private $destination;
+    public $destination;
+    public $alt;
+    public $seo_title;
+    public $seo_description;
+    public $seo_keywords;
+    public $fb_url;
+    public $header_image;
+    public $featured_post;
 
 
-    public function __construct($title, Chronos $date, $category = null, $categoryLink, $summary, $content, $image, $destination)
+    public function __construct($title, Chronos $date, $category = null, $categoryLink, $summary, $content, $image, $destination, $alt, $featured_post, $seo_title, $seo_description, $seo_keywords, $fb_url, $header_image)
     {
         $this->title = $title;
         $this->date = $date;
@@ -58,6 +65,13 @@ class PostEntity implements BuildDestinationContract
         $this->summary = $summary;
         $this->destination = $destination;
         $this->categoryLink = $categoryLink;
+        $this->alt = $alt;
+        $this->seo_title = $seo_title;
+        $this->seo_description = $seo_description;
+        $this->seo_keywords = $seo_keywords;
+        $this->fb_url = $fb_url;
+        $this->header_image = $header_image;
+        $this->featured_post = $featured_post;
     }
 
     /**
