@@ -28,6 +28,11 @@ class RawEntity
     {
         $generator = new SlugGenerator((new SlugOptions)
             ->setValidChars('a-z0-9/')
+            ->setPreTransforms([
+                'æ > ae',
+                'ø > oe',
+                'å > aa',
+            ])
             ->setLocale('da')
         );
 

@@ -327,6 +327,80 @@ class PostBuilderTest extends TestCase
 
     }
 
+
+    /** @test */
+    public function it_builds_single_posts_with_correct_url_key_and_respects_danish_letters()
+    {
+        $fileSystem = $this->createVirtualFilesystemForPosts([
+            'posts' => [
+                'Æøå' => [
+                    'sass-tricks-you-should-know' => [
+                        'settings.yml' => implode(PHP_EOL, [
+                            'title: Sass tricks you should know!',
+                            'summary: This is a summary',
+                            'image: file:someimage.jpg',
+                            'content: file:content.md',
+                            'date: "2016-03-01"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: keywords',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
+                        ]),
+                        'content.md' => '## Hello World',
+                        'someimage.jpg' => 'image'
+                    ]
+                ],
+            ],
+            'config.yml' => implode(PHP_EOL, [
+                "site-domain: http://flatblog.dev",
+                'posts:',
+                '   prefix: blog',
+                '   templates:',
+                '       single: single-post',
+                '       all-posts: all-posts',
+                '       single-category: single-category',
+                '       all-categories: all-categories',
+                '   disqus:',
+                '       shortname: YOUR_SHORT_NAME',
+                '   paginate-lists-at: 5'
+            ]),
+        ]);
+        $this->app->getContainer()[Filesystem::class] = function() use($fileSystem){
+            return $fileSystem;
+        };
+        $rawEntities = ($this->app->getContainer()[RawEntityFactory::class])->getEntitiesForDirectory('posts');
+
+        $this->app->getContainer()[TemplateRenderer::class] = function(){
+            $path = __DIR__ . '/../helpers/views';
+            $cache = __DIR__ . '/../temp';
+            return new TemplateRenderer(new BladeInstance($path, $cache), $this->app->getContainer()['config']);
+        };
+
+        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
+
+        $expectedContentForFrontendPost = implode(PHP_EOL, [
+            '<p>SEO Title</p>',
+            '<p>SEO Description</p>',
+            '<p>keywords</p>',
+            '<p>facebook url</p>',
+            '<p>/images/something.jpg</p>',
+            '<p>this is the alt text</p>',
+            '<h1>Sass tricks you should know!</h1>',
+            '<h2>Hello World</h2>'
+        ]);
+
+        $singlePosts = $postBuilder->buildSinglePosts();
+
+        $this->assertArrayHasKey('blog/aeoeaa/sass-tricks-you-should-know', $singlePosts);
+
+        $this->assertEquals($expectedContentForFrontendPost, $singlePosts['blog/aeoeaa/sass-tricks-you-should-know']);
+
+    }
+
     /**
     *@test
     */
