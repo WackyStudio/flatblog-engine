@@ -1,8 +1,6 @@
 <?php
 namespace WackyStudio\Flatblog\Entities;
 
-use Ausi\SlugGenerator\SlugGenerator;
-use Ausi\SlugGenerator\SlugOptions;
 use Cake\Chronos\Chronos;
 
 class RawEntity
@@ -26,22 +24,11 @@ class RawEntity
 
     public function __construct($path, array $settings, $dateTime)
     {
-        $generator = new SlugGenerator((new SlugOptions)
-            ->setValidChars('a-z0-9/')
-            ->setPreTransforms([
-                'æ > ae',
-                'ø > oe',
-                'å > aa',
-            ])
-            ->setLocale('da')
-        );
-
-        $this->path = $generator->generate($path);
+        $this->path = $path;
         $this->settings = $settings;
         $this->dateTime = $dateTime;
 
         $this->subDirs = explode('/', $path);
-
     }
 
     /**

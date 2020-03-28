@@ -1,6 +1,8 @@
 <?php
 namespace WackyStudio\Flatblog\Factories;
 
+use Ausi\SlugGenerator\SlugGenerator;
+use Ausi\SlugGenerator\SlugOptions;
 use Cake\Chronos\Chronos;
 use WackyStudio\Flatblog\Core\Config;
 use WackyStudio\Flatblog\Entities\PostEntity;
@@ -19,14 +21,27 @@ class PostEntityFactory
      */
     private $config;
 
+    private $generator;
+
     public function __construct(Config $config)
     {
         $this->config = $config;
+
+        $this->generator = new SlugGenerator((new SlugOptions)
+            ->setValidChars('a-z0-9/')
+            ->setPreTransforms([
+                'æ > ae',
+                'ø > oe',
+                'å > aa',
+            ])
+            ->setLocale('da')
+        );
     }
 
     public function make(RawEntity $rawEntity)
     {
         $settings = $rawEntity->getSettings();
+
         if ( ! isset($settings['title'])) {
             throw new PostIsMissingTitleException('Post is missing title');
         }
@@ -39,6 +54,28 @@ class PostEntityFactory
         if ( ! isset($settings['content'])) {
             throw new PostIsMissingContentException('Post is missing content');
         }
+        if ( ! isset($settings['alt'])) {
+            throw new PostIsMissingContentException('Post is missing alt');
+        }
+        if ( ! isset($settings['featured_post'])) {
+            throw new PostIsMissingContentException('Post is missing featured post');
+        }
+        if ( ! isset($settings['seo_title'])) {
+            throw new PostIsMissingContentException('Post is missing seo title');
+        }
+        if ( ! isset($settings['seo_description'])) {
+            throw new PostIsMissingContentException('Post is missing seo description');
+        }
+        if ( ! isset($settings['seo_keywords'])) {
+            throw new PostIsMissingContentException('Post is missing seo keywords');
+        }
+        if ( ! isset($settings['fb_url'])) {
+            throw new PostIsMissingContentException('Post is missing facebook url');
+        }
+        if ( ! isset($settings['header_image'])) {
+            throw new PostIsMissingContentException('Post is missing header image');
+        }
+
 
         return new PostEntity(
             $settings['title'],
@@ -48,7 +85,7 @@ class PostEntityFactory
             $settings['summary'],
             $settings['content'],
             $settings['image'],
-            $this->handlePostDestination($rawEntity->getPath()),
+            $this->handlePostDestination($this->generator->generate($rawEntity->getPath())),
             $settings['alt'],
             $settings['featured_post'],
             $settings['seo_title'],

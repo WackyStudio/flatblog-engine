@@ -38,7 +38,7 @@ class RawEntityFactoryTest extends TestCase
 
         $this->assertEquals(2, count($rawEntities));
         $this->assertInstanceOf(RawEntity::class, $rawEntities[0]);
-        $this->assertEquals('posts/Frontend/sass-tricks-you-should-know', $rawEntities[1]->getPath());
+        $this->assertEquals('posts/Front end/sass-tricks-you-should-know', $rawEntities[1]->getPath());
         $this->assertArrayHasKey('title', $rawEntities[0]->getSettings());
     }
 

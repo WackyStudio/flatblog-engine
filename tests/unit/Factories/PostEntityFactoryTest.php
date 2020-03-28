@@ -61,7 +61,15 @@ class PostEntityFactoryTest extends TestCase
                 'title' => 'Test',
                 'summary' => 'This is a summary',
                 'image' => 'someimage.jpg',
-                'content' => 'file:content.md'
+                'content' => 'file:content.md',
+
+                'alt' => 'this is the alt text',
+                'featured_post' => 'true',
+                'seo_title' => 'SEO Title',
+                'seo_description' => 'SEO Description',
+                'seo_keywords' => 'keywords',
+                'fb_url' => 'facebook url',
+                'header_image' => '/images/something.jpg',
             ],
             $dateTime);
 
@@ -89,7 +97,15 @@ class PostEntityFactoryTest extends TestCase
                 'title' => 'Test',
                 'summary' => 'This is a summary',
                 'image' => 'someimage.jpg',
-                'content' => 'file:content.md'
+                'content' => 'file:content.md',
+
+                'alt' => 'this is the alt text',
+                'featured_post' => 'true',
+                'seo_title' => 'SEO Title',
+                'seo_description' => 'SEO Description',
+                'seo_keywords' => 'keywords',
+                'fb_url' => 'facebook url',
+                'header_image' => '/images/something.jpg',
             ],
             $dateTime);
 
@@ -220,7 +236,15 @@ class PostEntityFactoryTest extends TestCase
                 'summary' => 'This is a summary',
                 'image' => 'someimage.jpg',
                 'content' => 'file:content.md',
-                'date' => '2015-01-06'
+                'date' => '2015-01-06',
+
+                'alt' => 'this is the alt text',
+                'featured_post' => 'true',
+                'seo_title' => 'SEO Title',
+                'seo_description' => 'SEO Description',
+                'seo_keywords' => 'keywords',
+                'fb_url' => 'facebook url',
+                'header_image' => '/images/something.jpg',
             ],
             $dateTime);
 
@@ -248,7 +272,15 @@ class PostEntityFactoryTest extends TestCase
                 'summary' => 'This is a summary',
                 'image' => 'someimage.jpg',
                 'content' => 'file:content.md',
-                'date' => 'failfailfail'
+                'date' => 'failfailfail',
+
+                'alt' => 'this is the alt text',
+                'featured_post' => 'true',
+                'seo_title' => 'SEO Title',
+                'seo_description' => 'SEO Description',
+                'seo_keywords' => 'keywords',
+                'fb_url' => 'facebook url',
+                'header_image' => '/images/something.jpg',
             ],
             $dateTime);
         try{

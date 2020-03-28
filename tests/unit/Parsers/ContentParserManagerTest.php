@@ -32,9 +32,9 @@ class ContentParserManagerTest extends TestCase
         $settingsFile = [
             'title'   => ' Do you really need a backend for that?',
             'summary' => 'This is a summary',
-            'image'   =>  new File('posts/Backend/do-you-really-need-a-backend-for-that', time(), 100, 'Backend', 'someimage.jpg', 'jpg',
+            'image'   =>  new File('posts/Back end/do-you-really-need-a-backend-for-that', time(), 100, 'Backend', 'someimage.jpg', 'jpg',
                 'someimage'),
-            'content' =>  new File('posts/Backend/do-you-really-need-a-backend-for-that', time(), 100, 'Backend', 'content.md', 'md',
+            'content' =>  new File('posts/Back end/do-you-really-need-a-backend-for-that', time(), 100, 'Backend', 'content.md', 'md',
                 'content'),
         ];
 
@@ -68,9 +68,9 @@ class ContentParserManagerTest extends TestCase
         $settingsFile = [
             'title'   => ' Do you really need a backend for that?',
             'summary' => 'This is a summary',
-            'image'   =>  new File('posts/Backend/do-you-really-need-a-backend-for-that', time(), 100, 'Backend', 'someimage.jpg', 'jpg',
+            'image'   =>  new File('posts/Back end/do-you-really-need-a-backend-for-that', time(), 100, 'Backend', 'someimage.jpg', 'jpg',
                 'someimage'),
-            'content' =>  new File('posts/Backend/do-you-really-need-a-backend-for-that', time(), 100, 'Backend', 'content.md', 'md',
+            'content' =>  new File('posts/Back end/do-you-really-need-a-backend-for-that', time(), 100, 'Backend', 'content.md', 'md',
                 'content'),
         ];
 
