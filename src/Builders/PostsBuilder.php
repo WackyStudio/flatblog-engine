@@ -3,6 +3,7 @@ namespace WackyStudio\Flatblog\Builders;
 
 use Ausi\SlugGenerator\SlugGenerator;
 use Ausi\SlugGenerator\SlugOptions;
+use Cocur\Slugify\Slugify;
 use Illuminate\Support\Collection;
 use WackyStudio\Flatblog\Contracts\BuilderContract;
 use WackyStudio\Flatblog\Core\Config;
@@ -40,7 +41,7 @@ class PostsBuilder implements BuilderContract
      */
     private $config;
 
-    private $generator;
+    private $slugify;
 
     public function __construct(array $rawEntities, PostEntityFactory $postEntityFactory, TemplateRenderer $renderer, Config $config)
     {
@@ -50,15 +51,7 @@ class PostsBuilder implements BuilderContract
         $this->templates = $config->get('posts.templates');
         $this->config = $config;
 
-        $this->generator = new SlugGenerator((new SlugOptions)
-            ->setValidChars('a-z0-9/')
-            ->setPreTransforms([
-                'æ > ae',
-                'ø > oe',
-                'å > aa',
-            ])
-            ->setLocale('da')
-        );
+        $this->slugify = new Slugify(['regexp' => '/([^a-z0-9\/]|-)+/']);
     }
 
     /**
@@ -107,7 +100,7 @@ class PostsBuilder implements BuilderContract
             return $this->renderer->render($this->templates['single-category'], ['category' => $key, 'posts'=>$item, 'categories' => $this->buildCategoryList()]);
         })->flatMap(function($posts, $categoryName){
             $prefix = $this->getPostPrefix();
-            return [$prefix.'/'.$this->generator->generate($categoryName) => $posts];
+            return [$prefix.'/'.$this->slugify->slugify($categoryName) => $posts];
         });
 
         return $categories;
@@ -193,7 +186,7 @@ class PostsBuilder implements BuilderContract
                                $category->title = $key;
                                $category->postsCount = $posts->count();
 
-                               return [$this->generator->generate($key) => $category];
+                               return [$this->slugify->slugify($key) => $category];
                            })->toArray();
         return $categories;
     }

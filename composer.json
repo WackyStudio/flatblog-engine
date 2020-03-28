@@ -16,7 +16,7 @@
         "erusev/parsedown-extra": "0.7.*",
         "duncan3dc/blade": "3.3.*",
         "cakephp/chronos": "^1.1",
-        "ausi/slug-generator": "^1.1"
+        "cocur/slugify": "^4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "5.7.*",

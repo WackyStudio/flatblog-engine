@@ -4,6 +4,7 @@ namespace WackyStudio\Flatblog\Factories;
 use Ausi\SlugGenerator\SlugGenerator;
 use Ausi\SlugGenerator\SlugOptions;
 use Cake\Chronos\Chronos;
+use Cocur\Slugify\Slugify;
 use WackyStudio\Flatblog\Core\Config;
 use WackyStudio\Flatblog\Entities\PostEntity;
 use WackyStudio\Flatblog\Entities\RawEntity;
@@ -21,21 +22,13 @@ class PostEntityFactory
      */
     private $config;
 
-    private $generator;
+    private $slugify;
 
     public function __construct(Config $config)
     {
         $this->config = $config;
 
-        $this->generator = new SlugGenerator((new SlugOptions)
-            ->setValidChars('a-z0-9/')
-            ->setPreTransforms([
-                'æ > ae',
-                'ø > oe',
-                'å > aa',
-            ])
-            ->setLocale('da')
-        );
+        $this->slugify = new Slugify(['regexp' => '/([^a-z0-9\/]|-)+/']);
     }
 
     public function make(RawEntity $rawEntity)
@@ -85,7 +78,7 @@ class PostEntityFactory
             $settings['summary'],
             $settings['content'],
             $settings['image'],
-            $this->handlePostDestination($this->generator->generate($rawEntity->getPath())),
+            $this->handlePostDestination($this->slugify->slugify($rawEntity->getPath())),
             $settings['alt'],
             $settings['featured_post'],
             $settings['seo_title'],
