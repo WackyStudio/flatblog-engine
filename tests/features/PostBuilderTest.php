@@ -319,11 +319,11 @@ class PostBuilderTest extends TestCase
 
         $singlePosts = $postBuilder->buildSinglePosts();
 
-        $this->assertArrayHasKey('blog/backend/do-you-really-need-a-backend-for-that', $singlePosts);
-        $this->assertArrayHasKey('blog/frontend/sass-tricks-you-should-know', $singlePosts);
+        $this->assertArrayHasKey('blog/back-end/do-you-really-need-a-backend-for-that', $singlePosts);
+        $this->assertArrayHasKey('blog/front-end/sass-tricks-you-should-know', $singlePosts);
 
-        $this->assertEquals($expectedContentForBackendPost, $singlePosts['blog/backend/do-you-really-need-a-backend-for-that']);
-        $this->assertEquals($expectedContentForFrontendPost, $singlePosts['blog/frontend/sass-tricks-you-should-know']);
+        $this->assertEquals($expectedContentForBackendPost, $singlePosts['blog/back-end/do-you-really-need-a-backend-for-that']);
+        $this->assertEquals($expectedContentForFrontendPost, $singlePosts['blog/front-end/sass-tricks-you-should-know']);
 
     }
 
@@ -497,8 +497,8 @@ class PostBuilderTest extends TestCase
 
         $expectedContent = implode(PHP_EOL, [
             '<ul>',
-            '<li><a href="backend">Backend (1)</a></li>',
-            '<li><a href="frontend">Frontend (1)</a></li>',
+            '<li><a href="back-end">Back end (1)</a></li>',
+            '<li><a href="front-end">Front end (1)</a></li>',
             '</ul>',
             '<div>',
             '<h1>Sass tricks you should know!</h1>',
@@ -536,7 +536,7 @@ class PostBuilderTest extends TestCase
         $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
 
         $expectedContentBackend = implode(PHP_EOL, [
-           '<h1>Backend</h1>',
+           '<h1>Back end</h1>',
            '<div>',
            '<h1>Do you really need a backend for that?</h1>',
            '<p>This is a summary</p>',
@@ -545,7 +545,7 @@ class PostBuilderTest extends TestCase
         ]);
 
         $expectedContentFrontend = implode(PHP_EOL, [
-            '<h1>Frontend</h1>',
+            '<h1>Front end</h1>',
             '<div>',
             '<h1>Sass tricks you should know!</h1>',
             '<p>This is a summary</p>',
@@ -555,8 +555,9 @@ class PostBuilderTest extends TestCase
 
         $categories = $postBuilder->buildSingleCategories();
 
-        $this->assertEquals($expectedContentBackend, $categories['blog/backend']);
-        $this->assertEquals($expectedContentFrontend, $categories['blog/frontend']);
+
+        $this->assertEquals($expectedContentBackend, $categories['blog/back-end']);
+        $this->assertEquals($expectedContentFrontend, $categories['blog/front-end']);
     }
     
     /**
@@ -580,8 +581,8 @@ class PostBuilderTest extends TestCase
 
         $expectedContent = implode(PHP_EOL, [
             '<ul>',
-            '<li>Backend (1)</li>',
-            '<li>Frontend (1)</li>',
+            '<li>Back end (1)</li>',
+            '<li>Front end (1)</li>',
             '</ul>'
         ]);
 
@@ -611,10 +612,10 @@ class PostBuilderTest extends TestCase
 
         $toWrite = $postBuilder->build();
 
-        $this->assertArrayHasKey('blog/backend/do-you-really-need-a-backend-for-that', $toWrite);
-        $this->assertArrayHasKey('blog/frontend/sass-tricks-you-should-know', $toWrite);
-        $this->assertArrayHasKey('blog/frontend', $toWrite);
-        $this->assertArrayHasKey('blog/backend', $toWrite);
+        $this->assertArrayHasKey('blog/back-end/do-you-really-need-a-backend-for-that', $toWrite);
+        $this->assertArrayHasKey('blog/front-end/sass-tricks-you-should-know', $toWrite);
+        $this->assertArrayHasKey('blog/front-end', $toWrite);
+        $this->assertArrayHasKey('blog/back-end', $toWrite);
         $this->assertArrayHasKey('blog/categories', $toWrite);
         $this->assertArrayHasKey('blog', $toWrite);
 
@@ -651,10 +652,10 @@ class PostBuilderTest extends TestCase
 
         $expectedContentBackend = implode(PHP_EOL, [
             '<ul>',
-            '<li><a href="backend">Backend (1)</a></li>',
-            '<li><a href="frontend">Frontend (1)</a></li>',
+            '<li><a href="back-end">Back end (1)</a></li>',
+            '<li><a href="front-end">Front end (1)</a></li>',
             '</ul>',
-            '<h1>Backend</h1>',
+            '<h1>Back end</h1>',
             '<div>',
             '<h1>Do you really need a backend for that?</h1>',
             '<p>This is a summary</p>',
@@ -664,10 +665,10 @@ class PostBuilderTest extends TestCase
 
         $expectedContentFrontend = implode(PHP_EOL, [
             '<ul>',
-            '<li><a href="backend">Backend (1)</a></li>',
-            '<li><a href="frontend">Frontend (1)</a></li>',
+            '<li><a href="back-end">Back end (1)</a></li>',
+            '<li><a href="front-end">Front end (1)</a></li>',
             '</ul>',
-            '<h1>Frontend</h1>',
+            '<h1>Front end</h1>',
             '<div>',
             '<h1>Sass tricks you should know!</h1>',
             '<p>This is a summary</p>',
@@ -677,7 +678,7 @@ class PostBuilderTest extends TestCase
 
         $categories = $postBuilder->buildSingleCategories();
 
-        $this->assertEquals($expectedContentBackend, $categories['blog/backend']);
-        $this->assertEquals($expectedContentFrontend, $categories['blog/frontend']);
+        $this->assertEquals($expectedContentBackend, $categories['blog/back-end']);
+        $this->assertEquals($expectedContentFrontend, $categories['blog/front-end']);
     }
 }

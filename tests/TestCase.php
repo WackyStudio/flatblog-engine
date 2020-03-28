@@ -29,7 +29,7 @@ class TestCase extends PHPUnit_Framework_TestCase
         {
             $this->vfs->createStructure([
                 'posts' => [
-                    'Frontend' => [
+                    'Front end' => [
                         'sass-tricks-you-should-know' => [
                             'settings.yml' => implode(PHP_EOL, [
                                 'title: Sass tricks you should know!',
@@ -50,7 +50,7 @@ class TestCase extends PHPUnit_Framework_TestCase
                             'someimage.jpg' => 'image'
                         ]
                     ],
-                    'Backend' => [
+                    'Back end' => [
                         'do-you-really-need-a-backend-for-that' => [
                             'settings.yml' => implode(PHP_EOL, [
                                 'title: Do you really need a backend for that?',

@@ -1,6 +1,8 @@
 <?php
 namespace WackyStudio\Flatblog\Builders;
 
+use Ausi\SlugGenerator\SlugGenerator;
+use Ausi\SlugGenerator\SlugOptions;
 use Illuminate\Support\Collection;
 use WackyStudio\Flatblog\Contracts\BuilderContract;
 use WackyStudio\Flatblog\Core\Config;
@@ -38,6 +40,8 @@ class PostsBuilder implements BuilderContract
      */
     private $config;
 
+    private $generator;
+
     public function __construct(array $rawEntities, PostEntityFactory $postEntityFactory, TemplateRenderer $renderer, Config $config)
     {
         $this->rawrawEntities = $rawEntities;
@@ -45,6 +49,11 @@ class PostsBuilder implements BuilderContract
         $this->renderer = $renderer;
         $this->templates = $config->get('posts.templates');
         $this->config = $config;
+
+        $this->generator = new SlugGenerator((new SlugOptions)
+            ->setValidChars('a-z0-9/')
+            ->setLocale('da')
+        );
     }
 
     /**
@@ -93,7 +102,7 @@ class PostsBuilder implements BuilderContract
             return $this->renderer->render($this->templates['single-category'], ['category' => $key, 'posts'=>$item, 'categories' => $this->buildCategoryList()]);
         })->flatMap(function($posts, $categoryName){
             $prefix = $this->getPostPrefix();
-            return [$prefix.'/'.strtolower($categoryName) => $posts];
+            return [$prefix.'/'.$this->generator->generate($categoryName) => $posts];
         });
 
         return $categories;
@@ -179,7 +188,7 @@ class PostsBuilder implements BuilderContract
                                $category->title = $key;
                                $category->postsCount = $posts->count();
 
-                               return [strtolower($key) => $category];
+                               return [$this->generator->generate($key) => $category];
                            })->toArray();
         return $categories;
     }
