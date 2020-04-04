@@ -44,6 +44,9 @@ class PostEntityFactory
         if ( ! isset($settings['image'])) {
             throw new PostIsMissingImageException('Post is missing image');
         }
+        if ( ! isset($settings['thumbnail'])) {
+            throw new PostIsMissingImageException('Post is missing thumbnail');
+        }
         if ( ! isset($settings['content'])) {
             throw new PostIsMissingContentException('Post is missing content');
         }
@@ -85,7 +88,8 @@ class PostEntityFactory
             $settings['seo_description'],
             $settings['seo_keywords'],
             $settings['fb_url'],
-            $settings['header_image']
+            $settings['header_image'],
+            $settings['thumbnail']
         );
     }
 

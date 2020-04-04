@@ -45,9 +45,11 @@ class TestCase extends PHPUnit_Framework_TestCase
                                 'seo_keywords: keywords',
                                 'fb_url: facebook url',
                                 'header_image: /images/something.jpg',
+                                'thumbnail: file:someimage-thumb.jpg'
                             ]),
                             'content.md' => '## Hello World',
-                            'someimage.jpg' => 'image'
+                            'someimage.jpg' => 'image',
+                            'someimage-thumb.jpg' => 'image'
                         ]
                     ],
                     'Back end' => [
@@ -66,9 +68,11 @@ class TestCase extends PHPUnit_Framework_TestCase
                                 'seo_keywords: keywords',
                                 'fb_url: facebook url',
                                 'header_image: /images/something.jpg',
+                                'thumbnail: file:someimage-thumb.jpg'
                             ]),
                             'content.md' => '## Hello World 2',
-                            'someimage.jpg' => 'image'
+                            'someimage.jpg' => 'image',
+                            'someimage-thumb.jpg' => 'image'
                         ]
                     ]
                 ],
@@ -231,10 +235,12 @@ class TestCase extends PHPUnit_Framework_TestCase
                             'seo_keywords: keywords',
                             'fb_url: facebook url',
                             'header_image: /images/something.jpg',
+                            'thumbnail: file:images/someimage-thumb.jpg'
                         ]),
                         'content.md' => '## Hello World',
                         'images' => [
-                            'someimage.jpg' => 'image'
+                            'someimage.jpg' => 'image',
+                            'someimage-thumb.jpg' => 'image'
                         ]
                     ]
                 ],
@@ -254,10 +260,12 @@ class TestCase extends PHPUnit_Framework_TestCase
                             'seo_keywords: keywords',
                             'fb_url: facebook url',
                             'header_image: /images/something.jpg',
+                            'thumbnail: file:images/someimage-thumb.jpg'
                         ]),
                         'content.md' => '## Hello World 2',
                         'images' => [
-                            'someimage.jpg' => 'image'
+                            'someimage.jpg' => 'image',
+                            'someimage-thumb.jpg' => 'image'
                         ]
                     ]
                 ]
@@ -354,10 +362,12 @@ class TestCase extends PHPUnit_Framework_TestCase
                             'seo_keywords: keywords',
                             'fb_url: facebook url',
                             'header_image: /images/something.jpg',
+                            'thumbnail: file:images/someimage-thumb.jpg'
                         ]),
                         'content.md' => '## Hello World',
                         'images' => [
-                            'someimage.jpg' => 'image'
+                            'someimage.jpg' => 'image',
+                            'someimage-thumb.jpg' => 'image'
                         ]
                     ]
                 ],
@@ -377,10 +387,12 @@ class TestCase extends PHPUnit_Framework_TestCase
                             'seo_keywords: keywords',
                             'fb_url: facebook url',
                             'header_image: /images/something.jpg',
+                            'thumbnail: file:images/someimage-thumb.jpg'
                         ]),
                         'content.md' => '## Hello World 2',
                         'images' => [
-                            'someimage.jpg' => 'image'
+                            'someimage.jpg' => 'image',
+                            'someimage-thumb.jpg' => 'image'
                         ]
                     ]
                 ]

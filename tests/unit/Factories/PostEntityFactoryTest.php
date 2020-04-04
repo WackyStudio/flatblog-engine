@@ -61,6 +61,7 @@ class PostEntityFactoryTest extends TestCase
                 'title' => 'Test',
                 'summary' => 'This is a summary',
                 'image' => 'someimage.jpg',
+                'thumbnail' => 'someimage-thumb.jpg',
                 'content' => 'file:content.md',
 
                 'alt' => 'this is the alt text',
@@ -97,6 +98,7 @@ class PostEntityFactoryTest extends TestCase
                 'title' => 'Test',
                 'summary' => 'This is a summary',
                 'image' => 'someimage.jpg',
+                'thumbnail' => 'someimage-thumb.jpg',
                 'content' => 'file:content.md',
 
                 'alt' => 'this is the alt text',
@@ -183,7 +185,8 @@ class PostEntityFactoryTest extends TestCase
             [
                 'title' => 'Test',
                 'summary' => 'This is a summary',
-                'image' => 'someimage.jpg'
+                'image' => 'someimage.jpg',
+                'thumbnail' => 'someimage-thumb.jpg',
             ],
             $dateTime);
         try{
@@ -235,6 +238,7 @@ class PostEntityFactoryTest extends TestCase
                 'title' => 'Test',
                 'summary' => 'This is a summary',
                 'image' => 'someimage.jpg',
+                'thumbnail' => 'someimage-thumb.jpg',
                 'content' => 'file:content.md',
                 'date' => '2015-01-06',
 
@@ -271,6 +275,7 @@ class PostEntityFactoryTest extends TestCase
                 'title' => 'Test',
                 'summary' => 'This is a summary',
                 'image' => 'someimage.jpg',
+                'thumbnail' => 'someimage-thumb.jpg',
                 'content' => 'file:content.md',
                 'date' => 'failfailfail',
 

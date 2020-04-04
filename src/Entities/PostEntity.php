@@ -53,14 +53,16 @@ class PostEntity implements BuildDestinationContract
     public $fb_url;
     public $header_image;
     public $featured_post;
+    public $thumbnail;
 
 
-    public function __construct($title, Chronos $date, $category = null, $categoryLink, $summary, $content, $image, $destination, $alt, $featured_post, $seo_title, $seo_description, $seo_keywords, $fb_url, $header_image)
+    public function __construct($title, Chronos $date, $category = null, $categoryLink, $summary, $content, $image, $destination, $alt, $featured_post, $seo_title, $seo_description, $seo_keywords, $fb_url, $header_image, $thumbnail)
     {
         $this->title = $title;
         $this->date = $date;
         $this->content = $content;
         $this->image = $image;
+        $this->thumbnail = $thumbnail;
         $this->category = $category;
         $this->summary = $summary;
         $this->destination = $destination;

@@ -19,6 +19,7 @@ class PostBuilderTest extends TestCase
                             'title: Test1',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
                             'date: "2016-03-01"',
 
@@ -36,6 +37,7 @@ class PostBuilderTest extends TestCase
                             'title: Test2',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'alt: this is the alt text',
                             'content: test',
                             'date: "2016-03-02"',
@@ -54,6 +56,7 @@ class PostBuilderTest extends TestCase
                             'title: Test3',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
                             'date: "2016-03-03"',
 
@@ -71,6 +74,7 @@ class PostBuilderTest extends TestCase
                             'title: Test4',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
                             'date: "2016-03-04"',
 
@@ -88,6 +92,7 @@ class PostBuilderTest extends TestCase
                             'title: Test5',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
                             'date: "2016-03-05"',
 
@@ -105,6 +110,7 @@ class PostBuilderTest extends TestCase
                             'title: Test6',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
                             'date: "2016-03-06"',
 
@@ -122,6 +128,7 @@ class PostBuilderTest extends TestCase
                             'title: Test7',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
                             'date: "2016-03-07"',
 
@@ -139,6 +146,7 @@ class PostBuilderTest extends TestCase
                             'title: Test8',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
                             'date: "2016-03-08"',
 
@@ -156,6 +164,7 @@ class PostBuilderTest extends TestCase
                             'title: Test9',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
                             'date: "2016-03-09"',
 
@@ -173,6 +182,7 @@ class PostBuilderTest extends TestCase
                             'title: Test10',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
                             'date: "2016-03-10"',
 
@@ -190,6 +200,7 @@ class PostBuilderTest extends TestCase
                             'title: Test11',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
                             'date: "2016-03-11"',
 
@@ -207,6 +218,7 @@ class PostBuilderTest extends TestCase
                             'title: Test12',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
                             'date: "2016-03-12"',
 
@@ -224,6 +236,7 @@ class PostBuilderTest extends TestCase
                             'title: Test13',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
                             'date: "2016-03-13"',
 
@@ -241,6 +254,7 @@ class PostBuilderTest extends TestCase
                             'title: Test14',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
                             'date: "2016-03-14"',
 
@@ -258,6 +272,7 @@ class PostBuilderTest extends TestCase
                             'title: Test15',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
                             'date: "2016-03-15"',
 
@@ -301,6 +316,7 @@ class PostBuilderTest extends TestCase
             '<p>keywords</p>',
             '<p>facebook url</p>',
             '<p>/images/something.jpg</p>',
+            '<p>someimage-thumb</p>',
             '<p>this is the alt text</p>',
             '<h1>Do you really need a backend for that?</h1>',
             '<h2>Hello World 2</h2>'
@@ -312,6 +328,7 @@ class PostBuilderTest extends TestCase
             '<p>keywords</p>',
             '<p>facebook url</p>',
             '<p>/images/something.jpg</p>',
+            '<p>someimage-thumb</p>',
             '<p>this is the alt text</p>',
             '<h1>Sass tricks you should know!</h1>',
             '<h2>Hello World</h2>'
@@ -339,6 +356,7 @@ class PostBuilderTest extends TestCase
                             'title: Sass tricks you should know!',
                             'summary: This is a summary',
                             'image: file:someimage.jpg',
+                            'thumbnail: file:someimage-thumb.jpg',
                             'content: file:content.md',
                             'date: "2016-03-01"',
 
@@ -351,7 +369,8 @@ class PostBuilderTest extends TestCase
                             'header_image: /images/something.jpg',
                         ]),
                         'content.md' => '## Hello World',
-                        'someimage.jpg' => 'image'
+                        'someimage.jpg' => 'image',
+                        'someimage-thumb.jpg' => 'image'
                     ]
                 ],
             ],
@@ -388,6 +407,7 @@ class PostBuilderTest extends TestCase
             '<p>keywords</p>',
             '<p>facebook url</p>',
             '<p>/images/something.jpg</p>',
+            '<p>someimage-thumb</p>',
             '<p>this is the alt text</p>',
             '<h1>Sass tricks you should know!</h1>',
             '<h2>Hello World</h2>'
