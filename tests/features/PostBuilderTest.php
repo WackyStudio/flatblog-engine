@@ -319,7 +319,8 @@ class PostBuilderTest extends TestCase
             '<p>someimage-thumb</p>',
             '<p>this is the alt text</p>',
             '<h1>Do you really need a backend for that?</h1>',
-            '<h2>Hello World 2</h2>'
+            '<h2>Hello World 2</h2>',
+            '',
         ]);
 
         $expectedContentForFrontendPost = implode(PHP_EOL, [
@@ -331,7 +332,8 @@ class PostBuilderTest extends TestCase
             '<p>someimage-thumb</p>',
             '<p>this is the alt text</p>',
             '<h1>Sass tricks you should know!</h1>',
-            '<h2>Hello World</h2>'
+            '<h2>Hello World</h2>',
+            '',
         ]);
 
         $singlePosts = $postBuilder->buildSinglePosts();
@@ -410,7 +412,8 @@ class PostBuilderTest extends TestCase
             '<p>someimage-thumb</p>',
             '<p>this is the alt text</p>',
             '<h1>Sass tricks you should know!</h1>',
-            '<h2>Hello World</h2>'
+            '<h2>Hello World</h2>',
+            '',
         ]);
 
         $singlePosts = $postBuilder->buildSinglePosts();
@@ -418,6 +421,217 @@ class PostBuilderTest extends TestCase
         $this->assertArrayHasKey('blog/aeoeaa/sass-tricks-you-should-know', $singlePosts);
 
         $this->assertEquals($expectedContentForFrontendPost, $singlePosts['blog/aeoeaa/sass-tricks-you-should-know']);
+
+    }
+
+    /**
+     *@test
+     */
+    public function it_builds_single_posts_with_reference_to_related_posts()
+    {
+        $fileSystem = $this->createVirtualFilesystemForPosts([
+            'posts' => [
+                'Front end' => [
+                    'sass-tricks-you-should-know' => [
+                        'settings.yml' => implode(PHP_EOL, [
+                            'title: Sass tricks you should know!',
+                            'summary: This is a summary',
+                            'image: file:someimage.jpg',
+                            'content: file:content.md',
+                            'date: "2016-03-01"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: keywords',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
+                            'thumbnail: file:someimage-thumb.jpg'
+                        ]),
+                        'content.md' => '## Hello World',
+                        'someimage.jpg' => 'image',
+                        'someimage-thumb.jpg' => 'image'
+                    ]
+                ],
+                'Back end' => [
+                    'do-you-really-need-a-backend-for-that' => [
+                        'settings.yml' => implode(PHP_EOL, [
+                            'title: Do you really need a backend for that?',
+                            'summary: This is a summary',
+                            'image: file:someimage.jpg',
+                            'content: file:content.md',
+                            'date: "2016-01-02"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: keywords',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
+                            'thumbnail: file:someimage-thumb.jpg',
+                            'related: 
+                                - look-what-you-can-do-with-flat-files
+                                - flat-files-and-you',
+                        ]),
+                        'content.md' => '## Hello World 2',
+                        'someimage.jpg' => 'image',
+                        'someimage-thumb.jpg' => 'image'
+                    ],
+                    'look-what-you-can-do-with-flat-files' => [
+                        'settings.yml' => implode(PHP_EOL, [
+                            'title: Look what you can do with flat files',
+                            'summary: This is a summary',
+                            'image: file:someimage.jpg',
+                            'content: file:content.md',
+                            'date: "2016-01-02"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: keywords',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
+                            'thumbnail: file:someimage-thumb.jpg',
+                            'related: 
+                                - flat-files-and-you',
+                        ]),
+                        'content.md' => '## Hello World 2',
+                        'someimage.jpg' => 'image',
+                        'someimage-thumb.jpg' => 'image'
+                    ],
+                    'flat-files-and-you' => [
+                        'settings.yml' => implode(PHP_EOL, [
+                            'title: Flat files and you!',
+                            'summary: This is a summary',
+                            'image: file:someimage.jpg',
+                            'content: file:content.md',
+                            'date: "2016-01-02"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: keywords',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
+                            'thumbnail: file:someimage-thumb.jpg',
+                            'related: 
+                                - look-what-you-can-do-with-flat-files
+                                - do-you-really-need-a-backend-for-that',
+                        ]),
+                        'content.md' => '## Hello World 2',
+                        'someimage.jpg' => 'image',
+                        'someimage-thumb.jpg' => 'image'
+                    ],
+                    'frontend-vs-backend' => [
+                        'settings.yml' => implode(PHP_EOL, [
+                            'title: Frontend VS Backend',
+                            'summary: This is a summary',
+                            'image: file:someimage.jpg',
+                            'content: file:content.md',
+                            'date: "2016-01-02"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: keywords',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
+                            'thumbnail: file:someimage-thumb.jpg',
+                            'related: 
+                                - sass-tricks-you-should-know',
+                        ]),
+                        'content.md' => '## Hello World 2',
+                        'someimage.jpg' => 'image',
+                        'someimage-thumb.jpg' => 'image'
+                    ]
+                ]
+            ],
+            'config.yml' => implode(PHP_EOL, [
+                "site-domain: http://flatblog.dev",
+                'posts:',
+                '   prefix: blog',
+                '   templates:',
+                '       single: single-post',
+                '       all-posts: all-posts',
+                '       single-category: single-category',
+                '       all-categories: all-categories',
+                '   disqus:',
+                '       shortname: YOUR_SHORT_NAME',
+                '   paginate-lists-at: 5'
+            ]),
+        ]);
+        $this->app->getContainer()[Filesystem::class] = function() use($fileSystem){
+            return $fileSystem;
+        };
+        $rawEntities = ($this->app->getContainer()[RawEntityFactory::class])->getEntitiesForDirectory('posts');
+
+        $this->app->getContainer()[TemplateRenderer::class] = function(){
+            $path = __DIR__ . '/../helpers/views';
+            $cache = __DIR__ . '/../temp';
+            return new TemplateRenderer(new BladeInstance($path, $cache), $this->app->getContainer()['config']);
+        };
+
+        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
+
+        $expectedContentForBackendPost = implode(PHP_EOL, [
+            '<p>SEO Title</p>',
+            '<p>SEO Description</p>',
+            '<p>keywords</p>',
+            '<p>facebook url</p>',
+            '<p>/images/something.jpg</p>',
+            '<p>someimage-thumb</p>',
+            '<p>this is the alt text</p>',
+            '<h1>Do you really need a backend for that?</h1>',
+            '<h2>Hello World 2</h2>',
+
+            '<h1>Look what you can do with flat files</h1>',
+            '<h1>Flat files and you!</h1>',
+            '',
+        ]);
+
+        $expectedContentForBackendPostRelatingToFrontendPost = implode(PHP_EOL, [
+            '<p>SEO Title</p>',
+            '<p>SEO Description</p>',
+            '<p>keywords</p>',
+            '<p>facebook url</p>',
+            '<p>/images/something.jpg</p>',
+            '<p>someimage-thumb</p>',
+            '<p>this is the alt text</p>',
+            '<h1>Frontend VS Backend</h1>',
+            '<h2>Hello World 2</h2>',
+
+            '<h1>Sass tricks you should know!</h1>',
+            '',
+        ]);
+
+        $expectedContentForFrontendPost = implode(PHP_EOL, [
+            '<p>SEO Title</p>',
+            '<p>SEO Description</p>',
+            '<p>keywords</p>',
+            '<p>facebook url</p>',
+            '<p>/images/something.jpg</p>',
+            '<p>someimage-thumb</p>',
+            '<p>this is the alt text</p>',
+            '<h1>Sass tricks you should know!</h1>',
+            '<h2>Hello World</h2>',
+            '',
+        ]);
+
+        $singlePosts = $postBuilder->buildSinglePosts();
+
+
+        $this->assertArrayHasKey('blog/back-end/do-you-really-need-a-backend-for-that', $singlePosts);
+        $this->assertArrayHasKey('blog/back-end/frontend-vs-backend', $singlePosts);
+        $this->assertArrayHasKey('blog/front-end/sass-tricks-you-should-know', $singlePosts);
+
+        $this->assertEquals($expectedContentForBackendPost, $singlePosts['blog/back-end/do-you-really-need-a-backend-for-that']);
+        $this->assertEquals($expectedContentForBackendPostRelatingToFrontendPost, $singlePosts['blog/back-end/frontend-vs-backend']);
+        $this->assertEquals($expectedContentForFrontendPost, $singlePosts['blog/front-end/sass-tricks-you-should-know']);
 
     }
 
@@ -449,7 +663,11 @@ class PostBuilderTest extends TestCase
             '        <h1>Do you really need a backend for that?</h1>',
             '        <p>This is a summary</p>',
             '    </div>',
-            ''
+            '    <div>',
+            '        <h1>Look what you can do with flat files</h1>',
+            '        <p>This is a summary</p>',
+            '    </div>',
+            '',
         ]);
 
         $result = $postBuilder->buildPostsList();
@@ -591,7 +809,7 @@ class PostBuilderTest extends TestCase
 
         $expectedContent = implode(PHP_EOL, [
             '<ul>',
-            '<li><a href="back-end">Back end (1)</a></li>',
+            '<li><a href="back-end">Back end (2)</a></li>',
             '<li><a href="front-end">Front end (1)</a></li>',
             '</ul>',
             '<div>',
@@ -602,7 +820,11 @@ class PostBuilderTest extends TestCase
             '<h1>Do you really need a backend for that?</h1>',
             '<p>This is a summary</p>',
             '</div>',
-            ''
+            '<div>',
+            '<h1>Look what you can do with flat files</h1>',
+            '<p>This is a summary</p>',
+            '</div>',
+            '',
         ]);
 
         $result = $postBuilder->buildPostsList();
@@ -635,6 +857,10 @@ class PostBuilderTest extends TestCase
            '<h1>Do you really need a backend for that?</h1>',
            '<p>This is a summary</p>',
            '</div>',
+            '<div>',
+            '<h1>Look what you can do with flat files</h1>',
+            '<p>This is a summary</p>',
+            '</div>',
            ''
         ]);
 
@@ -675,7 +901,7 @@ class PostBuilderTest extends TestCase
 
         $expectedContent = implode(PHP_EOL, [
             '<ul>',
-            '<li>Back end (1)</li>',
+            '<li>Back end (2)</li>',
             '<li>Front end (1)</li>',
             '</ul>'
         ]);
@@ -746,7 +972,7 @@ class PostBuilderTest extends TestCase
 
         $expectedContentBackend = implode(PHP_EOL, [
             '<ul>',
-            '<li><a href="back-end">Back end (1)</a></li>',
+            '<li><a href="back-end">Back end (2)</a></li>',
             '<li><a href="front-end">Front end (1)</a></li>',
             '</ul>',
             '<h1>Back end</h1>',
@@ -754,12 +980,16 @@ class PostBuilderTest extends TestCase
             '<h1>Do you really need a backend for that?</h1>',
             '<p>This is a summary</p>',
             '</div>',
+            '<div>',
+            '<h1>Look what you can do with flat files</h1>',
+            '<p>This is a summary</p>',
+            '</div>',
             ''
         ]);
 
         $expectedContentFrontend = implode(PHP_EOL, [
             '<ul>',
-            '<li><a href="back-end">Back end (1)</a></li>',
+            '<li><a href="back-end">Back end (2)</a></li>',
             '<li><a href="front-end">Front end (1)</a></li>',
             '</ul>',
             '<h1>Front end</h1>',

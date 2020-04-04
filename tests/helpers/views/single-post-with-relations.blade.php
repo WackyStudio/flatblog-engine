@@ -7,8 +7,6 @@
 <p>{{$post->alt}}</p>
 <h1>{{$post->title}}</h1>
 {!! $post->content !!}
-@if($post->relations)
 @foreach($post->relations as $related)
 <h1>{{$related->title}}</h1>
 @endforeach
-@endif

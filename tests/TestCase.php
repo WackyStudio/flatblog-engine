@@ -73,6 +73,27 @@ class TestCase extends PHPUnit_Framework_TestCase
                             'content.md' => '## Hello World 2',
                             'someimage.jpg' => 'image',
                             'someimage-thumb.jpg' => 'image'
+                        ],
+                        'look-what-you-can-do-with-flat-files' => [
+                            'settings.yml' => implode(PHP_EOL, [
+                                'title: Look what you can do with flat files',
+                                'summary: This is a summary',
+                                'image: file:someimage.jpg',
+                                'content: file:content.md',
+                                'date: "2016-01-02"',
+
+                                'alt: this is the alt text',
+                                'featured_post: true',
+                                'seo_title: SEO Title',
+                                'seo_description: SEO Description',
+                                'seo_keywords: keywords',
+                                'fb_url: facebook url',
+                                'header_image: /images/something.jpg',
+                                'thumbnail: file:someimage-thumb.jpg'
+                            ]),
+                            'content.md' => '## Hello World 2',
+                            'someimage.jpg' => 'image',
+                            'someimage-thumb.jpg' => 'image'
                         ]
                     ]
                 ],

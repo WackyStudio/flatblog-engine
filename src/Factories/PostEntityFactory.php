@@ -9,6 +9,7 @@ use WackyStudio\Flatblog\Core\Config;
 use WackyStudio\Flatblog\Entities\PostEntity;
 use WackyStudio\Flatblog\Entities\RawEntity;
 use WackyStudio\Flatblog\Exceptions\InvalidDateGivenInSettingsFileException;
+use WackyStudio\Flatblog\Exceptions\InvalidRelationArrayGivenInSettingsFileException;
 use WackyStudio\Flatblog\Exceptions\PostIsMissingContentException;
 use WackyStudio\Flatblog\Exceptions\PostIsMissingImageException;
 use WackyStudio\Flatblog\Exceptions\PostIsMissingSummaryException;
@@ -89,7 +90,9 @@ class PostEntityFactory
             $settings['seo_keywords'],
             $settings['fb_url'],
             $settings['header_image'],
-            $settings['thumbnail']
+            $settings['thumbnail'],
+            $this->handlePostRelations($rawEntity, $settings),
+            array_last($rawEntity->getSubDirectories())
         );
     }
 
@@ -122,5 +125,20 @@ class PostEntityFactory
         }
 
         return $basePath;
+    }
+
+    private function handlePostRelations(RawEntity $rawEntity, array $settings)
+    {
+        if ( ! isset($settings['related'])) {
+            return [];
+        }else{
+            if(!is_array($settings['related'])){
+                throw new InvalidRelationArrayGivenInSettingsFileException("Invalid relations array given in settings file for {$rawEntity->getPath()}");
+            }
+
+            return $settings['related'];
+        }
+
+
     }
 }

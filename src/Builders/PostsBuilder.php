@@ -70,7 +70,27 @@ class PostsBuilder implements BuilderContract
 
     public function buildSinglePosts()
     {
-        return $this->getPosts()->flatMap(function (PostEntity $postEntity) {
+        $posts = $this->getPosts();
+
+        $posts->transform(function (PostEntity $entity) use ($posts) {
+
+            $relations = collect($entity->relations)->map(function ($relation) use ($posts) {
+                $post = $posts->filter(function(PostEntity $postEntity) use($relation){
+                    return $postEntity->slugTitle === $relation;
+                })->first();
+
+
+                if($post !== null){
+                    return $post;
+                }
+            });
+
+            $entity->setRelations($relations->toArray());
+            return $entity;
+
+        });
+
+        return $posts->flatMap(function (PostEntity $postEntity) {
             return [$postEntity->destination() => $this->renderer->render($this->templates['single'], ['post' => $postEntity])];
         });
     }
