@@ -23,12 +23,15 @@ class SettingsReferencesHandler
 
     public function handleFileReferences($settingsContent, $settingsFilePath)
     {
-        return collect($settingsContent)->transform(function ($setting) use($settingsFilePath){
+        return collect($settingsContent)->transform(function ($setting, $key) use($settingsFilePath, $settingsContent){
+
+            if($setting === null){
+                $setting = '';
+            }
 
             if(!is_array($setting) && !is_object($setting) && str_contains($setting, 'file:'))
             {
                 $fileBasename = explode('file:', $setting)[1];
-
 
                 $file = collect($this->filesystem->listContents($settingsFilePath, true))->filter(function($file) use($fileBasename){
                     return str_contains($file['path'], $fileBasename);

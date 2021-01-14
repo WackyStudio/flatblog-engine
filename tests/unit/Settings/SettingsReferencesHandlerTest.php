@@ -186,5 +186,20 @@ class SettingsReferencesHandlerTest extends TestCase
         $this->fail('An exception for missing directory, was not thrown');
     }
 
+    /** @test */
+    public function it_can_handle_a_null_reference_and_converts_this_to_an_empty_string()
+    {
+        $fileSystem = $this->createVirtualFilesystemForPosts();
+        $settingsContent = [
+            'content' => null,
+        ];
+        $settingsFilePath = '/posts/Front end/sass-tricks-you-should-know';
+        $settingsRefHandler = new SettingsReferencesHandler($fileSystem);
+
+        $settingsWithParsedFileReferences = $settingsRefHandler->handleFileReferences($settingsContent, $settingsFilePath);
+
+        $this->assertEmpty($settingsWithParsedFileReferences['content']);
+    }
+
 
 }

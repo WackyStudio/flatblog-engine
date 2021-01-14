@@ -45,3 +45,7 @@ Implemented ability to give an array of related posts in a posts settings file a
 
 Added .webp image filetype
 
+## 0.1.1 - 2021.01.14
+
+Fixed issue with `SettingsReferenceHandler`, where a `NULL` would trigger an exception
+
