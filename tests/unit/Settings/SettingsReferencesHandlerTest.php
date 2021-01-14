@@ -27,7 +27,7 @@ class SettingsReferencesHandlerTest extends TestCase
         $settingsContent = [
             'content' => 'file:content.md'
         ];
-        $settingsFilePath = '/posts/Frontend/sass-tricks-you-should-know';
+        $settingsFilePath = '/posts/Front end/sass-tricks-you-should-know';
         $settingsRefHandler = new SettingsReferencesHandler($fileSystem);
 
         $settingsWithParsedFileReferences = $settingsRefHandler->handleFileReferences($settingsContent, $settingsFilePath);

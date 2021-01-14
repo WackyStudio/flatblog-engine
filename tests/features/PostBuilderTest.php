@@ -19,8 +19,17 @@ class PostBuilderTest extends TestCase
                             'title: Test1',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
-                            'date: "2016-03-01"'
+                            'date: "2016-03-01"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-2' => [
@@ -28,8 +37,18 @@ class PostBuilderTest extends TestCase
                             'title: Test2',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
+                            'alt: this is the alt text',
                             'content: test',
-                            'date: "2016-03-02"'
+                            'date: "2016-03-02"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-3' => [
@@ -37,8 +56,17 @@ class PostBuilderTest extends TestCase
                             'title: Test3',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
-                            'date: "2016-03-03"'
+                            'date: "2016-03-03"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-4' => [
@@ -46,8 +74,17 @@ class PostBuilderTest extends TestCase
                             'title: Test4',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
-                            'date: "2016-03-04"'
+                            'date: "2016-03-04"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-5' => [
@@ -55,8 +92,17 @@ class PostBuilderTest extends TestCase
                             'title: Test5',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
-                            'date: "2016-03-05"'
+                            'date: "2016-03-05"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-6' => [
@@ -64,8 +110,17 @@ class PostBuilderTest extends TestCase
                             'title: Test6',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
-                            'date: "2016-03-06"'
+                            'date: "2016-03-06"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-7' => [
@@ -73,8 +128,17 @@ class PostBuilderTest extends TestCase
                             'title: Test7',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
-                            'date: "2016-03-07"'
+                            'date: "2016-03-07"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-8' => [
@@ -82,8 +146,17 @@ class PostBuilderTest extends TestCase
                             'title: Test8',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
-                            'date: "2016-03-08"'
+                            'date: "2016-03-08"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-9' => [
@@ -91,8 +164,17 @@ class PostBuilderTest extends TestCase
                             'title: Test9',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
-                            'date: "2016-03-09"'
+                            'date: "2016-03-09"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-10' => [
@@ -100,8 +182,17 @@ class PostBuilderTest extends TestCase
                             'title: Test10',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
-                            'date: "2016-03-10"'
+                            'date: "2016-03-10"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-11' => [
@@ -109,8 +200,17 @@ class PostBuilderTest extends TestCase
                             'title: Test11',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
-                            'date: "2016-03-11"'
+                            'date: "2016-03-11"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-12' => [
@@ -118,8 +218,17 @@ class PostBuilderTest extends TestCase
                             'title: Test12',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
-                            'date: "2016-03-12"'
+                            'date: "2016-03-12"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-13' => [
@@ -127,8 +236,17 @@ class PostBuilderTest extends TestCase
                             'title: Test13',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
-                            'date: "2016-03-13"'
+                            'date: "2016-03-13"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-14' => [
@@ -136,8 +254,17 @@ class PostBuilderTest extends TestCase
                             'title: Test14',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
-                            'date: "2016-03-14"'
+                            'date: "2016-03-14"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
                     'post-15' => [
@@ -145,8 +272,17 @@ class PostBuilderTest extends TestCase
                             'title: Test15',
                             'summary: Test',
                             'image: /test.jpg',
+                            'thumbnail: /test.jpg',
                             'content: test',
-                            'date: "2016-03-15"'
+                            'date: "2016-03-15"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: Flatblog, is, awesome',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
                         ]),
                     ],
 
@@ -175,22 +311,327 @@ class PostBuilderTest extends TestCase
         $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
 
         $expectedContentForBackendPost = implode(PHP_EOL, [
+            '<p>SEO Title</p>',
+            '<p>SEO Description</p>',
+            '<p>keywords</p>',
+            '<p>facebook url</p>',
+            '<p>/images/something.jpg</p>',
+            '<p>someimage-thumb</p>',
+            '<p>this is the alt text</p>',
             '<h1>Do you really need a backend for that?</h1>',
-            '<h2>Hello World 2</h2>'
+            '<h2>Hello World 2</h2>',
+            '',
         ]);
 
         $expectedContentForFrontendPost = implode(PHP_EOL, [
+            '<p>SEO Title</p>',
+            '<p>SEO Description</p>',
+            '<p>keywords</p>',
+            '<p>facebook url</p>',
+            '<p>/images/something.jpg</p>',
+            '<p>someimage-thumb</p>',
+            '<p>this is the alt text</p>',
             '<h1>Sass tricks you should know!</h1>',
-            '<h2>Hello World</h2>'
+            '<h2>Hello World</h2>',
+            '',
         ]);
 
         $singlePosts = $postBuilder->buildSinglePosts();
 
-        $this->assertArrayHasKey('blog/backend/do-you-really-need-a-backend-for-that', $singlePosts);
-        $this->assertArrayHasKey('blog/frontend/sass-tricks-you-should-know', $singlePosts);
+        $this->assertArrayHasKey('blog/back-end/do-you-really-need-a-backend-for-that', $singlePosts);
+        $this->assertArrayHasKey('blog/front-end/sass-tricks-you-should-know', $singlePosts);
 
-        $this->assertEquals($expectedContentForBackendPost, $singlePosts['blog/backend/do-you-really-need-a-backend-for-that']);
-        $this->assertEquals($expectedContentForFrontendPost, $singlePosts['blog/frontend/sass-tricks-you-should-know']);
+        $this->assertEquals($expectedContentForBackendPost, $singlePosts['blog/back-end/do-you-really-need-a-backend-for-that']);
+        $this->assertEquals($expectedContentForFrontendPost, $singlePosts['blog/front-end/sass-tricks-you-should-know']);
+
+    }
+
+
+    /** @test */
+    public function it_builds_single_posts_with_correct_url_key_and_respects_danish_letters()
+    {
+        $fileSystem = $this->createVirtualFilesystemForPosts([
+            'posts' => [
+                'Æøå' => [
+                    'sass-tricks-you-should-know' => [
+                        'settings.yml' => implode(PHP_EOL, [
+                            'title: Sass tricks you should know!',
+                            'summary: This is a summary',
+                            'image: file:someimage.jpg',
+                            'thumbnail: file:someimage-thumb.jpg',
+                            'content: file:content.md',
+                            'date: "2016-03-01"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: keywords',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
+                        ]),
+                        'content.md' => '## Hello World',
+                        'someimage.jpg' => 'image',
+                        'someimage-thumb.jpg' => 'image'
+                    ]
+                ],
+            ],
+            'config.yml' => implode(PHP_EOL, [
+                "site-domain: http://flatblog.dev",
+                'posts:',
+                '   prefix: blog',
+                '   templates:',
+                '       single: single-post',
+                '       all-posts: all-posts',
+                '       single-category: single-category',
+                '       all-categories: all-categories',
+                '   disqus:',
+                '       shortname: YOUR_SHORT_NAME',
+                '   paginate-lists-at: 5'
+            ]),
+        ]);
+        $this->app->getContainer()[Filesystem::class] = function() use($fileSystem){
+            return $fileSystem;
+        };
+        $rawEntities = ($this->app->getContainer()[RawEntityFactory::class])->getEntitiesForDirectory('posts');
+
+        $this->app->getContainer()[TemplateRenderer::class] = function(){
+            $path = __DIR__ . '/../helpers/views';
+            $cache = __DIR__ . '/../temp';
+            return new TemplateRenderer(new BladeInstance($path, $cache), $this->app->getContainer()['config']);
+        };
+
+        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
+
+        $expectedContentForFrontendPost = implode(PHP_EOL, [
+            '<p>SEO Title</p>',
+            '<p>SEO Description</p>',
+            '<p>keywords</p>',
+            '<p>facebook url</p>',
+            '<p>/images/something.jpg</p>',
+            '<p>someimage-thumb</p>',
+            '<p>this is the alt text</p>',
+            '<h1>Sass tricks you should know!</h1>',
+            '<h2>Hello World</h2>',
+            '',
+        ]);
+
+        $singlePosts = $postBuilder->buildSinglePosts();
+
+        $this->assertArrayHasKey('blog/aeoeaa/sass-tricks-you-should-know', $singlePosts);
+
+        $this->assertEquals($expectedContentForFrontendPost, $singlePosts['blog/aeoeaa/sass-tricks-you-should-know']);
+
+    }
+
+    /**
+     *@test
+     */
+    public function it_builds_single_posts_with_reference_to_related_posts()
+    {
+        $fileSystem = $this->createVirtualFilesystemForPosts([
+            'posts' => [
+                'Front end' => [
+                    'sass-tricks-you-should-know' => [
+                        'settings.yml' => implode(PHP_EOL, [
+                            'title: Sass tricks you should know!',
+                            'summary: This is a summary',
+                            'image: file:someimage.jpg',
+                            'content: file:content.md',
+                            'date: "2016-03-01"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: keywords',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
+                            'thumbnail: file:someimage-thumb.jpg'
+                        ]),
+                        'content.md' => '## Hello World',
+                        'someimage.jpg' => 'image',
+                        'someimage-thumb.jpg' => 'image'
+                    ]
+                ],
+                'Back end' => [
+                    'do-you-really-need-a-backend-for-that' => [
+                        'settings.yml' => implode(PHP_EOL, [
+                            'title: Do you really need a backend for that?',
+                            'summary: This is a summary',
+                            'image: file:someimage.jpg',
+                            'content: file:content.md',
+                            'date: "2016-01-02"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: keywords',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
+                            'thumbnail: file:someimage-thumb.jpg',
+                            'related: 
+                                - look-what-you-can-do-with-flat-files
+                                - flat-files-and-you',
+                        ]),
+                        'content.md' => '## Hello World 2',
+                        'someimage.jpg' => 'image',
+                        'someimage-thumb.jpg' => 'image'
+                    ],
+                    'look-what-you-can-do-with-flat-files' => [
+                        'settings.yml' => implode(PHP_EOL, [
+                            'title: Look what you can do with flat files',
+                            'summary: This is a summary',
+                            'image: file:someimage.jpg',
+                            'content: file:content.md',
+                            'date: "2016-01-02"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: keywords',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
+                            'thumbnail: file:someimage-thumb.jpg',
+                            'related: 
+                                - flat-files-and-you',
+                        ]),
+                        'content.md' => '## Hello World 2',
+                        'someimage.jpg' => 'image',
+                        'someimage-thumb.jpg' => 'image'
+                    ],
+                    'flat-files-and-you' => [
+                        'settings.yml' => implode(PHP_EOL, [
+                            'title: Flat files and you!',
+                            'summary: This is a summary',
+                            'image: file:someimage.jpg',
+                            'content: file:content.md',
+                            'date: "2016-01-02"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: keywords',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
+                            'thumbnail: file:someimage-thumb.jpg',
+                            'related: 
+                                - look-what-you-can-do-with-flat-files
+                                - do-you-really-need-a-backend-for-that',
+                        ]),
+                        'content.md' => '## Hello World 2',
+                        'someimage.jpg' => 'image',
+                        'someimage-thumb.jpg' => 'image'
+                    ],
+                    'frontend-vs-backend' => [
+                        'settings.yml' => implode(PHP_EOL, [
+                            'title: Frontend VS Backend',
+                            'summary: This is a summary',
+                            'image: file:someimage.jpg',
+                            'content: file:content.md',
+                            'date: "2016-01-02"',
+
+                            'alt: this is the alt text',
+                            'featured_post: true',
+                            'seo_title: SEO Title',
+                            'seo_description: SEO Description',
+                            'seo_keywords: keywords',
+                            'fb_url: facebook url',
+                            'header_image: /images/something.jpg',
+                            'thumbnail: file:someimage-thumb.jpg',
+                            'related: 
+                                - sass-tricks-you-should-know',
+                        ]),
+                        'content.md' => '## Hello World 2',
+                        'someimage.jpg' => 'image',
+                        'someimage-thumb.jpg' => 'image'
+                    ]
+                ]
+            ],
+            'config.yml' => implode(PHP_EOL, [
+                "site-domain: http://flatblog.dev",
+                'posts:',
+                '   prefix: blog',
+                '   templates:',
+                '       single: single-post',
+                '       all-posts: all-posts',
+                '       single-category: single-category',
+                '       all-categories: all-categories',
+                '   disqus:',
+                '       shortname: YOUR_SHORT_NAME',
+                '   paginate-lists-at: 5'
+            ]),
+        ]);
+        $this->app->getContainer()[Filesystem::class] = function() use($fileSystem){
+            return $fileSystem;
+        };
+        $rawEntities = ($this->app->getContainer()[RawEntityFactory::class])->getEntitiesForDirectory('posts');
+
+        $this->app->getContainer()[TemplateRenderer::class] = function(){
+            $path = __DIR__ . '/../helpers/views';
+            $cache = __DIR__ . '/../temp';
+            return new TemplateRenderer(new BladeInstance($path, $cache), $this->app->getContainer()['config']);
+        };
+
+        $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
+
+        $expectedContentForBackendPost = implode(PHP_EOL, [
+            '<p>SEO Title</p>',
+            '<p>SEO Description</p>',
+            '<p>keywords</p>',
+            '<p>facebook url</p>',
+            '<p>/images/something.jpg</p>',
+            '<p>someimage-thumb</p>',
+            '<p>this is the alt text</p>',
+            '<h1>Do you really need a backend for that?</h1>',
+            '<h2>Hello World 2</h2>',
+
+            '<h1>Look what you can do with flat files</h1>',
+            '<h1>Flat files and you!</h1>',
+            '',
+        ]);
+
+        $expectedContentForBackendPostRelatingToFrontendPost = implode(PHP_EOL, [
+            '<p>SEO Title</p>',
+            '<p>SEO Description</p>',
+            '<p>keywords</p>',
+            '<p>facebook url</p>',
+            '<p>/images/something.jpg</p>',
+            '<p>someimage-thumb</p>',
+            '<p>this is the alt text</p>',
+            '<h1>Frontend VS Backend</h1>',
+            '<h2>Hello World 2</h2>',
+
+            '<h1>Sass tricks you should know!</h1>',
+            '',
+        ]);
+
+        $expectedContentForFrontendPost = implode(PHP_EOL, [
+            '<p>SEO Title</p>',
+            '<p>SEO Description</p>',
+            '<p>keywords</p>',
+            '<p>facebook url</p>',
+            '<p>/images/something.jpg</p>',
+            '<p>someimage-thumb</p>',
+            '<p>this is the alt text</p>',
+            '<h1>Sass tricks you should know!</h1>',
+            '<h2>Hello World</h2>',
+            '',
+        ]);
+
+        $singlePosts = $postBuilder->buildSinglePosts();
+
+
+        $this->assertArrayHasKey('blog/back-end/do-you-really-need-a-backend-for-that', $singlePosts);
+        $this->assertArrayHasKey('blog/back-end/frontend-vs-backend', $singlePosts);
+        $this->assertArrayHasKey('blog/front-end/sass-tricks-you-should-know', $singlePosts);
+
+        $this->assertEquals($expectedContentForBackendPost, $singlePosts['blog/back-end/do-you-really-need-a-backend-for-that']);
+        $this->assertEquals($expectedContentForBackendPostRelatingToFrontendPost, $singlePosts['blog/back-end/frontend-vs-backend']);
+        $this->assertEquals($expectedContentForFrontendPost, $singlePosts['blog/front-end/sass-tricks-you-should-know']);
 
     }
 
@@ -222,7 +663,11 @@ class PostBuilderTest extends TestCase
             '        <h1>Do you really need a backend for that?</h1>',
             '        <p>This is a summary</p>',
             '    </div>',
-            ''
+            '    <div>',
+            '        <h1>Look what you can do with flat files</h1>',
+            '        <p>This is a summary</p>',
+            '    </div>',
+            '',
         ]);
 
         $result = $postBuilder->buildPostsList();
@@ -364,8 +809,8 @@ class PostBuilderTest extends TestCase
 
         $expectedContent = implode(PHP_EOL, [
             '<ul>',
-            '<li><a href="backend">Backend (1)</a></li>',
-            '<li><a href="frontend">Frontend (1)</a></li>',
+            '<li><a href="back-end">Back end (2)</a></li>',
+            '<li><a href="front-end">Front end (1)</a></li>',
             '</ul>',
             '<div>',
             '<h1>Sass tricks you should know!</h1>',
@@ -375,7 +820,11 @@ class PostBuilderTest extends TestCase
             '<h1>Do you really need a backend for that?</h1>',
             '<p>This is a summary</p>',
             '</div>',
-            ''
+            '<div>',
+            '<h1>Look what you can do with flat files</h1>',
+            '<p>This is a summary</p>',
+            '</div>',
+            '',
         ]);
 
         $result = $postBuilder->buildPostsList();
@@ -403,16 +852,20 @@ class PostBuilderTest extends TestCase
         $postBuilder = new PostsBuilder($rawEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[TemplateRenderer::class], $this->app->getContainer()['config']);
 
         $expectedContentBackend = implode(PHP_EOL, [
-           '<h1>Backend</h1>',
+           '<h1>Back end</h1>',
            '<div>',
            '<h1>Do you really need a backend for that?</h1>',
            '<p>This is a summary</p>',
            '</div>',
+            '<div>',
+            '<h1>Look what you can do with flat files</h1>',
+            '<p>This is a summary</p>',
+            '</div>',
            ''
         ]);
 
         $expectedContentFrontend = implode(PHP_EOL, [
-            '<h1>Frontend</h1>',
+            '<h1>Front end</h1>',
             '<div>',
             '<h1>Sass tricks you should know!</h1>',
             '<p>This is a summary</p>',
@@ -422,8 +875,9 @@ class PostBuilderTest extends TestCase
 
         $categories = $postBuilder->buildSingleCategories();
 
-        $this->assertEquals($expectedContentBackend, $categories['blog/backend']);
-        $this->assertEquals($expectedContentFrontend, $categories['blog/frontend']);
+
+        $this->assertEquals($expectedContentBackend, $categories['blog/back-end']);
+        $this->assertEquals($expectedContentFrontend, $categories['blog/front-end']);
     }
     
     /**
@@ -447,8 +901,8 @@ class PostBuilderTest extends TestCase
 
         $expectedContent = implode(PHP_EOL, [
             '<ul>',
-            '<li>Backend (1)</li>',
-            '<li>Frontend (1)</li>',
+            '<li>Back end (2)</li>',
+            '<li>Front end (1)</li>',
             '</ul>'
         ]);
 
@@ -478,10 +932,10 @@ class PostBuilderTest extends TestCase
 
         $toWrite = $postBuilder->build();
 
-        $this->assertArrayHasKey('blog/backend/do-you-really-need-a-backend-for-that', $toWrite);
-        $this->assertArrayHasKey('blog/frontend/sass-tricks-you-should-know', $toWrite);
-        $this->assertArrayHasKey('blog/frontend', $toWrite);
-        $this->assertArrayHasKey('blog/backend', $toWrite);
+        $this->assertArrayHasKey('blog/back-end/do-you-really-need-a-backend-for-that', $toWrite);
+        $this->assertArrayHasKey('blog/front-end/sass-tricks-you-should-know', $toWrite);
+        $this->assertArrayHasKey('blog/front-end', $toWrite);
+        $this->assertArrayHasKey('blog/back-end', $toWrite);
         $this->assertArrayHasKey('blog/categories', $toWrite);
         $this->assertArrayHasKey('blog', $toWrite);
 
@@ -518,12 +972,16 @@ class PostBuilderTest extends TestCase
 
         $expectedContentBackend = implode(PHP_EOL, [
             '<ul>',
-            '<li><a href="backend">Backend (1)</a></li>',
-            '<li><a href="frontend">Frontend (1)</a></li>',
+            '<li><a href="back-end">Back end (2)</a></li>',
+            '<li><a href="front-end">Front end (1)</a></li>',
             '</ul>',
-            '<h1>Backend</h1>',
+            '<h1>Back end</h1>',
             '<div>',
             '<h1>Do you really need a backend for that?</h1>',
+            '<p>This is a summary</p>',
+            '</div>',
+            '<div>',
+            '<h1>Look what you can do with flat files</h1>',
             '<p>This is a summary</p>',
             '</div>',
             ''
@@ -531,10 +989,10 @@ class PostBuilderTest extends TestCase
 
         $expectedContentFrontend = implode(PHP_EOL, [
             '<ul>',
-            '<li><a href="backend">Backend (1)</a></li>',
-            '<li><a href="frontend">Frontend (1)</a></li>',
+            '<li><a href="back-end">Back end (2)</a></li>',
+            '<li><a href="front-end">Front end (1)</a></li>',
             '</ul>',
-            '<h1>Frontend</h1>',
+            '<h1>Front end</h1>',
             '<div>',
             '<h1>Sass tricks you should know!</h1>',
             '<p>This is a summary</p>',
@@ -544,7 +1002,7 @@ class PostBuilderTest extends TestCase
 
         $categories = $postBuilder->buildSingleCategories();
 
-        $this->assertEquals($expectedContentBackend, $categories['blog/backend']);
-        $this->assertEquals($expectedContentFrontend, $categories['blog/frontend']);
+        $this->assertEquals($expectedContentBackend, $categories['blog/back-end']);
+        $this->assertEquals($expectedContentFrontend, $categories['blog/front-end']);
     }
 }

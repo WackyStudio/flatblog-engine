@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to `flatblog` will be documented in this file
+All notable changes to `flatblog-engine` will be documented in this file
 
 ## 0.0.1 - 2019.05.23
 
@@ -9,7 +9,8 @@ Added .webmanifest file type, to file types that will not be deleted when buildi
 
 ## 0.0.2 - 2020.03.27
 
-Implemented new variables for posts
+Implemented new variables for posts:
+
 * alt
 * feature_post
 * seo_title
@@ -43,3 +44,4 @@ Implemented ability to give an array of related posts in a posts settings file a
 ## 0.1.0 - 2021.01.14
 
 Added .webp image filetype
+

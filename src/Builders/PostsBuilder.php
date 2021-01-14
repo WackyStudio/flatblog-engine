@@ -1,6 +1,9 @@
 <?php
 namespace WackyStudio\Flatblog\Builders;
 
+use Ausi\SlugGenerator\SlugGenerator;
+use Ausi\SlugGenerator\SlugOptions;
+use Cocur\Slugify\Slugify;
 use Illuminate\Support\Collection;
 use WackyStudio\Flatblog\Contracts\BuilderContract;
 use WackyStudio\Flatblog\Core\Config;
@@ -38,6 +41,8 @@ class PostsBuilder implements BuilderContract
      */
     private $config;
 
+    private $slugify;
+
     public function __construct(array $rawEntities, PostEntityFactory $postEntityFactory, TemplateRenderer $renderer, Config $config)
     {
         $this->rawrawEntities = $rawEntities;
@@ -45,6 +50,8 @@ class PostsBuilder implements BuilderContract
         $this->renderer = $renderer;
         $this->templates = $config->get('posts.templates');
         $this->config = $config;
+
+        $this->slugify = new Slugify(['regexp' => '/([^a-z0-9\/]|-)+/']);
     }
 
     /**
@@ -63,7 +70,27 @@ class PostsBuilder implements BuilderContract
 
     public function buildSinglePosts()
     {
-        return $this->getPosts()->flatMap(function (PostEntity $postEntity) {
+        $posts = $this->getPosts();
+
+        $posts->transform(function (PostEntity $entity) use ($posts) {
+
+            $relations = collect($entity->relations)->map(function ($relation) use ($posts) {
+                $post = $posts->filter(function(PostEntity $postEntity) use($relation){
+                    return $postEntity->slugTitle === $relation;
+                })->first();
+
+
+                if($post !== null){
+                    return $post;
+                }
+            });
+
+            $entity->setRelations($relations->toArray());
+            return $entity;
+
+        });
+
+        return $posts->flatMap(function (PostEntity $postEntity) {
             return [$postEntity->destination() => $this->renderer->render($this->templates['single'], ['post' => $postEntity])];
         });
     }
@@ -93,7 +120,7 @@ class PostsBuilder implements BuilderContract
             return $this->renderer->render($this->templates['single-category'], ['category' => $key, 'posts'=>$item, 'categories' => $this->buildCategoryList()]);
         })->flatMap(function($posts, $categoryName){
             $prefix = $this->getPostPrefix();
-            return [$prefix.'/'.strtolower($categoryName) => $posts];
+            return [$prefix.'/'.$this->slugify->slugify($categoryName) => $posts];
         });
 
         return $categories;
@@ -179,7 +206,7 @@ class PostsBuilder implements BuilderContract
                                $category->title = $key;
                                $category->postsCount = $posts->count();
 
-                               return [strtolower($key) => $category];
+                               return [$this->slugify->slugify($key) => $category];
                            })->toArray();
         return $categories;
     }

@@ -27,7 +27,7 @@ class SettingsParserTest extends TestCase
 
         $settingsParser = new SettingsParser($filesystem, new SettingsReferencesHandler($filesystem));
 
-        $parsedContent = $settingsParser->parseYamlFile('posts/Backend/do-you-really-need-a-backend-for-that/settings.yml');
+        $parsedContent = $settingsParser->parseYamlFile('posts/Back end/do-you-really-need-a-backend-for-that/settings.yml');
 
         $this->assertArrayHasKey('title', $parsedContent);
 
@@ -44,7 +44,7 @@ class SettingsParserTest extends TestCase
 
         try{
             $settingsParser = new SettingsParser($filesystem, new SettingsReferencesHandler($filesystem));
-            $parsedContent = $settingsParser->parseYamlFile('posts/Backend/do-you-really-need-a-backend-for-that/settings.yml');
+            $parsedContent = $settingsParser->parseYamlFile('posts/Back end/do-you-really-need-a-backend-for-that/settings.yml');
         }catch (SettingsFileNotFoundException $e)
         {
 
@@ -77,7 +77,7 @@ class SettingsParserTest extends TestCase
 
         $settingsParser = new SettingsParser($filesystem, new SettingsReferencesHandler($filesystem));
 
-        $parsedContent = $settingsParser->parse('posts/Backend/do-you-really-need-a-backend-for-that/settings.yml');
+        $parsedContent = $settingsParser->parse('posts/Back end/do-you-really-need-a-backend-for-that/settings.yml');
 
         $this->assertArrayHasKey('content', $parsedContent);
         $this->assertInstanceOf(File::class, $parsedContent['content']);

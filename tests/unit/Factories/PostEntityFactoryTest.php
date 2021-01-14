@@ -5,6 +5,7 @@ use Mockery\Mock;
 use WackyStudio\Flatblog\Core\Config;
 use WackyStudio\Flatblog\Entities\RawEntity;
 use WackyStudio\Flatblog\Exceptions\InvalidDateGivenInSettingsFileException;
+use WackyStudio\Flatblog\Exceptions\InvalidRelationArrayGivenInSettingsFileException;
 use WackyStudio\Flatblog\Exceptions\PostIsMissingContentException;
 use WackyStudio\Flatblog\Exceptions\PostIsMissingImageException;
 use WackyStudio\Flatblog\Exceptions\PostIsMissingSummaryException;
@@ -61,7 +62,16 @@ class PostEntityFactoryTest extends TestCase
                 'title' => 'Test',
                 'summary' => 'This is a summary',
                 'image' => 'someimage.jpg',
-                'content' => 'file:content.md'
+                'thumbnail' => 'someimage-thumb.jpg',
+                'content' => 'file:content.md',
+
+                'alt' => 'this is the alt text',
+                'featured_post' => 'true',
+                'seo_title' => 'SEO Title',
+                'seo_description' => 'SEO Description',
+                'seo_keywords' => 'keywords',
+                'fb_url' => 'facebook url',
+                'header_image' => '/images/something.jpg',
             ],
             $dateTime);
 
@@ -89,7 +99,16 @@ class PostEntityFactoryTest extends TestCase
                 'title' => 'Test',
                 'summary' => 'This is a summary',
                 'image' => 'someimage.jpg',
-                'content' => 'file:content.md'
+                'thumbnail' => 'someimage-thumb.jpg',
+                'content' => 'file:content.md',
+
+                'alt' => 'this is the alt text',
+                'featured_post' => 'true',
+                'seo_title' => 'SEO Title',
+                'seo_description' => 'SEO Description',
+                'seo_keywords' => 'keywords',
+                'fb_url' => 'facebook url',
+                'header_image' => '/images/something.jpg',
             ],
             $dateTime);
 
@@ -167,7 +186,8 @@ class PostEntityFactoryTest extends TestCase
             [
                 'title' => 'Test',
                 'summary' => 'This is a summary',
-                'image' => 'someimage.jpg'
+                'image' => 'someimage.jpg',
+                'thumbnail' => 'someimage-thumb.jpg',
             ],
             $dateTime);
         try{
@@ -219,8 +239,17 @@ class PostEntityFactoryTest extends TestCase
                 'title' => 'Test',
                 'summary' => 'This is a summary',
                 'image' => 'someimage.jpg',
+                'thumbnail' => 'someimage-thumb.jpg',
                 'content' => 'file:content.md',
-                'date' => '2015-01-06'
+                'date' => '2015-01-06',
+
+                'alt' => 'this is the alt text',
+                'featured_post' => 'true',
+                'seo_title' => 'SEO Title',
+                'seo_description' => 'SEO Description',
+                'seo_keywords' => 'keywords',
+                'fb_url' => 'facebook url',
+                'header_image' => '/images/something.jpg',
             ],
             $dateTime);
 
@@ -247,8 +276,17 @@ class PostEntityFactoryTest extends TestCase
                 'title' => 'Test',
                 'summary' => 'This is a summary',
                 'image' => 'someimage.jpg',
+                'thumbnail' => 'someimage-thumb.jpg',
                 'content' => 'file:content.md',
-                'date' => 'failfailfail'
+                'date' => 'failfailfail',
+
+                'alt' => 'this is the alt text',
+                'featured_post' => 'true',
+                'seo_title' => 'SEO Title',
+                'seo_description' => 'SEO Description',
+                'seo_keywords' => 'keywords',
+                'fb_url' => 'facebook url',
+                'header_image' => '/images/something.jpg',
             ],
             $dateTime);
         try{
@@ -260,6 +298,45 @@ class PostEntityFactoryTest extends TestCase
         }
 
         $this->fail('No exception was thrown for invalid date');
+    }
+
+
+    /**
+     *@test
+     */
+    public function it_throws_exception_if_relations_given_in_settings_is_not_correct()
+    {
+        $this->mockConfigWithPostPrefix();
+        $dateTime = Chronos::parse('2015-01-05');
+        $factory = new PostEntityFactory($this->config);;
+        $rawEntity = new RawEntity('posts/subject/test',
+            [
+                'title' => 'Test',
+                'summary' => 'This is a summary',
+                'image' => 'someimage.jpg',
+                'thumbnail' => 'someimage-thumb.jpg',
+                'content' => 'file:content.md',
+                'date' => '2015-01-06',
+
+                'alt' => 'this is the alt text',
+                'featured_post' => 'true',
+                'seo_title' => 'SEO Title',
+                'seo_description' => 'SEO Description',
+                'seo_keywords' => 'keywords',
+                'fb_url' => 'facebook url',
+                'header_image' => '/images/something.jpg',
+                'related' => 'this is not an array'
+            ],
+            $dateTime);
+        try{
+            $postEntity = $factory->make($rawEntity);
+        }catch (InvalidRelationArrayGivenInSettingsFileException $e)
+        {
+            $this->assertEquals('Invalid relations array given in settings file for posts/subject/test', $e->getMessage());
+            return;
+        }
+
+        $this->fail('No exception was thrown for invalid array');
     }
 
 
