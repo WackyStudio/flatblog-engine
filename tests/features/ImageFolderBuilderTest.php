@@ -40,6 +40,8 @@ class ImageFolderBuilderTest extends TestCase
         $this->assertTrue($fileSystem->has('build/images/childImage.gif'));
         $this->assertTrue($fileSystem->has('build/images/parentImage.png'));
         $this->assertTrue($fileSystem->has('build/images/aboutImage.jpg'));
+        $this->assertTrue($fileSystem->has('build/images/svgImage.svg'));
+        $this->assertTrue($fileSystem->has('build/images/webpImage.webp'));
     }
 
 }

@@ -163,7 +163,9 @@ class TestCase extends PHPUnit_Framework_TestCase
                     ],
                     'content.md' => '## test',
                     'images' => [
-                        'aboutImage.jpg' => 'image'
+                        'aboutImage.jpg' => 'image',
+                        'svgImage.svg' => 'image',
+                        'webpImage.webp' => 'image',
                     ]
                 ],
                 'parent' =>[

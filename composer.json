@@ -11,7 +11,7 @@
     "require": {
         "mnapoli/silly-pimple": "1.0.*",
         "league/flysystem": "1.0.*",
-        "tightenco/collect": "5.3.*",
+        "tightenco/collect": "^5.3",
         "symfony/yaml": "3.2.*",
         "erusev/parsedown-extra": "0.7.*",
         "duncan3dc/blade": "3.3.*",

@@ -22,7 +22,8 @@ class ImageFolderBuilder implements BuilderContract
         'png',
         'gif',
         'bmp',
-        'svg'
+        'svg',
+        'webp',
     ];
 
     public function __construct(array $rawEntities, Filesystem $fileSystem)
