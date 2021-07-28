@@ -21,6 +21,7 @@ use WackyStudio\Flatblog\Makers\PageMaker;
 use WackyStudio\Flatblog\Makers\PostMaker;
 use WackyStudio\Flatblog\Parsers\ContentParserManager;
 use WackyStudio\Flatblog\Parsers\MarkdownContentParser;
+use WackyStudio\Flatblog\Settings\SettingsImportsHandler;
 use WackyStudio\Flatblog\Settings\SettingsParser;
 use WackyStudio\Flatblog\Settings\SettingsReferencesHandler;
 use WackyStudio\Flatblog\Templates\TemplateRenderer;
@@ -91,10 +92,13 @@ return [
 
     // Settings
     SettingsParser::class => function($container){
-        return new SettingsParser($container[Filesystem::class], $container[SettingsReferencesHandler::class]);
+        return new SettingsParser($container[Filesystem::class], $container[SettingsReferencesHandler::class], $container[SettingsImportsHandler::class]);
     },
     SettingsReferencesHandler::class => function($container){
         return new SettingsReferencesHandler($container[Filesystem::class]);
+    },
+    SettingsImportsHandler::class => function($container){
+        return new SettingsImportsHandler($container[Filesystem::class]);
     },
 
     // Parsers

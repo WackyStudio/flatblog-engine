@@ -667,6 +667,10 @@ class PostBuilderTest extends TestCase
             '        <h1>Look what you can do with flat files</h1>',
             '        <p>This is a summary</p>',
             '    </div>',
+            '    <div>',
+            '        <h1>We also support imports in posts now</h1>',
+            '        <p>This is a summary</p>',
+            '    </div>',
             '',
         ]);
 
@@ -809,7 +813,7 @@ class PostBuilderTest extends TestCase
 
         $expectedContent = implode(PHP_EOL, [
             '<ul>',
-            '<li><a href="back-end">Back end (2)</a></li>',
+            '<li><a href="back-end">Back end (3)</a></li>',
             '<li><a href="front-end">Front end (1)</a></li>',
             '</ul>',
             '<div>',
@@ -822,6 +826,10 @@ class PostBuilderTest extends TestCase
             '</div>',
             '<div>',
             '<h1>Look what you can do with flat files</h1>',
+            '<p>This is a summary</p>',
+            '</div>',
+            '<div>',
+            '<h1>We also support imports in posts now</h1>',
             '<p>This is a summary</p>',
             '</div>',
             '',
@@ -859,6 +867,10 @@ class PostBuilderTest extends TestCase
            '</div>',
             '<div>',
             '<h1>Look what you can do with flat files</h1>',
+            '<p>This is a summary</p>',
+            '</div>',
+            '<div>',
+            '<h1>We also support imports in posts now</h1>',
             '<p>This is a summary</p>',
             '</div>',
            ''
@@ -901,7 +913,7 @@ class PostBuilderTest extends TestCase
 
         $expectedContent = implode(PHP_EOL, [
             '<ul>',
-            '<li>Back end (2)</li>',
+            '<li>Back end (3)</li>',
             '<li>Front end (1)</li>',
             '</ul>'
         ]);
@@ -972,7 +984,7 @@ class PostBuilderTest extends TestCase
 
         $expectedContentBackend = implode(PHP_EOL, [
             '<ul>',
-            '<li><a href="back-end">Back end (2)</a></li>',
+            '<li><a href="back-end">Back end (3)</a></li>',
             '<li><a href="front-end">Front end (1)</a></li>',
             '</ul>',
             '<h1>Back end</h1>',
@@ -984,12 +996,16 @@ class PostBuilderTest extends TestCase
             '<h1>Look what you can do with flat files</h1>',
             '<p>This is a summary</p>',
             '</div>',
+            '<div>',
+            '<h1>We also support imports in posts now</h1>',
+            '<p>This is a summary</p>',
+            '</div>',
             ''
         ]);
 
         $expectedContentFrontend = implode(PHP_EOL, [
             '<ul>',
-            '<li><a href="back-end">Back end (2)</a></li>',
+            '<li><a href="back-end">Back end (3)</a></li>',
             '<li><a href="front-end">Front end (1)</a></li>',
             '</ul>',
             '<h1>Front end</h1>',

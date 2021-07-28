@@ -5,6 +5,7 @@ use WackyStudio\Flatblog\File;
 use WackyStudio\Flatblog\Factories\RawEntityFactory;
 use WackyStudio\Flatblog\Parsers\ContentParserManager;
 use WackyStudio\Flatblog\Parsers\FakeParser;
+use WackyStudio\Flatblog\Settings\SettingsImportsHandler;
 use WackyStudio\Flatblog\Settings\SettingsParser;
 use WackyStudio\Flatblog\Settings\SettingsReferencesHandler;
 
@@ -36,9 +37,9 @@ class RawEntityFactoryTest extends TestCase
 
         $rawEntities = $fileHandler->getEntitiesForDirectory('posts');
 
-        $this->assertEquals(3, count($rawEntities));
+        $this->assertEquals(4, count($rawEntities));
         $this->assertInstanceOf(RawEntity::class, $rawEntities[0]);
-        $this->assertEquals('posts/Front end/sass-tricks-you-should-know', $rawEntities[2]->getPath());
+        $this->assertEquals('posts/Front end/sass-tricks-you-should-know', $rawEntities[3]->getPath());
         $this->assertArrayHasKey('title', $rawEntities[0]->getSettings());
     }
 
@@ -48,7 +49,7 @@ class RawEntityFactoryTest extends TestCase
     public function it_walks_through_directories_recursive_to_find_settings_file_an_therefore_a_raw_entity()
     {
         $this->fileSystem = $this->createVirtualFilesystemForPages();
-        $settingsParser = new SettingsParser($this->fileSystem, new SettingsReferencesHandler($this->fileSystem));
+        $settingsParser = new SettingsParser($this->fileSystem, new SettingsReferencesHandler($this->fileSystem), new SettingsImportsHandler($this->fileSystem));
 
         $contentParsers = [
             'md' => [

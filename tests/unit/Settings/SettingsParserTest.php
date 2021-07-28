@@ -1,6 +1,7 @@
 <?php
 use WackyStudio\Flatblog\Exceptions\SettingsFileNotFoundException;
 use WackyStudio\Flatblog\File;
+use WackyStudio\Flatblog\Settings\SettingsImportsHandler;
 use WackyStudio\Flatblog\Settings\SettingsParser;
 use WackyStudio\Flatblog\Settings\SettingsReferencesHandler;
 
@@ -25,7 +26,7 @@ class SettingsParserTest extends TestCase
     {
         $filesystem = $this->createVirtualFilesystemForPosts();
 
-        $settingsParser = new SettingsParser($filesystem, new SettingsReferencesHandler($filesystem));
+        $settingsParser = new SettingsParser($filesystem, new SettingsReferencesHandler($filesystem), new SettingsImportsHandler($filesystem));
 
         $parsedContent = $settingsParser->parseYamlFile('posts/Back end/do-you-really-need-a-backend-for-that/settings.yml');
 
@@ -43,7 +44,7 @@ class SettingsParserTest extends TestCase
         ]);
 
         try{
-            $settingsParser = new SettingsParser($filesystem, new SettingsReferencesHandler($filesystem));
+            $settingsParser = new SettingsParser($filesystem, new SettingsReferencesHandler($filesystem), new SettingsImportsHandler($filesystem));
             $parsedContent = $settingsParser->parseYamlFile('posts/Back end/do-you-really-need-a-backend-for-that/settings.yml');
         }catch (SettingsFileNotFoundException $e)
         {
@@ -61,7 +62,7 @@ class SettingsParserTest extends TestCase
     {
         $filesystem = $this->createVirtualFilesystemForPosts();
 
-        $settingsParser = new SettingsParser($filesystem, new SettingsReferencesHandler($filesystem));
+        $settingsParser = new SettingsParser($filesystem, new SettingsReferencesHandler($filesystem), new SettingsImportsHandler($filesystem));
 
         $path = $settingsParser->getPathForSettingsFile('posts/Backend/do-you-really-need-a-backend-for-that/settings.yml');
 
@@ -75,13 +76,26 @@ class SettingsParserTest extends TestCase
     {
         $filesystem = $this->createVirtualFilesystemForPosts();
 
-        $settingsParser = new SettingsParser($filesystem, new SettingsReferencesHandler($filesystem));
+        $settingsParser = new SettingsParser($filesystem, new SettingsReferencesHandler($filesystem), new SettingsImportsHandler($filesystem));
 
         $parsedContent = $settingsParser->parse('posts/Back end/do-you-really-need-a-backend-for-that/settings.yml');
 
         $this->assertArrayHasKey('content', $parsedContent);
         $this->assertInstanceOf(File::class, $parsedContent['content']);
 
+    }
+
+    /** @test */
+    public function it_can_handle_imports_of_other_yaml_files()
+    {
+        $filesystem = $this->createVirtualFilesystemForPosts();
+
+        $settingsParser = new SettingsParser($filesystem, new SettingsReferencesHandler($filesystem), new SettingsImportsHandler($filesystem));
+
+        $parsedContent = $settingsParser->parse('posts/Back end/we-also-support-imports-in-posts-now/settings.yml');
+
+        $this->assertArrayHasKey('result', $parsedContent);
+        $this->assertEquals('it works perfectly', $parsedContent['result']);
     }
 
 }

@@ -49,3 +49,6 @@ Added .webp image filetype
 
 Fixed issue with `SettingsReferenceHandler`, where a `NULL` would trigger an exception
 
+## 0.2.0 - 2021.07.28
+
+Implemented `Import` feature to settings parser, which makes it possible to import other yaml files into a settings yaml file
