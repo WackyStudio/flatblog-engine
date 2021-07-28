@@ -52,3 +52,7 @@ Fixed issue with `SettingsReferenceHandler`, where a `NULL` would trigger an exc
 ## 0.2.0 - 2021.07.28
 
 Implemented `Import` feature to settings parser, which makes it possible to import other yaml files into a settings yaml file
+
+## 0.2.1 - 2021.07.28
+
+Bumbped up `Flysystem` version to avoid vulnerability
