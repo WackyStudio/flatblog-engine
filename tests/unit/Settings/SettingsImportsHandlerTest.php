@@ -17,9 +17,9 @@ class SettingsImportsHandlerTest extends TestCase
         $settingsFilePath = '/posts/Back end/we-also-support-imports-in-posts-now/settings.yml';
 
         $settingsImporter = new SettingsImportsHandler($filesystem);
-        $settingsImporter->handleImports($settingsFilePath);
+        $settingsAfterImport = $settingsImporter->handleImports($settingsFilePath);
 
-        $yamlAfterImport = Yaml::parse($filesystem->read($settingsFilePath));
+        $yamlAfterImport = Yaml::parse($settingsAfterImport);
 
         $this->assertEquals('it works perfectly', $yamlAfterImport['result']);
         $this->assertEquals('hello from partial', $yamlAfterImport['partial']);

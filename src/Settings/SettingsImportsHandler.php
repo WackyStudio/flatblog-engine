@@ -44,6 +44,6 @@ class SettingsImportsHandler
             return $this->filesystem->read($folderPath . $item[2]);
         }, $contents);
 
-        $this->filesystem->update($settingsFilePath, $result);
+        return $result;
     }
 }

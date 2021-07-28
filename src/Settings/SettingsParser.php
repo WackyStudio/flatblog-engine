@@ -31,24 +31,27 @@ class SettingsParser
     {
         $path = $this->getPathForSettingsFile($file);
 
-        $this->handleImportsBeforeParsing($file);
+        $settings = $this->handleImportsBeforeParsing($file);
 
-        $settings = $this->parseYamlFile($file);
+        $settings = $this->parseYamlFile($settings, true);
         $settings = $this->referencesHandler->handleFileReferences($settings, $path);
         $settings = $this->referencesHandler->handleDirectoryReferences($settings, $path);
 
         return $settings;
     }
 
-    public function parseYamlFile($file)
+    public function parseYamlFile($fileOrFileContents, bool $isFileContents = false)
     {
-        if(!$this->filesystem->has($file))
-        {
-            throw new SettingsFileNotFoundException;
+        if(!$isFileContents){
+            if(!$this->filesystem->has($fileOrFileContents))
+            {
+                throw new SettingsFileNotFoundException;
+            }
+
+            $fileOrFileContents = $this->filesystem->read($fileOrFileContents);
         }
 
-        $file = $this->filesystem->read($file);
-        return Yaml::parse($file);
+        return Yaml::parse($fileOrFileContents);
     }
 
     public function getPathForSettingsFile($file)
@@ -58,12 +61,13 @@ class SettingsParser
 
     public function handleImportsBeforeParsing($file)
     {
+
         if(!$this->filesystem->has($file))
         {
             throw new SettingsFileNotFoundException;
         }
 
-        $this->importsHandler->handleImports($file);
+        return $this->importsHandler->handleImports($file);
     }
 
 
