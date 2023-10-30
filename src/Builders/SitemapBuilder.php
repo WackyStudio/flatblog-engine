@@ -52,6 +52,10 @@ class SitemapBuilder implements BuilderContract
      */
     public function build()
     {
+        if($this->config->get('skip-sitemap') === true){
+            return;
+        }
+
         $siteMap =  collect([])
             ->merge($this->getSitemapForPosts())
             ->merge($this->getSitemapForPages());

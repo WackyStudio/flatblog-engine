@@ -1,0 +1,18 @@
+name: flatblog
+services:
+  phpservice:
+    type: php:7.4
+    via: cli
+    webroot: .
+    run:
+      - composer install
+tooling:
+  composer:
+    service: phpservice
+    cmd: composer
+  test:
+    service: phpservice
+    cmd: php ./vendor/bin/phpunit
+  test-filter:
+    service: phpservice
+    cmd: php ./vendor/bin/phpunit --filter

@@ -37,4 +37,23 @@ class SitemapBuilderTest extends TestCase
         ]), $fileSystem->read('build/sitemap.txt'));
 
     }
+
+    /** @test */
+    public function it_does_not_create_a_sitemap_if_config_explicitly_says_so()
+    {
+        $fileSystem = $this->createVirtualFilesystemForPagesAndPostsNoSitemap();
+        $this->app->getContainer()[Filesystem::class] = function() use($fileSystem){
+            return $fileSystem;
+        };
+
+        $rawPostsEntities = ($this->app->getContainer()[RawEntityFactory::class])->getEntitiesForDirectory('posts');
+        $rawPagesEntities = ($this->app->getContainer()[RawEntityFactory::class])->getEntitiesForDirectory('pages');
+
+        $builder = new SitemapBuilder($rawPostsEntities, $rawPagesEntities, $this->app->getContainer()[PostEntityFactory::class], $this->app->getContainer()[PageEntityFactory::class], $this->app->getContainer()['config'], $fileSystem);
+
+        $builder->build();
+
+        $this->assertFalse($fileSystem->has('build/sitemap.txt'));
+
+    }
 }
